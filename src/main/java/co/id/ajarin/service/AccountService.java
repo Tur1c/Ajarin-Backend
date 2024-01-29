@@ -1,6 +1,6 @@
 package co.id.ajarin.service;
 
-import co.id.ajarin.enity.AccountRegisterEntity;
+import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.model.account.AccountRegistrationModel;
 
 public interface AccountService {

@@ -2,7 +2,7 @@ package co.id.ajarin.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import co.id.ajarin.enity.AccountRegisterEntity;
+import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.repository.AccountRegistrationRepository;
 import co.id.ajarin.service.AccountService;

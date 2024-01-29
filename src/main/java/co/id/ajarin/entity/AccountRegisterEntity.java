@@ -1,4 +1,4 @@
-package co.id.ajarin.enity;
+package co.id.ajarin.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
