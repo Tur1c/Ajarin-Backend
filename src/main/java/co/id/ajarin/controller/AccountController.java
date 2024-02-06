@@ -11,6 +11,7 @@ import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
 import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
+import co.id.ajarin.model.auth.AuthenticationModel;
 import co.id.ajarin.service.AccountService;
 
 @RestController
@@ -32,7 +33,7 @@ public class AccountController {
         error.setErrorCode("00");
         error.setHttpCode(HttpStatus.OK.value());
         
-        if(service.findByEmail(account.getEmail())) {
+        if(service.findByEmail(account.getEmail()) != null) {
             error.setMessage("Failed. Email has been taken!");
             error.setErrorCode("500");
             error.setHttpCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -46,7 +47,7 @@ public class AccountController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<ResponseWrapperModel<AccountLoginModel>> loginAccount(@RequestBody AccountLoginModel account) {
+    public ResponseEntity<ResponseWrapperModel<AuthenticationModel>> loginAccount(@RequestBody AccountLoginModel account) {
         String message = service.login(account.getEmail(), account.getPassword());
 
         ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
@@ -56,12 +57,15 @@ public class AccountController {
         error.setErrorCode("00");
         error.setHttpCode(HttpStatus.OK.value());
         wrapperModel.setErrorSchema(error);
-
+        
         if(message != "Login Success") {
             error.setErrorCode("500");
             error.setHttpCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
             error.setMessage(message);
             wrapperModel.setErrorSchema(error);
+        } else {
+            System.out.println(service.authenticated(account.getEmail()));
+            wrapperModel.setOutputSchema(service.authenticated(account.getEmail()));
         }
 
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);

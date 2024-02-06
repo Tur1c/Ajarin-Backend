@@ -1,10 +1,14 @@
 package co.id.ajarin.service.impl;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.model.account.AccountRegistrationModel;
+import co.id.ajarin.model.auth.AuthenticationModel;
 import co.id.ajarin.repository.AccountRegistrationRepository;
+import co.id.ajarin.security.jwt.JwtService;
 import co.id.ajarin.service.AccountService;
 
 @Service
@@ -12,9 +16,12 @@ public class AccountServiceImpl implements AccountService {
 
     AccountRegistrationRepository repository;
 
-    public AccountServiceImpl(AccountRegistrationRepository repository) {
+    private final JwtService jwtService;
+
+    public AccountServiceImpl(AccountRegistrationRepository repository, JwtService jwtService) {
         super();
         this.repository = repository;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -51,17 +58,33 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Boolean findByEmail(String email) {
+    public AccountRegisterEntity findByEmail(String email) {
         AccountRegisterEntity account = repository.findByEmail(email);
 
         if(account != null) {
-            return true;
+            return account;
         }
-        return false;
+        return null;
+    }
+
+    @Override
+    public AuthenticationModel authenticated(String email) {
+        AccountRegisterEntity account = repository.findByEmail(email);
+
+        
+        if(account != null) {
+            String jwtToken = jwtService.generateToken(account);
+            return AuthenticationModel.builder().token(jwtToken).build();
+        }
+        return null;
     }
 
     
-
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
     
     
