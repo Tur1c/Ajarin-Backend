@@ -16,8 +16,12 @@ public class CourseServiceImpl implements CourseService{
 
     private CourseRepository courseRepository;
 
+    public CourseServiceImpl(CourseRepository courseRepository) {
+        this.courseRepository = courseRepository;
+    }
+
     @Override
-    public List<CourseModel> getAllCourse() {
+    public List<CourseModel.Course> getAllCourse() {
         // TODO Auto-generated method stub
        List<CourseEntity> courses = courseRepository.findAll();
        return courses.stream().map( (course) -> CourseMapper.mapToCourseModel(course)).collect(Collectors.toList());

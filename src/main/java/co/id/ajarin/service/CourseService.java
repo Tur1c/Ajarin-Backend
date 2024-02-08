@@ -6,5 +6,5 @@ import co.id.ajarin.model.dashboard.CourseModel;
 
 
 public interface CourseService {
-    List<CourseModel> getAllCourse();
+    List<CourseModel.Course> getAllCourse();
 }

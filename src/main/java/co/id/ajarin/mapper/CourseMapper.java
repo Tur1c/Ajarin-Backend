@@ -5,8 +5,8 @@ import co.id.ajarin.entity.CourseEntity;
 import co.id.ajarin.model.dashboard.CourseModel;
 
 public class CourseMapper {
-    public static CourseModel mapToCourseModel(CourseEntity course){
-        return new CourseModel(
+    public static CourseModel.Course mapToCourseModel(CourseEntity course){
+        return new CourseModel.Course(
             course.getCourseid(),
             course.getCoursename(),
             course.getPrice(),
@@ -18,7 +18,7 @@ public class CourseMapper {
         );
     }
 
-    public static CourseEntity mapToCourseEntity(CourseModel courseModel){
+    public static CourseEntity mapToCourseEntity(CourseModel.Course courseModel){
         return new CourseEntity(
             courseModel.getId(),
             courseModel.getCourseName(),
