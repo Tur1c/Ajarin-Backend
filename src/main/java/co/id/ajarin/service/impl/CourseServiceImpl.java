@@ -3,6 +3,7 @@ package co.id.ajarin.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.id.ajarin.entity.CourseEntity;
@@ -14,11 +15,8 @@ import co.id.ajarin.service.CourseService;
 @Service
 public class CourseServiceImpl implements CourseService{
 
+    @Autowired
     private CourseRepository courseRepository;
-
-    public CourseServiceImpl(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
 
     @Override
     public List<CourseModel.Course> getAllCourse() {
