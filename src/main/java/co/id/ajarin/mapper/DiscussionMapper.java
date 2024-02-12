@@ -18,13 +18,13 @@ public class DiscussionMapper {
 
     public static DiscussionEntity maptoDiscussionEntity (DiscussionModel.Discussion discussionModel){
         return new DiscussionEntity(
-            discussionModel.getDiscid(),
-            discussionModel.getDisctitle(),
-            discussionModel.getDiscparticipant(),
-            discussionModel.getDisctime(),
-            discussionModel.getDiscdate(),
-            discussionModel.getDiscdescription(),
-            discussionModel.getDisccategory()
+            discussionModel.getDiscId(),
+            discussionModel.getDiscTitle(),
+            discussionModel.getDiscParticipant(),
+            discussionModel.getDiscTime(),
+            discussionModel.getDiscDate(),
+            discussionModel.getDiscDescription(),
+            discussionModel.getDiscCategory()
         );
     }
 } 

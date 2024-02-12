@@ -22,6 +22,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
     
+    @SuppressWarnings("null")
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

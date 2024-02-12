@@ -18,12 +18,12 @@ public class CourseMapper {
 
     public static CourseEntity mapToCourseEntity(CourseModel.Course courseModel){
         return new CourseEntity(
-            courseModel.getCourseid(),
-            courseModel.getCourseprice(),
-            courseModel.getCoursechapter(),
-            courseModel.getCoursetitle(),
-            courseModel.getCoursedescription(),
-            courseModel.getCoursecategory()
+            courseModel.getCourseId(),
+            courseModel.getCoursePrice(),
+            courseModel.getCourseChapter(),
+            courseModel.getCourseTitle(),
+            courseModel.getCourseDescription(),
+            courseModel.getCourseCategory()
         );
     }
 }

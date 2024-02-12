@@ -1,5 +1,11 @@
 package co.id.ajarin.model.account;
 
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,9 +16,46 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountLoginModel extends OutputRepositoryModel {
+public class AccountLoginModel extends OutputRepositoryModel implements UserDetails {
+    
+    public AccountLoginModel(AccountRegisterEntity account) {
+        this.email = account.getEmail();
+        this.password = account.getPassword();
+    }
     
     private String email;
     private String password;
+    private String token;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     
 }
