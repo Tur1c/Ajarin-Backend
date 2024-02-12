@@ -27,24 +27,18 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long courseid;
 
-    @Column(name = "coursename")
-    private String coursename;
+    @Column(name = "courseprice")
+    private Integer courseprice;
 
-    @Column(name = "price")
-    private Integer price;
+    @Column(name = "columnchapter")
+    private String coursechapter;
 
-    @Column(name = "coursetime")
-    private Time coursetime;
+    @Column(name = "coursetitle")
+    private String coursetitle;
 
-    @Column(name = "coursedate")
-    private Date coursedate;
+    @Column(name = "coursedescription")
+    private String coursedescription;
 
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "coursetype")
-    private String coursetype;
-
-    @Column(name = "categoryid")
-    private String categoryid;
+    @Column(name = "coursecategory")
+    private String coursecategory;
 }

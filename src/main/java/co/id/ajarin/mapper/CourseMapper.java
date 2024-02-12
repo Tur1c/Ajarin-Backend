@@ -8,26 +8,22 @@ public class CourseMapper {
     public static CourseModel.Course mapToCourseModel(CourseEntity course){
         return new CourseModel.Course(
             course.getCourseid(),
-            course.getCoursename(),
-            course.getPrice(),
-            course.getCoursetime(),
-            course.getCoursedate(),
-            course.getDescription(),
-            course.getCoursetype(),
-            course.getCategoryid()
+            course.getCourseprice(),
+            course.getCoursechapter(),
+            course.getCoursetitle(),
+            course.getCoursedescription(),
+            course.getCoursecategory()
         );
     }
 
     public static CourseEntity mapToCourseEntity(CourseModel.Course courseModel){
         return new CourseEntity(
-            courseModel.getId(),
-            courseModel.getCourseName(),
-            courseModel.getPrice(),
-            courseModel.getCourseTime(),
-            courseModel.getCourseDate(),
-            courseModel.getDescription(),
-            courseModel.getCourseType(),
-            courseModel.getCategory()
+            courseModel.getCourseid(),
+            courseModel.getCourseprice(),
+            courseModel.getCoursechapter(),
+            courseModel.getCoursetitle(),
+            courseModel.getCoursedescription(),
+            courseModel.getCoursecategory()
         );
     }
 }
