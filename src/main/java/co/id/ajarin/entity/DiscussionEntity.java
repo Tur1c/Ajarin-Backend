@@ -17,9 +17,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Table(name = "discussion")
 public class DiscussionEntity {
 //     -DiscID

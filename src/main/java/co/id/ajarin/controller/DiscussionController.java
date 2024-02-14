@@ -23,12 +23,12 @@ public class DiscussionController {
 
     //Get All Discussion
     @GetMapping("")
-    public ResponseEntity<ResponseWrapperModel> getAllDiscussion(){
+    public ResponseEntity<ResponseWrapperModel<DiscussionModel.Response>> getAllDiscussion(){
         List <DiscussionModel.Discussion> discussions = discService.getAllDiscussion();
 
         DiscussionModel.Response response = new DiscussionModel.Response(discussions);
 
-        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        ResponseWrapperModel<DiscussionModel.Response> wrapperModel = new ResponseWrapperModel<>();
         
         ErrorRepository error = new ErrorRepository();
         error.setMessage("Sukses");

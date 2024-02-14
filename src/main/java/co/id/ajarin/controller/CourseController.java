@@ -23,12 +23,12 @@ public class CourseController {
     
     //Get All Course
     @GetMapping("")
-    public ResponseEntity<ResponseWrapperModel> getAllCourse(){
+    public ResponseEntity<ResponseWrapperModel<CourseModel.Response>> getAllCourse(){
         List<CourseModel.Course> courses = courseService.getAllCourse();
 
         CourseModel.Response response = new CourseModel.Response(courses);
 
-        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        ResponseWrapperModel<CourseModel.Response> wrapperModel = new ResponseWrapperModel<>();
         
         ErrorRepository error = new ErrorRepository();
         error.setMessage("Sukses");

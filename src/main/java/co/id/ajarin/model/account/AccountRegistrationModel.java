@@ -1,5 +1,6 @@
 package co.id.ajarin.model.account;
 
+import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +12,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountRegistrationModel extends OutputRepositoryModel {
+
+    public AccountRegistrationModel(AccountRegisterEntity account) {
+        this.id = account.getId();
+        this.firstName = account.getFirstName();
+        this.lastName = account.getLastName();
+        this.email = account.getEmail();
+        this.password = account.getPassword();
+        this.role = account.getRole();
+        this.gender = account.getGender();
+        this.city = account.getCity();
+        this.country = account.getCountry();
+        this.school = account.getSchool();
+        this.age = account.getAge();
+        this.phoneNumber = account.getPhoneNumber();
+        this.education = account.getEducation();
+    }
+
     private Long id;
     private String firstName;
     private String lastName;

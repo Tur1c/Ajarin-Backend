@@ -20,7 +20,6 @@ public class DiscussionServiceImpl implements DiscussionService {
 
     @Override
     public List<Discussion> getAllDiscussion() {
-        // TODO Auto-generated method stub
         List<DiscussionEntity> discussions = discussionRepository.findAll();
 
         return discussions.stream().map( (discussion) -> DiscussionMapper.maptoDiscussionModel(discussion)).collect(Collectors.toList());

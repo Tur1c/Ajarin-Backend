@@ -26,7 +26,7 @@ public class AccountController {
 
     @PostMapping("register")
     public ResponseEntity<ResponseWrapperModel<AccountRegistrationModel>> registerAccount(@RequestBody AccountRegistrationModel account) {
-        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        ResponseWrapperModel<AccountRegistrationModel> wrapperModel = new ResponseWrapperModel<>();
         
         ErrorRepository error = new ErrorRepository();
         error.setMessage("Sukses");
@@ -50,7 +50,7 @@ public class AccountController {
     public ResponseEntity<ResponseWrapperModel<AuthenticationModel>> loginAccount(@RequestBody AccountLoginModel account) {
         String message = service.login(account.getEmail(), account.getPassword());
 
-        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        ResponseWrapperModel<AuthenticationModel> wrapperModel = new ResponseWrapperModel<>();
 
         ErrorRepository error = new ErrorRepository();
         error.setMessage(message);

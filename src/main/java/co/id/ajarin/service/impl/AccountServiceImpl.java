@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.auth.AuthenticationModel;
 import co.id.ajarin.repository.AccountRegistrationRepository;
@@ -58,11 +59,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountRegisterEntity findByEmail(String email) {
-        AccountRegisterEntity account = repository.findByEmail(email);
+    public AccountLoginModel findByEmail(String email) {
 
+        AccountRegisterEntity account = repository.findByEmail(email);
+        
         if(account != null) {
-            return account;
+            AccountLoginModel accountLogin = new AccountLoginModel(account);
+            return accountLogin;
         }
         return null;
     }
@@ -73,7 +76,8 @@ public class AccountServiceImpl implements AccountService {
 
         
         if(account != null) {
-            String jwtToken = jwtService.generateToken(account);
+            AccountLoginModel accountLogin = new AccountLoginModel(account);
+            String jwtToken = jwtService.generateToken(accountLogin);
             return AuthenticationModel.builder().token(jwtToken).build();
         }
         return null;
