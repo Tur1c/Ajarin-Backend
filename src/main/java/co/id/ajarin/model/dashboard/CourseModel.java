@@ -27,12 +27,13 @@ public class CourseModel {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Course {
-        private Long courseid;
-        private Integer courseprice;
-        private String coursechapter;
-        private String coursetitle;
-        private String coursedescription;
-        private String coursecategory;
+        private Long course_id;
+        private Integer course_price;
+        private String course_chapter;
+        private String course_title;
+        private String course_description;
+        private String course_category;
+        private String course_image;
     }
 
 }

@@ -7,23 +7,25 @@ import co.id.ajarin.model.dashboard.CourseModel;
 public class CourseMapper {
     public static CourseModel.Course mapToCourseModel(CourseEntity course){
         return new CourseModel.Course(
-            course.getCourseid(),
-            course.getCourseprice(),
-            course.getCoursechapter(),
-            course.getCoursetitle(),
-            course.getCoursedescription(),
-            course.getCoursecategory()
+            course.getCourse_id(),
+            course.getCourse_price(),
+            course.getCourse_chapter(),
+            course.getCourse_title(),
+            course.getCourse_description(),
+            course.getCourse_category(),
+            course.getCourse_image()
         );
     }
 
     public static CourseEntity mapToCourseEntity(CourseModel.Course courseModel){
         return new CourseEntity(
-            courseModel.getCourseid(),
-            courseModel.getCourseprice(),
-            courseModel.getCoursechapter(),
-            courseModel.getCoursetitle(),
-            courseModel.getCoursedescription(),
-            courseModel.getCoursecategory()
+            courseModel.getCourse_id(),
+            courseModel.getCourse_price(),
+            courseModel.getCourse_chapter(),
+            courseModel.getCourse_title(),
+            courseModel.getCourse_description(),
+            courseModel.getCourse_category(),
+            courseModel.getCourse_image()
         );
     }
 }

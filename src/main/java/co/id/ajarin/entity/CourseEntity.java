@@ -1,8 +1,5 @@
 package co.id.ajarin.entity;
 
-import java.sql.Date;
-import java.sql.Time;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,20 +22,23 @@ public class CourseEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long courseid;
+    private Long course_id;
 
-    @Column(name = "courseprice")
-    private Integer courseprice;
+    @Column(name = "course_price")
+    private Integer course_price;
 
-    @Column(name = "columnchapter")
-    private String coursechapter;
+    @Column(name = "course_chapter")
+    private String course_chapter;
 
-    @Column(name = "coursetitle")
-    private String coursetitle;
+    @Column(name = "course_title")
+    private String course_title;
 
-    @Column(name = "coursedescription")
-    private String coursedescription;
+    @Column(name = "course_description")
+    private String course_description;
 
-    @Column(name = "coursecategory")
-    private String coursecategory;
+    @Column(name = "course_category")
+    private String course_category;
+
+    @Column(name = "course_image")
+    private String course_image;
 }

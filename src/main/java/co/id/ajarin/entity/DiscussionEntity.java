@@ -4,9 +4,11 @@ import java.sql.Date;
 import java.sql.Time;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,6 +19,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "discussion")
 public class DiscussionEntity {
 //     -DiscID
 // -DiscTitle
@@ -29,24 +33,32 @@ public class DiscussionEntity {
 // -LecturerID (FK)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long discid;
+    private Long disc_id;
 
-    @Column(name = "disctitle")
-    private String disctitle;
+    @Column(name = "disc_title")
+    private String disc_title;
     
-    @Column(name = "discparticipant")
-    private String discparticipant;
+    @Column(name = "disc_participant")
+    private String disc_participant;
 
-    @Column(name = "disctime")
-    private Time disctime;
+    @Column(name = "disc_price")
+    private Integer disc_price;
 
-    @Column(name = "discdate")
-    private Date discdate;
+    @Column(name = "disc_starttime")
+    private Time disc_starttime;
 
-    @Column(name = "discdescription")
-    private String discdescription;
+    @Column(name = "disc_endtime")
+    private Time disc_endtime;
 
-    @Column(name = "disccategory")
-    private String disccategory;
+    @Column(name = "disc_date")
+    private Date disc_date;
+
+    @Column(name = "disc_description")
+    private String disc_description;
+
+    @Column(name = "disc_category")
+    private String disc_category;
     
+    @Column(name = "disc_image")
+    private String disc_image;
 }

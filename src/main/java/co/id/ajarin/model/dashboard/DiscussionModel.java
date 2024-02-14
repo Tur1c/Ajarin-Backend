@@ -27,12 +27,15 @@ public class DiscussionModel {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Discussion {
-        private Long discid;
-        private String disctitle;
-        private String discparticipant;
-        private Time disctime;
-        private Date discdate;
-        private String discdescription;
-        private String disccategory;
+        private Long disc_id;
+        private String disc_title;
+        private String disc_participant;
+        private Integer disc_price;
+        private Time disc_starttime;
+        private Time disc_endtime;
+        private Date disc_date;
+        private String disc_description;
+        private String disc_category;
+        private String disc_image;
     }
 }
