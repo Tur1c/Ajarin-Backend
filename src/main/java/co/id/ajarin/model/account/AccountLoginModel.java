@@ -1,8 +1,13 @@
 package co.id.ajarin.model.account;
 
+import java.util.Arrays;
 import java.util.Collection;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
@@ -21,15 +26,20 @@ public class AccountLoginModel extends OutputRepositoryModel implements UserDeta
     public AccountLoginModel(AccountRegisterEntity account) {
         this.email = account.getEmail();
         this.password = account.getPassword();
+        System.out.println(Role.valueOf(account.getRole()));
+        this.role = Role.valueOf(account.getRole());
     }
     
     private String email;
     private String password;
     private String token;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Arrays.asList(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
