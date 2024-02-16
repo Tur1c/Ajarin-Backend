@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 
-
+import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,5 +37,6 @@ public class DiscussionModel {
         private String disc_description;
         private String disc_category;
         private String disc_image;
+        private List<CategoryEntity> categories;
     }
 }
