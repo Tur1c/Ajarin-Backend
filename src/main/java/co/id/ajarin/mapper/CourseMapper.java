@@ -13,7 +13,8 @@ public class CourseMapper {
             course.getCourse_title(),
             course.getCourse_description(),
             course.getCourse_category(),
-            course.getCourse_image()
+            course.getCourse_image(),
+            course.getCategories()
         );
     }
 
@@ -25,7 +26,8 @@ public class CourseMapper {
             courseModel.getCourse_title(),
             courseModel.getCourse_description(),
             courseModel.getCourse_category(),
-            courseModel.getCourse_image()
+            courseModel.getCourse_image(),
+            courseModel.getCategories()
         );
     }
 }

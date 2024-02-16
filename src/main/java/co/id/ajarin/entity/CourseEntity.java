@@ -1,10 +1,15 @@
 package co.id.ajarin.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -41,4 +46,13 @@ public class CourseEntity {
 
     @Column(name = "course_image")
     private String course_image;
+
+    @ManyToMany
+    @JoinTable(
+        name = "course_category",
+        joinColumns = @JoinColumn(name="course_id"),
+        inverseJoinColumns = @JoinColumn(name="category_id")
+    )
+    private List<CategoryEntity> categories;
+
 }

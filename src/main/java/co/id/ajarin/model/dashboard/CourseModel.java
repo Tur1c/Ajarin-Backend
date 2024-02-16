@@ -1,6 +1,7 @@
 package co.id.ajarin.model.dashboard;
 import java.util.List;
 
+import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,6 +35,7 @@ public class CourseModel {
         private String course_description;
         private String course_category;
         private String course_image;
+        private List<CategoryEntity> categories;
     }
 
 }

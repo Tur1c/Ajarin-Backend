@@ -22,6 +22,7 @@ public class CourseServiceImpl implements CourseService{
     public List<CourseModel.Course> getAllCourse() {
         // TODO Auto-generated method stub
        List<CourseEntity> courses = courseRepository.findAll();
+
        return courses.stream().map( (course) -> CourseMapper.mapToCourseModel(course)).collect(Collectors.toList());
     }
 
