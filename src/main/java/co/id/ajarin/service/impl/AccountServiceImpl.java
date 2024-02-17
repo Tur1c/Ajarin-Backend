@@ -89,6 +89,17 @@ public class AccountServiceImpl implements AccountService {
         // TODO Auto-generated method stub
         return null;
     }
+
+    @Override
+    public AccountRegistrationModel getAccountbyEmail(String email) {
+        // TODO Auto-generated method stub
+        AccountRegisterEntity account = repository.findByEmail(email);
+
+        System.out.println(account);
+        AccountRegistrationModel accounts = new AccountRegistrationModel(account);
+
+        return accounts;
+    }
     
     
     

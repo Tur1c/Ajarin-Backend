@@ -13,6 +13,8 @@ public interface AccountService extends UserDetailsService {
 
     String login(String email, String password);
 
+    AccountRegistrationModel getAccountbyEmail(String email);
+
     AccountLoginModel findByEmail(String email);
 
     AuthenticationModel authenticated(String email);
