@@ -95,7 +95,7 @@ public class AccountServiceImpl implements AccountService {
         // TODO Auto-generated method stub
         AccountRegisterEntity account = repository.findByEmail(email);
 
-        System.out.println(account);
+        // System.out.println(account);
         AccountRegistrationModel accounts = new AccountRegistrationModel(account);
 
         return accounts;

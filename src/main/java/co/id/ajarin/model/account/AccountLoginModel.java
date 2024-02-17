@@ -26,7 +26,7 @@ public class AccountLoginModel extends OutputRepositoryModel implements UserDeta
     public AccountLoginModel(AccountRegisterEntity account) {
         this.email = account.getEmail();
         this.password = account.getPassword();
-        System.out.println(Role.valueOf(account.getRole()));
+        // System.out.println(Role.valueOf(account.getRole()));
         this.role = Role.valueOf(account.getRole());
     }
     
