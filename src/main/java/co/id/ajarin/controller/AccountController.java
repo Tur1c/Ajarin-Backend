@@ -77,7 +77,7 @@ public class AccountController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
 
-    @PreAuthorize("hasRole('Teacher')")
+    @PreAuthorize("hasRole('Student')")
     @GetMapping("")
     public ResponseEntity<ResponseWrapperModel<AccountRegistrationModel>> getAccountbyEmail(@RequestParam(name = "email") String email){
         AccountRegistrationModel account = service.getAccountbyEmail(email);
