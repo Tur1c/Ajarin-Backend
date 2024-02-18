@@ -18,4 +18,6 @@ public interface AccountService extends UserDetailsService {
     AccountLoginModel findByEmail(String email);
 
     AuthenticationModel authenticated(String email);
+
+    AccountRegistrationModel findById(Long id);
 }

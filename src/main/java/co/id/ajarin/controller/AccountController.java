@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,6 +82,37 @@ public class AccountController {
     @GetMapping("")
     public ResponseEntity<ResponseWrapperModel<AccountRegistrationModel>> getAccountbyEmail(@RequestParam(name = "email") String email){
         AccountRegistrationModel account = service.getAccountbyEmail(email);
+
+        ResponseWrapperModel<AccountRegistrationModel> wrapperModel = new ResponseWrapperModel<>();
+
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(account);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+     }
+
+     @PreAuthorize("hasRole('Student')")
+    @PutMapping("{id}")
+    public ResponseEntity<ResponseWrapperModel<AccountRegistrationModel>> updateAccount(@PathVariable Long id, @RequestBody AccountRegistrationModel account){
+
+        AccountRegistrationModel accountOld = service.findById(id);
+
+        accountOld.setFirstName(account.getFirstName());
+        accountOld.setAge(account.getAge());
+        accountOld.setCity(account.getCity());
+        accountOld.setCountry(account.getCountry());
+        accountOld.setEducation(account.getEducation());
+        accountOld.setEmail(account.getEmail());
+        accountOld.setGender(accountOld.getGender());
+        accountOld.setLastName(account.getLastName());
+        accountOld.setPhoneNumber(account.getPhoneNumber());
+        accountOld.setSchool(account.getSchool());
+
+        service.save(accountOld);
 
         ResponseWrapperModel<AccountRegistrationModel> wrapperModel = new ResponseWrapperModel<>();
 

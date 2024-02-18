@@ -100,6 +100,15 @@ public class AccountServiceImpl implements AccountService {
 
         return accounts;
     }
+
+    @Override
+    public AccountRegistrationModel findById(Long id) {
+        AccountRegisterEntity account = repository.getById(id);
+
+        return new AccountRegistrationModel(account);
+    }
+
+    
     
     
     
