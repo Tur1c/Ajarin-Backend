@@ -33,7 +33,7 @@ public class AccountServiceImpl implements AccountService {
             account.getLastName(),
             account.getEmail(),
             account.getPassword(),
-            "Student",
+            "ROLE_Student",
             account.getGender(),
             account.getCity(),
             account.getCountry(),

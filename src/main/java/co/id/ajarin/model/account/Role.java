@@ -1,7 +1,7 @@
 package co.id.ajarin.model.account;
 
 public enum Role {
-    Student,
-    Teacher,
+    ROLE_Student,
+    ROLE_Teacher,
     ADMIN
 }
