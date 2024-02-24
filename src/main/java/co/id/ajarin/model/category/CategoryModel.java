@@ -1,7 +1,6 @@
 package co.id.ajarin.model.category;
 
 import java.util.List;
-import java.util.Locale.Category;
 
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;

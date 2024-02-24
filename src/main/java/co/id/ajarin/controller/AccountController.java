@@ -1,7 +1,5 @@
 package co.id.ajarin.controller;
 
-import javax.annotation.security.RolesAllowed;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +17,7 @@ import co.id.ajarin.model.ResponseWrapperModel;
 import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.auth.AuthenticationModel;
+import co.id.ajarin.model.dashboard.StudentDiscModel;
 import co.id.ajarin.service.AccountService;
 
 @RestController
@@ -125,5 +124,34 @@ public class AccountController {
 
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
      }
+
+     @PreAuthorize("hasRole('Student')")
+     @PostMapping("join")
+     public ResponseEntity<ResponseWrapperModel<StudentDiscModel>> createJoinDiscussion(@RequestBody StudentDiscModel data){
+        System.out.println(data.getEmail());
+        System.out.println(data.getId());
+        String message = service.joinDiscussion(data.getEmail(), data.getId());
+        
+        ResponseWrapperModel<StudentDiscModel> wrapperModel = new ResponseWrapperModel<>();
+
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        if(message != "Joined Success") {
+            error.setErrorCode("500");
+            error.setHttpCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            error.setMessage(message);
+            wrapperModel.setErrorSchema(error);
+        }
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+     }
+    //  public ResponseEntity<String> createJoinDiscussion(@RequestBody StudentDiscModel data) {
+    //                   String message = service.joinDiscussion(data.getEmail(),data.getId());
+    //                     return null;                                          
+    //             }
 
 }

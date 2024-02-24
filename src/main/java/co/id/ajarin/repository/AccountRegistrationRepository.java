@@ -9,4 +9,5 @@ import co.id.ajarin.entity.AccountRegisterEntity;
 public interface AccountRegistrationRepository extends JpaRepository<AccountRegisterEntity, Long> {
     
     AccountRegisterEntity findByEmail(String email);
+
 }

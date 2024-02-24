@@ -1,6 +1,9 @@
 package co.id.ajarin.model.account;
 
+import java.util.List;
+
 import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.entity.StudentDiscEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +30,7 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
         this.age = account.getAge();
         this.phoneNumber = account.getPhoneNumber();
         this.education = account.getEducation();
+        this.studentdisc_list = account.getStudentdisc_list();
     }
 
     private Long id;
@@ -42,4 +46,5 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
     private Integer age;
     private String phoneNumber;
     private String education;
+    private List<StudentDiscEntity> studentdisc_list;
 }

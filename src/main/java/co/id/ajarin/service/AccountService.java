@@ -20,4 +20,6 @@ public interface AccountService extends UserDetailsService {
     AuthenticationModel authenticated(String email);
 
     AccountRegistrationModel findById(Long id);
+
+    String joinDiscussion(String email, Long id);
 }

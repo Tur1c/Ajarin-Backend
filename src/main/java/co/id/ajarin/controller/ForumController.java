@@ -11,25 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
-import co.id.ajarin.model.category.CategoryModel;
-import co.id.ajarin.service.CategoryService;
-
+import co.id.ajarin.model.forum.ForumModel;
+import co.id.ajarin.service.ForumService;
 
 @RestController
-@RequestMapping("/api/category")
-public class CategoryController {
-
+@RequestMapping("/api/forum")
+public class ForumController {
+    
     @Autowired
-    private CategoryService categoryService;
+    private ForumService forumService;
 
-    //Get All Category
     @GetMapping("")
-    public ResponseEntity<ResponseWrapperModel<CategoryModel.Response>> getCategoryList() {
-        List<CategoryModel.Category> categories = categoryService.getAllCategory();
+    public ResponseEntity<ResponseWrapperModel<ForumModel.Response>> getForumList() {
+        List<ForumModel.Forum> forums = forumService.getAllForum();
 
-        CategoryModel.Response response = new CategoryModel.Response(categories);
+        ForumModel.Response response = new ForumModel.Response(forums);
 
-        ResponseWrapperModel<CategoryModel.Response> wrapperModel = new ResponseWrapperModel<>();
+        ResponseWrapperModel<ForumModel.Response> wrapperModel = new ResponseWrapperModel<>();
         
         ErrorRepository error = new ErrorRepository();
         error.setMessage("Sukses");
@@ -40,6 +38,4 @@ public class CategoryController {
 
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
-    
-    
 }

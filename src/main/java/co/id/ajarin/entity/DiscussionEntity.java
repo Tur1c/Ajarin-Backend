@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -73,4 +74,5 @@ public class DiscussionEntity {
         inverseJoinColumns = @JoinColumn(name="category_id")
     )
     private List<CategoryEntity> categories;
+
 }
