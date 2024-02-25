@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -41,18 +42,14 @@ public class CourseEntity {
     @Column(name = "course_description")
     private String course_description;
 
-    @Column(name = "course_category")
-    private String course_category;
+    @Column(name = "course_level")
+    private String course_level;
 
     @Column(name = "course_image")
     private String course_image;
 
-    @ManyToMany
-    @JoinTable(
-        name = "course_category",
-        joinColumns = @JoinColumn(name="course_id"),
-        inverseJoinColumns = @JoinColumn(name="category_id")
-    )
-    private List<CategoryEntity> categories;
+    @ManyToOne
+    @JoinColumn(name="course_category")
+    private CategoryEntity category;
 
 }

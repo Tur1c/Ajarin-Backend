@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -60,19 +61,15 @@ public class DiscussionEntity {
 
     @Column(name = "disc_description")
     private String disc_description;
-
-    @Column(name = "disc_category")
-    private String disc_category;
     
     @Column(name = "disc_image")
     private String disc_image;
 
-    @ManyToMany
-    @JoinTable(
-        name = "disc_category",
-        joinColumns = @JoinColumn(name="disc_id"),
-        inverseJoinColumns = @JoinColumn(name="category_id")
-    )
-    private List<CategoryEntity> categories;
+    @Column(name = "disc_level")
+    private String disc_level;
+
+    @ManyToOne
+    @JoinColumn(name="disc_category")
+    private CategoryEntity category;
 
 }

@@ -35,8 +35,8 @@ public class DiscussionModel {
         private Time disc_endtime;
         private Date disc_date;
         private String disc_description;
-        private String disc_category;
+        private String disc_level;
         private String disc_image;
-        private List<CategoryEntity> categories;
+        private CategoryEntity category;
     }
 }

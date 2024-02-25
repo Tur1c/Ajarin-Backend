@@ -33,9 +33,9 @@ public class CourseModel {
         private String course_chapter;
         private String course_title;
         private String course_description;
-        private String course_category;
+        private String course_level;
         private String course_image;
-        private List<CategoryEntity> categories;
+        private CategoryEntity category;
     }
 
 }

@@ -14,9 +14,9 @@ public class DiscussionMapper {
             discussion.getDisc_endtime(),
             discussion.getDisc_date(),
             discussion.getDisc_description(),
-            discussion.getDisc_category(),
+            discussion.getDisc_level(),
             discussion.getDisc_image(),
-            discussion.getCategories()
+            discussion.getCategory()
         );
     }
 
@@ -30,9 +30,9 @@ public class DiscussionMapper {
             discussionModel.getDisc_endtime(),
             discussionModel.getDisc_date(),
             discussionModel.getDisc_description(),
-            discussionModel.getDisc_category(),
+            discussionModel.getDisc_level(),
             discussionModel.getDisc_image(),
-            discussionModel.getCategories()
+            discussionModel.getCategory()
         );
     }
 } 
