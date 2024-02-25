@@ -14,8 +14,8 @@ public class ForumMapper {
             forum.getQuestion_image(),
             forum.getTotal_comment(),
             forum.getCreated_date(),
-            forum.getQuestion_category(),
-            forum.getUser_id()
+            forum.getCategory(),
+            forum.getUser()
         );
     }
 
@@ -28,7 +28,7 @@ public class ForumMapper {
             forumModel.getQuestion_image(),
             forumModel.getTotal_comment(),
             forumModel.getCreated_date(),
-            forumModel.getQuestion_category(),
+            forumModel.getCategory_id(),
             forumModel.getUser_id()
         );
     }

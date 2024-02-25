@@ -11,6 +11,8 @@ public interface AccountService extends UserDetailsService {
     
     AccountRegisterEntity save(AccountRegistrationModel account);
 
+    AccountRegisterEntity update(AccountRegistrationModel account);
+
     String login(String email, String password);
 
     AccountRegistrationModel getAccountbyEmail(String email);

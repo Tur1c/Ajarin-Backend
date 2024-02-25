@@ -110,8 +110,10 @@ public class AccountController {
         accountOld.setLastName(account.getLastName());
         accountOld.setPhoneNumber(account.getPhoneNumber());
         accountOld.setSchool(account.getSchool());
+        accountOld.setStudentdisc_list(account.getStudentdisc_list());
+        accountOld.setCoin(account.getCoin());
 
-        service.save(accountOld);
+        service.update(accountOld);
 
         ResponseWrapperModel<AccountRegistrationModel> wrapperModel = new ResponseWrapperModel<>();
 
@@ -120,7 +122,7 @@ public class AccountController {
         error.setErrorCode("00");
         error.setHttpCode(HttpStatus.OK.value());
         wrapperModel.setErrorSchema(error);
-        wrapperModel.setOutputSchema(account);
+        wrapperModel.setOutputSchema(accountOld);
 
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
      }

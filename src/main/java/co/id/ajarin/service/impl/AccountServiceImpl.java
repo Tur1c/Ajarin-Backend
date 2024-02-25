@@ -53,7 +53,31 @@ public class AccountServiceImpl implements AccountService {
             account.getAge(),
             account.getPhoneNumber(),
             account.getEducation(),
-            account.getStudentdisc_list()
+            account.getStudentdisc_list(),
+            0
+        );
+
+        return repository.save(newAccount);
+    }
+
+    @Override
+    public AccountRegisterEntity update(AccountRegistrationModel account) {
+        AccountRegisterEntity newAccount = new AccountRegisterEntity(
+            account.getId(),
+            account.getFirstName(),
+            account.getLastName(),
+            account.getEmail(),
+            account.getPassword(),
+            account.getRole(),
+            account.getGender(),
+            account.getCity(),
+            account.getCountry(),
+            account.getSchool(),
+            account.getAge(),
+            account.getPhoneNumber(),
+            account.getEducation(),
+            account.getStudentdisc_list(),
+            account.getCoin()
         );
 
         return repository.save(newAccount);
@@ -108,7 +132,6 @@ public class AccountServiceImpl implements AccountService {
         // TODO Auto-generated method stub
         AccountRegisterEntity account = repository.findByEmail(email);
 
-        System.out.println(account.getStudentdisc_list().get(0).getStatus());
         AccountRegistrationModel accounts = new AccountRegistrationModel(account);
 
         return accounts;

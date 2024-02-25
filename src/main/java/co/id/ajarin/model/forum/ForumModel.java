@@ -3,6 +3,8 @@ package co.id.ajarin.model.forum;
 import java.sql.Timestamp;
 import java.util.List;
 
+import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +32,7 @@ public class ForumModel {
         private String question_image;
         private Integer total_comment;
         private Timestamp created_date;
-        private Integer question_category;
-        private Integer user_id;
+        private CategoryEntity category_id;
+        private AccountRegisterEntity user_id;
     }
 }

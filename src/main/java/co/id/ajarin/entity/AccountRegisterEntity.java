@@ -68,7 +68,10 @@ public class AccountRegisterEntity {
     private String education;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
     private List<StudentDiscEntity> studentdisc_list;
+
+    @Column(name = "coin")
+    private Integer coin;
 
 }

@@ -1,12 +1,17 @@
 package co.id.ajarin.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -44,10 +49,14 @@ public class ForumEntity {
     @Column(name = "created_date")
     private Timestamp created_date;
 
-    @Column(name = "question_category")
-    private Integer question_category;
+    @ManyToOne
+    //1 category many forum
+    //1 forum one category
+    @JoinColumn(name="question_category")
+    private CategoryEntity category;
 
-    @Column(name = "user_id")
-    private Integer user_id;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private AccountRegisterEntity user;
 
 }

@@ -31,6 +31,7 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
         this.phoneNumber = account.getPhoneNumber();
         this.education = account.getEducation();
         this.studentdisc_list = account.getStudentdisc_list();
+        this.coin = account.getCoin();
     }
 
     private Long id;
@@ -47,4 +48,5 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
     private String phoneNumber;
     private String education;
     private List<StudentDiscEntity> studentdisc_list;
+    private Integer coin;
 }
