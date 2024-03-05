@@ -2,6 +2,7 @@ package co.id.ajarin.model.dashboard;
 import java.util.List;
 
 import co.id.ajarin.entity.CategoryEntity;
+import co.id.ajarin.entity.CourseDetailEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,6 +37,7 @@ public class CourseModel {
         private String course_level;
         private String course_image;
         private CategoryEntity category;
+        private List<CourseDetailEntity> course_details;
     }
 
 }
