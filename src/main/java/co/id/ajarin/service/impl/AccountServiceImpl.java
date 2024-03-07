@@ -70,28 +70,26 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountRegisterEntity update(AccountRegistrationModel account) {
-        AccountRegisterEntity newAccount = new AccountRegisterEntity(
-            account.getId(),
-            account.getFirstName(),
-            account.getLastName(),
-            account.getEmail(),
-            account.getPassword(),
-            account.getRole(),
-            account.getGender(),
-            account.getCity(),
-            account.getCountry(),
-            account.getSchool(),
-            account.getAge(),
-            account.getPhoneNumber(),
-            account.getEducation(),
-            account.getStudentdisc_list(),
-            account.getCoin(),
-            null,
-            account.getPic_name(),
-            account.getPic_type()
-        );
+        AccountRegisterEntity accountOld = repository.getById(account.getId());
+        accountOld.setId(account.getId());
+        accountOld.setFirstName(account.getFirstName());
+        accountOld.setLastName(account.getLastName());
+        accountOld.setEmail(account.getEmail());
+        accountOld.setPassword(account.getPassword());
+        accountOld.setRole(account.getRole());
+        accountOld.setGender(account.getGender());
+        accountOld.setCity(account.getCity());
+        accountOld.setCountry(account.getCountry());
+        accountOld.setSchool(account.getSchool());
+        accountOld.setAge(account.getAge());
+        accountOld.setPhoneNumber(account.getPhoneNumber());
+        accountOld.setEducation(account.getEducation());
+        accountOld.setStudentdisc_list(account.getStudentdisc_list());
+        accountOld.setCoin(account.getCoin());
+        accountOld.setPic_name(account.getPic_name());
+        accountOld.setPic_type(account.getPic_type());
 
-        return repository.save(newAccount);
+        return repository.save(accountOld);
     }
 
     @Override
