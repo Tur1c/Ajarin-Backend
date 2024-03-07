@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import co.id.ajarin.entity.composite.StudentDiscKey;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,8 +27,10 @@ import lombok.Setter;
 public class StudentDiscEntity {
     
     @EmbeddedId
+    @JsonIgnore
     private StudentDiscKey id;
 
+    @JsonIgnore
     @ManyToOne
     @MapsId("user_id")
     @JoinColumn(name = "user_id")

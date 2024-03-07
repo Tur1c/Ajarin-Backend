@@ -1,5 +1,6 @@
 package co.id.ajarin.controller;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
 import co.id.ajarin.model.account.AccountLoginModel;
@@ -155,5 +158,46 @@ public class AccountController {
     //                   String message = service.joinDiscussion(data.getEmail(),data.getId());
     //                     return null;                                          
     //             }
+
+
+    @PostMapping("/upload")
+    public ResponseEntity<ResponseWrapperModel> uploadFile(@RequestParam(name = "email") String email, @RequestParam("file") MultipartFile file) {
+        String message = "";
+
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        try {
+            service.store(email, file);
+            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+
+            error.setMessage(message);
+            error.setErrorCode("00");
+            error.setHttpCode(HttpStatus.OK.value());
+            wrapperModel.setErrorSchema(error);
+            return ResponseEntity.status(HttpStatus.OK).body(wrapperModel);
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            error.setMessage(message);
+            error.setErrorCode("500");
+            error.setHttpCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            wrapperModel.setErrorSchema(error);
+            return ResponseEntity.status(HttpStatus.OK).body(wrapperModel);
+        }
+    }
+
+    @GetMapping("/files/{id}")
+    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
+        AccountRegisterEntity account = service.getFile(id);
+
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + account.getPic_name() + "\"")
+            .body(account.getData());
+    }
 
 }

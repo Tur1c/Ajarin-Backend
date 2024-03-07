@@ -1,10 +1,14 @@
 package co.id.ajarin.service.impl;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.DiscussionEntity;
@@ -20,6 +24,7 @@ import co.id.ajarin.security.jwt.JwtService;
 import co.id.ajarin.service.AccountService;
 
 @Service
+@Transactional
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
@@ -54,7 +59,10 @@ public class AccountServiceImpl implements AccountService {
             account.getPhoneNumber(),
             account.getEducation(),
             account.getStudentdisc_list(),
-            0
+            0,
+            null,
+            null,
+            null
         );
 
         return repository.save(newAccount);
@@ -77,7 +85,10 @@ public class AccountServiceImpl implements AccountService {
             account.getPhoneNumber(),
             account.getEducation(),
             account.getStudentdisc_list(),
-            account.getCoin()
+            account.getCoin(),
+            null,
+            account.getPic_name(),
+            account.getPic_type()
         );
 
         return repository.save(newAccount);
@@ -164,6 +175,23 @@ public class AccountServiceImpl implements AccountService {
         
         
     }
+
+    @Override
+    public AccountRegisterEntity store(String email, MultipartFile file) throws IOException {
+       String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        AccountRegisterEntity account = repository.findByEmail(email);
+        account.setData(file.getBytes());
+        account.setPic_name(filename);
+        account.setPic_type(file.getContentType());
+
+        return repository.save(account);
+    }
+
+    @Override
+    public AccountRegisterEntity getFile(Long id) {
+        return repository.findById(id).get();
+      }
+    
 
     
     

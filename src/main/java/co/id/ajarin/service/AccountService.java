@@ -1,6 +1,9 @@
 package co.id.ajarin.service;
 
+import java.io.IOException;
+
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.multipart.MultipartFile;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.model.account.AccountLoginModel;
@@ -24,4 +27,8 @@ public interface AccountService extends UserDetailsService {
     AccountRegistrationModel findById(Long id);
 
     String joinDiscussion(String email, Long id);
+
+    AccountRegisterEntity store(String email, MultipartFile file) throws IOException;
+
+    AccountRegisterEntity getFile(Long id);
 }

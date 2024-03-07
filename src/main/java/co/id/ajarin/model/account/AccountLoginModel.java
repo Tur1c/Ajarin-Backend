@@ -27,7 +27,9 @@ public class AccountLoginModel extends OutputRepositoryModel implements UserDeta
         this.email = account.getEmail();
         this.password = account.getPassword();
         // System.out.println(Role.valueOf(account.getRole()));
-        this.role = Role.valueOf(account.getRole());
+        if(!account.getRole().isEmpty()) {
+            this.role = Role.valueOf(account.getRole());
+        }
     }
     
     private String email;

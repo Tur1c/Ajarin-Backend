@@ -2,6 +2,8 @@ package co.id.ajarin.model.account;
 
 import java.util.List;
 
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.StudentDiscEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
@@ -32,6 +34,9 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
         this.education = account.getEducation();
         this.studentdisc_list = account.getStudentdisc_list();
         this.coin = account.getCoin();
+        this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(account.getId().toString()).toUriString();
+        this.pic_name = account.getPic_name();
+        this.pic_type = account.getPic_type();
     }
 
     private Long id;
@@ -49,4 +54,7 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
     private String education;
     private List<StudentDiscEntity> studentdisc_list;
     private Integer coin;
+    private String pic_name;
+    private String pic_url;
+    private String pic_type;
 }

@@ -8,10 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +26,7 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Table(name = "ajarin_user")
 public class AccountRegisterEntity {
 
@@ -73,5 +77,16 @@ public class AccountRegisterEntity {
 
     @Column(name = "coin")
     private Integer coin;
+
+    @Column(name = "profile_pic_data")
+    @JsonIgnore
+    @Lob
+    private byte[] data;
+
+    @Column(name = "profile_pic_name")
+    private String pic_name;
+
+    @Column(name = "profile_pic_type")
+    private String pic_type;
 
 }
