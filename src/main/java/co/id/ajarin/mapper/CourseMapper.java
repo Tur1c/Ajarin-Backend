@@ -14,7 +14,8 @@ public class CourseMapper {
             course.getCourse_description(),
             course.getCourse_level(),
             course.getCourse_image(),
-            course.getCategory()
+            course.getCategory(),
+            course.getCourse_details()
         );
     }
 
@@ -27,7 +28,9 @@ public class CourseMapper {
             courseModel.getCourse_description(),
             courseModel.getCourse_level(),
             courseModel.getCourse_image(),
-            courseModel.getCategory()
+            courseModel.getCategory(),
+            courseModel.getCourse_details()
+            
         );
     }
 }

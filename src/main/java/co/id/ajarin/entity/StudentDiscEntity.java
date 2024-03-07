@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import co.id.ajarin.entity.composite.StudentDiscKey;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -26,6 +28,7 @@ import lombok.Setter;
 @Table(name = "student_disc")
 public class StudentDiscEntity {
     
+    @JsonBackReference
     @EmbeddedId
     @JsonIgnore
     private StudentDiscKey id;
