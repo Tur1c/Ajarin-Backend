@@ -32,8 +32,8 @@ public class AccountRegisterEntity {
 
     public AccountRegisterEntity(Long id2, String firstName2, String lastName2, String email2, String password2,
             String role2, String gender2, String city2, String country2, String school2, Integer age2,
-            String phoneNumber2, String education2, List<StudentDiscEntity> studentdisc_list2, Integer coin2,
-            String pic_name2, String pic_type2) {
+            String phoneNumber2, String education2, List<StudentDiscEntity> studentdisc_list2, List<StudentCourseEntity> studentcourse_list2, 
+            Integer coin2, String pic_name2, String pic_type2) {
         this.id = id2;
         this.age = age2;
         this.firstName = firstName2;
@@ -49,6 +49,7 @@ public class AccountRegisterEntity {
         this.phoneNumber = phoneNumber2;
         this.education = education2;
         this.studentdisc_list = studentdisc_list2;
+        this.studentcourse_list = studentcourse_list2;
         this.pic_name = pic_name2;
         this.pic_type = pic_type2;
     }
@@ -96,6 +97,9 @@ public class AccountRegisterEntity {
 
     @OneToMany(mappedBy = "user")
     private List<StudentDiscEntity> studentdisc_list;
+
+    @OneToMany(mappedBy = "user")
+    private List<StudentCourseEntity> studentcourse_list;
 
     @Column(name = "coin")
     private Integer coin;

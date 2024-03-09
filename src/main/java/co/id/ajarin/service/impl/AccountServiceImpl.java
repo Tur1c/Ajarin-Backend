@@ -14,8 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.entity.CourseEntity;
 import co.id.ajarin.entity.DiscussionEntity;
+import co.id.ajarin.entity.StudentCourseEntity;
 import co.id.ajarin.entity.StudentDiscEntity;
+import co.id.ajarin.entity.composite.StudentCourseKey;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.entity.composite.StudentDiscKey;
 import co.id.ajarin.mapper.TeacherMapper;
@@ -25,7 +28,9 @@ import co.id.ajarin.model.account.TeacherModel;
 import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.auth.AuthenticationModel;
 import co.id.ajarin.repository.AccountRegistrationRepository;
+import co.id.ajarin.repository.CourseRepository;
 import co.id.ajarin.repository.DiscussionRepository;
+import co.id.ajarin.repository.StudentCourseRepository;
 import co.id.ajarin.repository.StudentDiscRepository;
 import co.id.ajarin.repository.TeacherRepository;
 import co.id.ajarin.security.jwt.JwtService;
@@ -43,6 +48,10 @@ public class AccountServiceImpl implements AccountService {
     DiscussionRepository discussionRepository;
     @Autowired
     StudentDiscRepository studentDiscRepository;
+    @Autowired
+    CourseRepository courseRepository;
+    @Autowired
+    StudentCourseRepository studentCourseRepository;
 
     private final JwtService jwtService;
 
@@ -69,7 +78,7 @@ public class AccountServiceImpl implements AccountService {
             account.getPhoneNumber(),
             account.getEducation(),
             account.getStudentdisc_list(),
-            0,
+            account.getStudentcourse_list(),
             null,
             null,
             null
@@ -178,6 +187,27 @@ public class AccountServiceImpl implements AccountService {
         StudentDiscEntity student_disc = new StudentDiscEntity(key, account,disc,"Ongoing");
 
         studentDiscRepository.save(student_disc);
+
+        return "Joined Success";
+        
+        
+    }
+
+    @Transactional
+    @Override
+    public String joinCourse(String email, Long course_id) {
+
+        AccountRegisterEntity account = repository.findByEmail(email);
+
+        Long user_id = account.getId();
+
+        CourseEntity course =  courseRepository.getById(course_id);
+
+        StudentCourseKey key = new StudentCourseKey(user_id, course_id);
+        
+        StudentCourseEntity student_course = new StudentCourseEntity(key, account,course,"Ongoing");
+
+        studentCourseRepository.save(student_course);
 
         return "Joined Success";
         

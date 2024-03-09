@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.entity.StudentCourseEntity;
 import co.id.ajarin.entity.StudentDiscEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
         this.phoneNumber = account.getPhoneNumber();
         this.education = account.getEducation();
         this.studentdisc_list = account.getStudentdisc_list();
+        this.studentcourse_list = account.getStudentcourse_list();
         this.coin = account.getCoin();
         this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(account.getId().toString()).toUriString();
         this.pic_name = account.getPic_name();
@@ -53,6 +55,7 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
     private String phoneNumber;
     private String education;
     private List<StudentDiscEntity> studentdisc_list;
+    private List<StudentCourseEntity> studentcourse_list;
     private Integer coin;
     private String pic_name;
     private String pic_url;

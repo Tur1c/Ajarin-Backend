@@ -159,10 +159,31 @@ public class AccountController {
 
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
      }
-    //  public ResponseEntity<String> createJoinDiscussion(@RequestBody StudentDiscModel data) {
-    //                   String message = service.joinDiscussion(data.getEmail(),data.getId());
-    //                     return null;                                          
-    //             }
+    
+     @PreAuthorize("hasRole('Student')")
+     @PostMapping("joincourse")
+     public ResponseEntity<ResponseWrapperModel<StudentDiscModel>> createJoinCourse(@RequestBody StudentDiscModel data){
+        System.out.println(data.getEmail());
+        System.out.println(data.getId());
+        String message = service.joinCourse(data.getEmail(), data.getId());
+        
+        ResponseWrapperModel<StudentDiscModel> wrapperModel = new ResponseWrapperModel<>();
+
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        if(message != "Joined Success") {
+            error.setErrorCode("500");
+            error.setHttpCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            error.setMessage(message);
+            wrapperModel.setErrorSchema(error);
+        }
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+     }
 
 
     @PostMapping("/upload")

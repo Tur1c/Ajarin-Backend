@@ -31,6 +31,8 @@ public interface AccountService extends UserDetailsService {
 
     String joinDiscussion(String email, Long id);
 
+    String joinCourse(String email, Long id);
+
     AccountRegisterEntity store(String email, MultipartFile file) throws IOException;
 
     AccountRegisterEntity getFile(Long id);
