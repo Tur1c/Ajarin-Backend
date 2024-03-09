@@ -1,5 +1,7 @@
 package co.id.ajarin.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
 import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
+import co.id.ajarin.model.account.TeacherModel;
 import co.id.ajarin.model.auth.AuthenticationModel;
+import co.id.ajarin.model.category.CategoryModel;
 import co.id.ajarin.model.dashboard.StudentDiscModel;
 import co.id.ajarin.service.AccountService;
 
@@ -198,6 +203,86 @@ public class AccountController {
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + account.getPic_name() + "\"")
             .body(account.getData());
+    }
+
+    @PostMapping("/register/teacher")
+    public ResponseEntity<ResponseWrapperModel> registerTeacher(@RequestParam(name = "email") String email,
+            @RequestParam("file") MultipartFile file, 
+            @RequestParam("achievement") String achievement, @RequestParam("education") String education,
+            @RequestParam("experience") String experience, @RequestParam("profile_description") String profileDescription
+    ) {
+        String message = "";
+
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        AccountRegistrationModel account = service.getAccountbyEmail(email);
+        boolean flagNew = false;
+        try {
+            System.out.println(account.getId());
+            List<TeacherModel.Teacher> teachers = service.getAllTeacher();
+            for (TeacherModel.Teacher teacher : teachers) {
+                if(teacher.getAccount().getId() == account.getId()) flagNew = true;
+                System.out.println(teacher.getAccount().getId());
+                System.out.println(account.getId());
+            }
+            if(!flagNew) {
+                message = service.registerTeacher(account, file, achievement, education, experience, profileDescription);
+                error.setMessage(message);
+                error.setErrorCode("00");
+                error.setHttpCode(HttpStatus.OK.value());
+                wrapperModel.setErrorSchema(error);
+                return ResponseEntity.status(HttpStatus.OK).body(wrapperModel);
+            } else {
+                message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+                error.setMessage(message);
+                error.setErrorCode("500");
+                error.setHttpCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+                wrapperModel.setErrorSchema(error);
+                return ResponseEntity.status(HttpStatus.OK).body(wrapperModel);
+            }
+
+        } catch (Exception e) {
+            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            error.setMessage(message);
+            error.setErrorCode("500");
+            error.setHttpCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            wrapperModel.setErrorSchema(error);
+            return ResponseEntity.status(HttpStatus.OK).body(wrapperModel);
+        }
+    }
+
+    @GetMapping("inquiry/teacher")
+    public ResponseEntity<ResponseWrapperModel> getAllTeacher() {
+        List<TeacherModel.Teacher> teachers = service.getAllTeacher();
+
+        TeacherModel.Response response = new TeacherModel.Response(teachers);
+
+        ResponseWrapperModel<TeacherModel.Response> wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(response);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+
+    }
+    
+    @GetMapping("/files/cv/{id}")
+    public ResponseEntity<byte[]> getCVFile(@PathVariable Long id) {
+        TeacherEntity teacher = service.getCvFile(id);
+
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + teacher.getUser().getPic_name() + "\"")
+            .body(teacher.getData());
     }
 
 }

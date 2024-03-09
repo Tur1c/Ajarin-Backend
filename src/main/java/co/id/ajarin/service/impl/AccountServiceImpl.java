@@ -1,6 +1,8 @@
 package co.id.ajarin.service.impl;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,17 +11,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.DiscussionEntity;
 import co.id.ajarin.entity.StudentDiscEntity;
+import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.entity.composite.StudentDiscKey;
+import co.id.ajarin.mapper.TeacherMapper;
 import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
+import co.id.ajarin.model.account.TeacherModel;
+import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.auth.AuthenticationModel;
 import co.id.ajarin.repository.AccountRegistrationRepository;
 import co.id.ajarin.repository.DiscussionRepository;
 import co.id.ajarin.repository.StudentDiscRepository;
+import co.id.ajarin.repository.TeacherRepository;
 import co.id.ajarin.security.jwt.JwtService;
 import co.id.ajarin.service.AccountService;
 
@@ -29,6 +37,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     AccountRegistrationRepository repository;
+    @Autowired
+    TeacherRepository repositoryTeacher;
     @Autowired
     DiscussionRepository discussionRepository;
     @Autowired
@@ -188,7 +198,44 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountRegisterEntity getFile(Long id) {
         return repository.findById(id).get();
-      }
+    }
+
+    @Override
+    public String registerTeacher(AccountRegistrationModel account, MultipartFile file, String achievement,
+            String education, String experience, String description) throws IOException {
+        
+        AccountRegisterEntity accountEntity = repository.findByEmail(account.getEmail());
+
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        TeacherEntity teacher = new TeacherEntity();
+        teacher.setAchievement(achievement);
+        teacher.setUser(accountEntity);
+        teacher.setData(file.getBytes());
+        teacher.setProfile_description(description);
+        teacher.setEducation(education);
+        teacher.setExperience(experience);
+        teacher.setRating("0");
+        repositoryTeacher.save(teacher);
+
+        return "Success";
+    }
+
+    @Override
+    public List<TeacherModel.Teacher> getAllTeacher() {
+        List<TeacherEntity> teachers = repositoryTeacher.findAll();
+        return teachers.stream().map((teacher) -> TeacherMapper.mapToTeacherModel(teacher)).collect(Collectors.toList());
+    }
+
+    @Override
+    public TeacherEntity getTeacher(Long id) {
+       return repositoryTeacher.getReferenceById(id);
+    }
+
+    @Override
+    public TeacherEntity getCvFile(Long id) {
+        return repositoryTeacher.findById(id).get();
+    }
+    
     
 
     

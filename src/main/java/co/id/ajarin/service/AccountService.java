@@ -1,13 +1,16 @@
 package co.id.ajarin.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
+import co.id.ajarin.model.account.TeacherModel;
 import co.id.ajarin.model.auth.AuthenticationModel;
 
 public interface AccountService extends UserDetailsService {
@@ -31,4 +34,12 @@ public interface AccountService extends UserDetailsService {
     AccountRegisterEntity store(String email, MultipartFile file) throws IOException;
 
     AccountRegisterEntity getFile(Long id);
+
+    String registerTeacher(AccountRegistrationModel account, MultipartFile file, String achievement, String education, String experience, String description) throws IOException;
+
+    List<TeacherModel.Teacher> getAllTeacher();
+
+    TeacherEntity getTeacher(Long id);
+
+    TeacherEntity getCvFile(Long id);
 }
