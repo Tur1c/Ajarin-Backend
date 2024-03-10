@@ -16,7 +16,8 @@ public class DiscussionMapper {
             discussion.getDisc_description(),
             discussion.getDisc_level(),
             discussion.getDisc_image(),
-            discussion.getCategory()
+            discussion.getCategory(),
+            discussion.getTeacher()
         );
     }
 
@@ -32,7 +33,8 @@ public class DiscussionMapper {
             discussionModel.getDisc_description(),
             discussionModel.getDisc_level(),
             discussionModel.getDisc_image(),
-            discussionModel.getCategory()
+            discussionModel.getCategory(),
+            discussionModel.getTeacher()
         );
     }
 } 

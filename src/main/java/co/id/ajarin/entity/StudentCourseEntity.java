@@ -8,7 +8,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import co.id.ajarin.entity.composite.StudentCourseKey;
@@ -26,7 +25,6 @@ import lombok.Setter;
 @Entity
 @Table(name = "student_course")
 public class StudentCourseEntity {
-    @JsonBackReference
     @EmbeddedId
     @JsonIgnore
     private StudentCourseKey id;

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -68,5 +69,10 @@ public class DiscussionEntity {
     @ManyToOne
     @JoinColumn(name="disc_category")
     private CategoryEntity category;
+
+    @ManyToOne
+    @JsonBackReference(value = "teacher_disc")
+    @JoinColumn(name="teacher_id")
+    private TeacherEntity teacher;
 
 }
