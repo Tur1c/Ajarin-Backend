@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.util.List;
 
 import co.id.ajarin.entity.CategoryEntity;
+import co.id.ajarin.entity.StudentCourseEntity;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;

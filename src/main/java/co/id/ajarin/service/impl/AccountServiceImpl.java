@@ -79,7 +79,7 @@ public class AccountServiceImpl implements AccountService {
             account.getEducation(),
             account.getStudentdisc_list(),
             account.getStudentcourse_list(),
-            null,
+            0,
             null,
             null
         );
@@ -160,7 +160,7 @@ public class AccountServiceImpl implements AccountService {
         // TODO Auto-generated method stub
         AccountRegisterEntity account = repository.findByEmail(email);
 
-        AccountRegistrationModel accounts = new AccountRegistrationModel(account);
+        AccountRegistrationModel accounts = new AccountRegistrationModel(account, "subscribed");
 
         return accounts;
     }
@@ -264,6 +264,18 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public TeacherEntity getCvFile(Long id) {
         return repositoryTeacher.findById(id).get();
+    }
+
+    @Override
+    public String subscribedLecturer(Long id, String email) {
+        TeacherEntity teacher = repositoryTeacher.findById(id).get();
+        AccountRegisterEntity account = repository.findByEmail(email);
+
+        // for (AccountRegisterEntity accountEntity : teacher.getSubscribed_student()) {
+        //     if(accountEntity.getSubscribed_lecturer())
+        // }
+        teacher.getSubscribed_student().add(account);
+        return "Success";
     }
     
     

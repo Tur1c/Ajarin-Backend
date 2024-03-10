@@ -2,6 +2,8 @@ package co.id.ajarin.entity;
 
 import java.util.List;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,7 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -41,7 +45,7 @@ public class TeacherEntity {
     @JoinColumn(name = "user_id")
     private AccountRegisterEntity user;
 
-    @Column(name = "profile_description")
+    @Column(columnDefinition = "TEXT", name = "profile_description")
     private String profile_description;
 
     @Column(name = "education")
@@ -60,6 +64,15 @@ public class TeacherEntity {
     @JsonIgnore
     @Lob
     private byte[] data;
+
+    @ManyToMany
+    @JoinTable(
+        name = "subscribed_lecturer",
+        joinColumns = @JoinColumn(name = "teacher_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<AccountRegisterEntity> subscribed_student;
+    
 
     @JsonManagedReference(value = "teacher_disc")
     @OneToMany(mappedBy = "teacher")

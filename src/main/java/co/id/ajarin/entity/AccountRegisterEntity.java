@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -100,6 +103,14 @@ public class AccountRegisterEntity {
 
     @OneToMany(mappedBy = "user")
     private List<StudentCourseEntity> studentcourse_list;
+
+    @ManyToMany()
+    @JoinTable(
+        name = "subscribed_lecturer",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "teacher_id")
+    )
+    private List<TeacherEntity> subscribed_lecturer;
 
     @Column(name = "coin")
     private Integer coin;
