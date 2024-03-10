@@ -160,7 +160,7 @@ public class AccountServiceImpl implements AccountService {
         // TODO Auto-generated method stub
         AccountRegisterEntity account = repository.findByEmail(email);
 
-        AccountRegistrationModel accounts = new AccountRegistrationModel(account, "subscribed");
+        AccountRegistrationModel accounts = new AccountRegistrationModel(account);
 
         return accounts;
     }

@@ -13,6 +13,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -53,6 +56,7 @@ public class AccountRegisterEntity {
         this.education = education2;
         this.studentdisc_list = studentdisc_list2;
         this.studentcourse_list = studentcourse_list2;
+        this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
         this.pic_name = pic_name2;
         this.pic_type = pic_type2;
     }
@@ -119,6 +123,10 @@ public class AccountRegisterEntity {
     @JsonIgnore
     @Lob
     private byte[] data;
+
+    @Column(name = "profile_pic_url")
+    @Transient
+    private String pic_url;
 
     @Column(name = "profile_pic_name")
     private String pic_name;
