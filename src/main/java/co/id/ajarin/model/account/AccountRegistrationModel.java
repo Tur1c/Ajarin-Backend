@@ -7,6 +7,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.StudentCourseEntity;
 import co.id.ajarin.entity.StudentDiscEntity;
+import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,10 +36,52 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
         this.education = account.getEducation();
         this.studentdisc_list = account.getStudentdisc_list();
         this.studentcourse_list = account.getStudentcourse_list();
+        this.subscribed_lecturer = account.getSubscribed_lecturer();
         this.coin = account.getCoin();
-        this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(account.getId().toString()).toUriString();
+        if(account.getData() != null) {
+            this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(account.getId().toString()).toUriString();
+        }
         this.pic_name = account.getPic_name();
         this.pic_type = account.getPic_type();
+
+        System.out.println(account.getStudentcourse_list() + " ASJBAJSBAJS");
+
+        for (TeacherEntity studentCourseEntity : account.getSubscribed_lecturer()) {
+            System.out.println(studentCourseEntity.getUser());
+        }
+    }
+
+    public AccountRegistrationModel(AccountRegisterEntity account, String condition) {
+        this.id = account.getId();
+        this.firstName = account.getFirstName();
+        this.lastName = account.getLastName();
+        this.email = account.getEmail();
+        this.password = account.getPassword();
+        this.role = account.getRole();
+        this.gender = account.getGender();
+        this.city = account.getCity();
+        this.country = account.getCountry();
+        this.school = account.getSchool();
+        this.age = account.getAge();
+        this.phoneNumber = account.getPhoneNumber();
+        this.education = account.getEducation();
+        if(condition != "subscribed") {
+            this.studentdisc_list = account.getStudentdisc_list();
+            this.studentcourse_list = account.getStudentcourse_list();
+        }
+        this.subscribed_lecturer = account.getSubscribed_lecturer();
+        this.coin = account.getCoin();
+        if(account.getData() != null) {
+            this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(account.getId().toString()).toUriString();
+        }
+        this.pic_name = account.getPic_name();
+        this.pic_type = account.getPic_type();
+
+        System.out.println(account.getStudentcourse_list() + " ASJBAJSBAJS");
+
+        for (TeacherEntity studentCourseEntity : account.getSubscribed_lecturer()) {
+            System.out.println(studentCourseEntity.getUser());
+        }
     }
 
     private Long id;
@@ -56,6 +99,7 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
     private String education;
     private List<StudentDiscEntity> studentdisc_list;
     private List<StudentCourseEntity> studentcourse_list;
+    private List<TeacherEntity> subscribed_lecturer;
     private Integer coin;
     private String pic_name;
     private String pic_url;

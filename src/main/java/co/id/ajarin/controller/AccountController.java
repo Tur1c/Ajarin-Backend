@@ -302,8 +302,25 @@ public class AccountController {
         TeacherEntity teacher = service.getCvFile(id);
 
         return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + teacher.getUser().getPic_name() + "\"")
+            .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + teacher.getUser().getPic_name() + "\"")
             .body(teacher.getData());
+    }
+
+    @GetMapping("/subscribe")
+    public ResponseEntity<ResponseWrapperModel> subscribedLecturer(@RequestParam(name = "teacher-id") Long id, @RequestParam("email") String email) {
+
+        String message = service.subscribedLecturer(id, email);
+
+        ResponseWrapperModel<TeacherModel.Response> wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(null);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
 
 }

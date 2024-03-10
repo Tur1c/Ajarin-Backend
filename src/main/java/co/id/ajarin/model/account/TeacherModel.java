@@ -32,6 +32,7 @@ public class TeacherModel extends OutputRepositoryModel {
         public Teacher(Long teacher_id, String profile_description, String achievement, String experience,
                 String education, String uriString, String rating, AccountRegisterEntity user) {
             this.id = teacher_id;
+            this.teacher_description = profile_description;
             this.teacher_achievement = achievement;
             this.teacher_experience = experience;
             this.teacher_cv_url = uriString;

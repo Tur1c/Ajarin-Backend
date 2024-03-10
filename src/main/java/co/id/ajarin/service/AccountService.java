@@ -44,4 +44,6 @@ public interface AccountService extends UserDetailsService {
     TeacherEntity getTeacher(Long id);
 
     TeacherEntity getCvFile(Long id);
+
+    String subscribedLecturer(Long id, String email);
 }

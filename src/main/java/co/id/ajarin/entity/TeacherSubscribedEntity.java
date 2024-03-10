@@ -3,7 +3,6 @@ package co.id.ajarin.entity;
 import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,30 +11,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "teacher")
-public class TeacherEntity {
-
+public class TeacherSubscribedEntity {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teacher_id;
-
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private AccountRegisterEntity user;
 
     @Column(columnDefinition = "TEXT", name = "profile_description")
     private String profile_description;
@@ -56,13 +39,4 @@ public class TeacherEntity {
     @JsonIgnore
     @Lob
     private byte[] data;
-
-    @ManyToMany
-    @JoinTable(
-        name = "subscribed_lecturer",
-        joinColumns = @JoinColumn(name = "teacher_id"),
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private List<AccountRegisterEntity> subscribed_student;
-    
 }
