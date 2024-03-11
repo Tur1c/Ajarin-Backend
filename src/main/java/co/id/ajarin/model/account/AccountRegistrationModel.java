@@ -1,5 +1,7 @@
 package co.id.ajarin.model.account;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -9,6 +11,7 @@ import co.id.ajarin.entity.StudentCourseEntity;
 import co.id.ajarin.entity.StudentDiscEntity;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
+import co.id.ajarin.model.account.TeacherModel.Teacher;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,43 +39,13 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
         this.education = account.getEducation();
         this.studentdisc_list = account.getStudentdisc_list();
         this.studentcourse_list = account.getStudentcourse_list();
-        this.subscribed_lecturer = account.getSubscribed_lecturer();
         this.coin = account.getCoin();
         if(account.getData() != null) {
             this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(account.getId().toString()).toUriString();
         }
-        this.pic_name = account.getPic_name();
-        this.pic_type = account.getPic_type();
-
-        System.out.println(account.getStudentcourse_list() + " ASJBAJSBAJS");
-
-        for (TeacherEntity studentCourseEntity : account.getSubscribed_lecturer()) {
-            System.out.println(studentCourseEntity.getUser());
-        }
-    }
-
-    public AccountRegistrationModel(AccountRegisterEntity account, String condition) {
-        this.id = account.getId();
-        this.firstName = account.getFirstName();
-        this.lastName = account.getLastName();
-        this.email = account.getEmail();
-        this.password = account.getPassword();
-        this.role = account.getRole();
-        this.gender = account.getGender();
-        this.city = account.getCity();
-        this.country = account.getCountry();
-        this.school = account.getSchool();
-        this.age = account.getAge();
-        this.phoneNumber = account.getPhoneNumber();
-        this.education = account.getEducation();
-        if(condition != "subscribed") {
-            this.studentdisc_list = account.getStudentdisc_list();
-            this.studentcourse_list = account.getStudentcourse_list();
-        }
-        this.subscribed_lecturer = account.getSubscribed_lecturer();
-        this.coin = account.getCoin();
-        if(account.getData() != null) {
-            this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(account.getId().toString()).toUriString();
+        this.subscribed_lecturer = new ArrayList<TeacherEntity>();
+        for (TeacherEntity teacher : account.getSubscribed_lecturer()) {
+            this.subscribed_lecturer.add(new TeacherEntity(teacher.getTeacher_id(), teacher.getProfile_description(), teacher.getEducation(), teacher.getExperience(), teacher.getAchievement(), teacher.getRating(), null, null, teacher.getUser()));
         }
         this.pic_name = account.getPic_name();
         this.pic_type = account.getPic_type();
