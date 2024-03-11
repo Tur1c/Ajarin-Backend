@@ -85,7 +85,32 @@ public class AccountController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
 
-    @PreAuthorize("hasRole('Student')")
+    @GetMapping("change-role")
+    public ResponseEntity<ResponseWrapperModel<AuthenticationModel>> changeROleAccount(@RequestParam(name = "email") String email) {
+
+        AccountRegistrationModel account = service.getAccountbyEmail(email);
+        System.out.println(account.getRole());
+        if(account.getRole().equals("ROLE_Student")) {
+            account.setRole("ROLE_Teacher");
+        } else {
+            account.setRole("ROLE_Student");
+        }
+        service.update(account);
+
+        ResponseWrapperModel<AuthenticationModel> wrapperModel = new ResponseWrapperModel<>();
+
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+    
+            wrapperModel.setOutputSchema(service.authenticated(account.getEmail()));
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
+    @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
     @GetMapping("")
     public ResponseEntity<ResponseWrapperModel<AccountRegistrationModel>> getAccountbyEmail(@RequestParam(name = "email") String email){
         AccountRegistrationModel account = service.getAccountbyEmail(email);
@@ -102,7 +127,7 @@ public class AccountController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
      }
 
-     @PreAuthorize("hasRole('Student')")
+     @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
     @PutMapping("{id}")
     public ResponseEntity<ResponseWrapperModel<AccountRegistrationModel>> updateAccount(@PathVariable Long id, @RequestBody AccountRegistrationModel account){
 
@@ -135,7 +160,7 @@ public class AccountController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
      }
 
-     @PreAuthorize("hasRole('Student')")
+     @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
      @PostMapping("join")
      public ResponseEntity<ResponseWrapperModel<StudentDiscModel>> createJoinDiscussion(@RequestBody StudentDiscModel data){
         System.out.println(data.getEmail());
@@ -160,7 +185,7 @@ public class AccountController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
      }
     
-     @PreAuthorize("hasRole('Student')")
+     @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
      @PostMapping("joincourse")
      public ResponseEntity<ResponseWrapperModel<StudentDiscModel>> createJoinCourse(@RequestBody StudentDiscModel data){
         System.out.println(data.getEmail());
@@ -294,6 +319,14 @@ public class AccountController {
         wrapperModel.setOutputSchema(response);
 
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+
+    }
+
+    @GetMapping("inquiry/teacher/{id}")
+    public ResponseEntity getTeacher(@PathVariable Long id) {
+        Boolean alreadyRegistered = service.getTeacherByUserId(id);
+
+        return ResponseEntity.status(HttpStatus.OK.value()).body(alreadyRegistered);
 
     }
     

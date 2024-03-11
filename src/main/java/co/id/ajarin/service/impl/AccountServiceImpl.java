@@ -257,6 +257,19 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Boolean getTeacherByUserId(Long id) {
+        boolean isAlreadyRegisteredAsTeacher = false;
+        List<TeacherEntity> teachers = repositoryTeacher.findAll();
+        for (TeacherEntity teacherEntity : teachers) {
+            if(teacherEntity.getUser().getId() == id) {
+                isAlreadyRegisteredAsTeacher = true;
+                break;
+            }
+        }
+        return isAlreadyRegisteredAsTeacher;
+    }
+
+    @Override
     public TeacherEntity getTeacher(Long id) {
        return repositoryTeacher.getReferenceById(id);
     }
