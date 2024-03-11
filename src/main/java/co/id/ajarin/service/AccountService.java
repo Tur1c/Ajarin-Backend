@@ -41,6 +41,8 @@ public interface AccountService extends UserDetailsService {
 
     List<TeacherModel.Teacher> getAllTeacher();
 
+    Boolean getTeacherByUserId(Long id);
+
     TeacherEntity getTeacher(Long id);
 
     TeacherEntity getCvFile(Long id);
