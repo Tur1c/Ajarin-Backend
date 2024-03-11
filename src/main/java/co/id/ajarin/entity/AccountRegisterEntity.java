@@ -56,7 +56,34 @@ public class AccountRegisterEntity {
         this.education = education2;
         this.studentdisc_list = studentdisc_list2;
         this.studentcourse_list = studentcourse_list2;
-        this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
+        // this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
+        this.pic_name = pic_name2;
+        this.pic_type = pic_type2;
+    }
+
+    public AccountRegisterEntity(Long id2, String firstName2, String lastName2, String email2, String password2,
+            String role2, String gender2, String city2, String country2, String school2, Integer age2,
+            String phoneNumber2, String education2, List<StudentDiscEntity> studentdisc_list2, List<StudentCourseEntity> studentcourse_list2, 
+            Integer coin2, String pic_name2, String pic_type2, byte[] pic_data) {
+        this.id = id2;
+        this.age = age2;
+        this.firstName = firstName2;
+        this.lastName = lastName2;
+        this.email = email2;
+        this.password = password2;
+        this.role = role2;
+        this.gender = gender2;
+        this.coin = coin2;
+        this.city = city2;
+        this.country = country2;
+        this.school = school2;
+        this.phoneNumber = phoneNumber2;
+        this.education = education2;
+        this.studentdisc_list = studentdisc_list2;
+        this.studentcourse_list = studentcourse_list2;
+        if(pic_data != null) {
+            this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
+        }
         this.pic_name = pic_name2;
         this.pic_type = pic_type2;
     }

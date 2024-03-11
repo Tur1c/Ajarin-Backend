@@ -46,7 +46,7 @@ public class TeacherEntity {
         this.rating = rating;
         this.data = data;
         this.subscribed_student = subscribed_student;
-        this.user = new AccountRegisterEntity(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getRole(), user.getGender(), user.getCity(), user.getCountry(), user.getSchool(), user.getAge(), user.getPhoneNumber(), user.getEducation(), null, null, user.getCoin(), user.getPic_name(), user.getPic_type());
+        this.user = new AccountRegisterEntity(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getRole(), user.getGender(), user.getCity(), user.getCountry(), user.getSchool(), user.getAge(), user.getPhoneNumber(), user.getEducation(), null, null, user.getCoin(), user.getPic_name(), user.getPic_type(), user.getData());
     }
 
     @Id
@@ -79,6 +79,7 @@ public class TeacherEntity {
     private byte[] data;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
         name = "subscribed_lecturer",
         joinColumns = @JoinColumn(name = "teacher_id"),

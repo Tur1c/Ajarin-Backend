@@ -323,4 +323,21 @@ public class AccountController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
 
+    @GetMapping("/unsubscribe")
+    public ResponseEntity<ResponseWrapperModel> unSubscribedLecturer(@RequestParam(name = "teacher-id") Long id, @RequestParam("email") String email) {
+
+        String message = service.unSubscribedLecturer(id, email);
+
+        ResponseWrapperModel<TeacherModel.Response> wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(null);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
 }

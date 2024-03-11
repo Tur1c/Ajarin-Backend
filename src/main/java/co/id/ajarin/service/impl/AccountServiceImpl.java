@@ -268,13 +268,31 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public String subscribedLecturer(Long id, String email) {
+        boolean newSubscribed = true;
         TeacherEntity teacher = repositoryTeacher.findById(id).get();
         AccountRegisterEntity account = repository.findByEmail(email);
 
-        // for (AccountRegisterEntity accountEntity : teacher.getSubscribed_student()) {
-        //     if(accountEntity.getSubscribed_lecturer())
-        // }
-        teacher.getSubscribed_student().add(account);
+        for (TeacherEntity teacherList : account.getSubscribed_lecturer()) {
+            if(teacherList.getTeacher_id() == teacher.getTeacher_id()) {
+                newSubscribed = false;
+            }
+            if(account.getId() == teacher.getUser().getId()) {
+                newSubscribed = false;
+            }
+        }
+        if(newSubscribed) {
+            teacher.getSubscribed_student().add(account);
+        }
+        return "Success";
+    }
+
+    @Override
+    public String unSubscribedLecturer(Long id, String email) {
+        TeacherEntity teacher = repositoryTeacher.findById(id).get();
+        AccountRegisterEntity account = repository.findByEmail(email);
+
+        teacher.getSubscribed_student().remove(account);
+
         return "Success";
     }
     
