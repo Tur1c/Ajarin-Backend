@@ -54,7 +54,6 @@ public class TeacherEntity {
     private Long teacher_id;
 
     @OneToOne
-    @JsonBackReference
     @JoinColumn(name = "user_id")
     private AccountRegisterEntity user;
 
