@@ -54,6 +54,9 @@ public class CourseEntity {
     @Column(name = "course_image")
     private String course_image;
 
+    @Column(name = "course_sold")
+    private Integer total_course_sold;
+
     @ManyToOne
     @JoinColumn(name="course_category")
     private CategoryEntity category;

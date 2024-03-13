@@ -39,7 +39,11 @@ public class SecurityConfiguration implements WebMvcConfigurer {
                 .csrf()
                 .disable().cors().and()
                 .authorizeHttpRequests()
-                .antMatchers("/api/account/login", "/api/account/register", "/api/discussion", "/api/course","/api/forum", "/api/category", "/api/account/files/*", "/api/account/files/cv/*", "/api/account/inquiry/teacher")
+                .antMatchers("/api/account/login", 
+                "/api/account/register", "/api/discussion", 
+                "/api/discussion/files/*",
+                "/api/course","/api/forum", "/api/category", "/api/account/files/*", 
+                "/api/account/files/cv/*", "/api/account/inquiry/teacher")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

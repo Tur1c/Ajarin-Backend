@@ -18,26 +18,27 @@ public class DiscussionMapper {
             discussion.getDisc_description(),
             discussion.getDisc_level(),
             discussion.getDisc_image(),
+            discussion.getDisc_url(),
             discussion.getCategory(),
             discussion.getTeacher(),
             null
         );
     }
 
-    public static DiscussionEntity maptoDiscussionEntity (DiscussionModel.Discussion discussionModel){
-        return new DiscussionEntity(
-            discussionModel.getDisc_id(),
-            discussionModel.getDisc_title(),
-            discussionModel.getDisc_participant(),
-            discussionModel.getDisc_price(),
-            discussionModel.getDisc_starttime(),
-            discussionModel.getDisc_endtime(),
-            discussionModel.getDisc_date(),
-            discussionModel.getDisc_description(),
-            discussionModel.getDisc_level(),
-            discussionModel.getDisc_image(),
-            discussionModel.getCategory(),
-            discussionModel.getTeacher()
-        );
-    }
+    // public static DiscussionEntity maptoDiscussionEntity (DiscussionModel.Discussion discussionModel){
+    //     return new DiscussionEntity(
+    //         discussionModel.getDisc_id(),
+    //         discussionModel.getDisc_title(),
+    //         discussionModel.getDisc_participant(),
+    //         discussionModel.getDisc_price(),
+    //         discussionModel.getDisc_starttime(),
+    //         discussionModel.getDisc_endtime(),
+    //         discussionModel.getDisc_date(),
+    //         discussionModel.getDisc_description(),
+    //         discussionModel.getDisc_level(),
+    //         discussionModel.getDisc_image(),
+    //         discussionModel.getCategory(),
+            // discussionModel.getTeacher()
+    //     );
+    // }
 } 

@@ -51,6 +51,7 @@ public class AccountRegistrationModel extends OutputRepositoryModel {
         this.pic_type = account.getPic_type();
 
         System.out.println(account.getStudentcourse_list() + " ASJBAJSBAJS");
+        System.out.println(account.getStudentdisc_list() + " ASJBAJSBAJS");
 
         for (TeacherEntity studentCourseEntity : account.getSubscribed_lecturer()) {
             System.out.println(studentCourseEntity.getUser());

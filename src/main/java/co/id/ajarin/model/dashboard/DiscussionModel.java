@@ -1,6 +1,6 @@
 package co.id.ajarin.model.dashboard;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 import java.util.List;
 
@@ -39,6 +39,7 @@ public class DiscussionModel {
         private String disc_description;
         private String disc_level;
         private String disc_image;
+        private String disc_url;
         private CategoryEntity category;
         private TeacherEntity teacher;
         private Long joinedParticipant;

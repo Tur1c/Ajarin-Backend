@@ -21,9 +21,9 @@ public class TeacherMapper {
             teacherEntity.getEducation(),
             ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(teacherEntity.getTeacher_id().toString()).toUriString(),
             teacherEntity.getRating(),
-            teacherEntity.getTeacher_image(),
-            teacherEntity.getTeacher_name(),
-            acc
+            teacherEntity.getUser()
+            // teacherEntity.getTeacher_image(),
+            // teacherEntity.getTeacher_name(),
         );
     }
 }

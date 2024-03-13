@@ -37,6 +37,7 @@ public class CourseModel {
         private String course_description;
         private String course_level;
         private String course_image;
+        private Integer total_sold_course;
         private CategoryEntity category;
         private List<CourseDetailEntity> course_details;
         private TeacherEntity teacher;

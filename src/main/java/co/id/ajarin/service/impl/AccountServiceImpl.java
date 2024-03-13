@@ -204,6 +204,15 @@ public class AccountServiceImpl implements AccountService {
 
         CourseEntity course =  courseRepository.getById(course_id);
 
+        System.out.println(course.getTotal_course_sold());
+        if(course.getTotal_course_sold() == null) {
+            course.setTotal_course_sold(1);
+        } else {
+            course.setTotal_course_sold(course.getTotal_course_sold() + 1);
+        }
+
+        courseRepository.save(course);
+
         StudentCourseKey key = new StudentCourseKey(user_id, course_id);
         
         StudentCourseEntity student_course = new StudentCourseEntity(key, account,course,"Ongoing");
@@ -217,7 +226,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountRegisterEntity store(String email, MultipartFile file) throws IOException {
-       String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
         AccountRegisterEntity account = repository.findByEmail(email);
         account.setData(file.getBytes());
         account.setPic_name(filename);
