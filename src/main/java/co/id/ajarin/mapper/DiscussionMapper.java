@@ -1,5 +1,7 @@
 package co.id.ajarin.mapper;
 
+import org.springframework.data.jpa.repository.Query;
+
 import co.id.ajarin.entity.DiscussionEntity;
 import co.id.ajarin.model.dashboard.DiscussionModel;
 
@@ -17,7 +19,8 @@ public class DiscussionMapper {
             discussion.getDisc_level(),
             discussion.getDisc_image(),
             discussion.getCategory(),
-            discussion.getTeacher()
+            discussion.getTeacher(),
+            null
         );
     }
 

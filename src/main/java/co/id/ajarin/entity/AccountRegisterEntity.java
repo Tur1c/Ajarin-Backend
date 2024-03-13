@@ -36,30 +36,30 @@ import lombok.Setter;
 @Table(name = "ajarin_user")
 public class AccountRegisterEntity {
 
-    public AccountRegisterEntity(Long id2, String firstName2, String lastName2, String email2, String password2,
-            String role2, String gender2, String city2, String country2, String school2, Integer age2,
-            String phoneNumber2, String education2, List<StudentDiscEntity> studentdisc_list2, List<StudentCourseEntity> studentcourse_list2, 
-            Integer coin2, String pic_name2, String pic_type2) {
-        this.id = id2;
-        this.age = age2;
-        this.firstName = firstName2;
-        this.lastName = lastName2;
-        this.email = email2;
-        this.password = password2;
-        this.role = role2;
-        this.gender = gender2;
-        this.coin = coin2;
-        this.city = city2;
-        this.country = country2;
-        this.school = school2;
-        this.phoneNumber = phoneNumber2;
-        this.education = education2;
-        this.studentdisc_list = studentdisc_list2;
-        this.studentcourse_list = studentcourse_list2;
-        // this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
-        this.pic_name = pic_name2;
-        this.pic_type = pic_type2;
-    }
+    // public AccountRegisterEntity(Long id2, String firstName2, String lastName2, String email2, String password2,
+    //         String role2, String gender2, String city2, String country2, String school2, Integer age2,
+    //         String phoneNumber2, String education2, List<StudentDiscEntity> studentdisc_list2, List<StudentCourseEntity> studentcourse_list2, 
+    //         Integer coin2, String pic_name2, String pic_type2) {
+    //     this.id = id2;
+    //     this.age = age2;
+    //     this.firstName = firstName2;
+    //     this.lastName = lastName2;
+    //     this.email = email2;
+    //     this.password = password2;
+    //     this.role = role2;
+    //     this.gender = gender2;
+    //     this.coin = coin2;
+    //     this.city = city2;
+    //     this.country = country2;
+    //     this.school = school2;
+    //     this.phoneNumber = phoneNumber2;
+    //     this.education = education2;
+    //     this.studentdisc_list = studentdisc_list2;
+    //     this.studentcourse_list = studentcourse_list2;
+    //     // this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
+    //     this.pic_name = pic_name2;
+    //     this.pic_type = pic_type2;
+    // }
 
     public AccountRegisterEntity(Long id2, String firstName2, String lastName2, String email2, String password2,
             String role2, String gender2, String city2, String country2, String school2, Integer age2,
@@ -86,6 +86,30 @@ public class AccountRegisterEntity {
         }
         this.pic_name = pic_name2;
         this.pic_type = pic_type2;
+    }
+
+    //constructor without relational data
+    public AccountRegisterEntity(Long id, String firstName, String lastName, String email, String password, String role, String gender, String city, String country,
+    String school, Integer age, String phoneNumber, String education, Integer coin, String pic_name, String pic_type, byte[] pic_data){
+        this.id = id;
+        this.age = age;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.gender = gender;
+        this.coin = coin;
+        this.city = city;
+        this.country = country;
+        this.school = school;
+        this.phoneNumber = phoneNumber;
+        this.education = education;
+        if(pic_data != null) {
+            this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
+        }
+        this.pic_name = pic_name;
+        this.pic_type = pic_type;
     }
 
     @Id
@@ -136,6 +160,7 @@ public class AccountRegisterEntity {
     private List<StudentCourseEntity> studentcourse_list;
 
     @ManyToMany()
+    // @JsonIgnore
     @JoinTable(
         name = "subscribed_lecturer",
         joinColumns = @JoinColumn(name = "user_id"),

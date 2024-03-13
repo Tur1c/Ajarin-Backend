@@ -29,25 +29,29 @@ public class TeacherModel extends OutputRepositoryModel {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Teacher {
-        public Teacher(Long teacher_id, String profile_description, String achievement, String experience,
-                String education, String uriString, String rating, AccountRegisterEntity user) {
-            this.id = teacher_id;
-            this.teacher_description = profile_description;
-            this.teacher_achievement = achievement;
-            this.teacher_experience = experience;
-            this.teacher_cv_url = uriString;
-            this.teacher_education = education;
-            this.teacher_rating = rating;
-            this.account = new AccountRegistrationModel(user);
-        }
+        // public Teacher(Long teacher_id, String profile_description, String achievement, String experience,
+        //         String education, String uriString, String rating, String teacher_image, String teacher_name, AccountRegisterEntity user) {
+        //     this.id = teacher_id;
+        //     this.profile_description = profile_description;
+        //     this.achievement = achievement;
+        //     this.experience = experience;
+        //     this.cv_data = uriString;
+        //     this.education = education;
+        //     this.rating = rating;
+        //     this.teacher_image = teacher_image;
+        //     this.teacher_name = teacher_name;
+        //     this.account = user;
+        // }
         private Long id;
-        private String teacher_description;
-        private String teacher_achievement;
-        private String teacher_experience;
-        private String teacher_education;
-        private String teacher_cv_url;
-        private String teacher_rating;
-        private AccountRegistrationModel account;
+        private String profile_description;
+        private String achievement;
+        private String experience;
+        private String education;
+        private String cv_data;
+        private String rating;
+        private String teacher_image;
+        private String teacher_name;
+        private AccountRegisterEntity user;
 
     }
 

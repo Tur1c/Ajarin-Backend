@@ -1,11 +1,14 @@
 package co.id.ajarin.mapper;
 
+import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.model.forum.ForumModel;
 
 public class ForumMapper {
 
     public static ForumModel.Forum maptoForumModel (ForumEntity forum){
+        AccountRegisterEntity acc = forum.getUser();
+        acc = new AccountRegisterEntity(acc.getId(), acc.getFirstName(), acc.getLastName(), acc.getEmail(), acc.getPassword(), acc.getRole(), acc.getGender(), acc.getCity(), acc.getCountry(), acc.getSchool(), acc.getAge(), acc.getPhoneNumber(), acc.getEducation(), acc.getCoin(), acc.getPic_name(), acc.getPic_type(), acc.getData());
         return new ForumModel.Forum(
             forum.getQuestion_id(),
             forum.getQuestion_title(),
@@ -15,7 +18,7 @@ public class ForumMapper {
             forum.getTotal_comment(),
             forum.getCreated_date(),
             forum.getCategory(),
-            forum.getUser()
+            acc
         );
     }
 

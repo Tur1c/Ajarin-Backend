@@ -41,5 +41,6 @@ public class DiscussionModel {
         private String disc_image;
         private CategoryEntity category;
         private TeacherEntity teacher;
+        private Long joinedParticipant;
     }
 }

@@ -3,6 +3,10 @@ package co.id.ajarin.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +21,28 @@ public class DiscussionServiceImpl implements DiscussionService {
 
     @Autowired
     private DiscussionRepository discussionRepository;
+    @PersistenceContext
+    private EntityManager em;
 
     @Override
     public List<Discussion> getAllDiscussion() {
         List<DiscussionEntity> discussions = discussionRepository.findAll();
 
-        return discussions.stream().map( (discussion) -> DiscussionMapper.maptoDiscussionModel(discussion)).collect(Collectors.toList());
+        System.out.println("yey");
+        // Query query= em.crea("SELECT COUNT(*) FROM DISCUSSION");
+        System.out.println("lewat query");
+        // int testest = ((Number) query.getSingleResult()).intValue();
+        System.out.println("lewat test");
+        // System.out.println(testest + "ehehe");
+        System.out.println("siu lewat");
+        Long test =  discussionRepository.count();
+        System.out.println(test + "wuttt");
+
         
+        // DiscussionEntity discussion = discussionRepository.getById(1);
+
+        return discussions.stream().map( (discussion) -> DiscussionMapper.maptoDiscussionModel(discussion)).collect(Collectors.toList());
+        // return null;
     }
     
 }

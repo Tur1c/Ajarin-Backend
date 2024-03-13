@@ -273,8 +273,8 @@ public class AccountController {
             System.out.println(account.getId());
             List<TeacherModel.Teacher> teachers = service.getAllTeacher();
             for (TeacherModel.Teacher teacher : teachers) {
-                if(teacher.getAccount().getId() == account.getId()) flagNew = true;
-                System.out.println(teacher.getAccount().getId());
+                if(teacher.getUser().getId() == account.getId()) flagNew = true;
+                System.out.println(teacher.getUser().getId());
                 System.out.println(account.getId());
             }
             if(!flagNew) {

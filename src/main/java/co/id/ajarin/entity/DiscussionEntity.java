@@ -21,7 +21,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "discussion")
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "discussion")
