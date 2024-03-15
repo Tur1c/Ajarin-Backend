@@ -5,6 +5,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.entity.TeacherEntity;
+import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.account.TeacherModel;
 import co.id.ajarin.model.category.CategoryModel;
 
@@ -21,7 +22,8 @@ public class TeacherMapper {
             teacherEntity.getEducation(),
             ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(teacherEntity.getTeacher_id().toString()).toUriString(),
             teacherEntity.getRating(),
-            teacherEntity.getUser()
+            // teacherEntity.getUser()
+            new AccountRegistrationModel(teacherEntity.getUser())
             // teacherEntity.getTeacher_image(),
             // teacherEntity.getTeacher_name(),
         );

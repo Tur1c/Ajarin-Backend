@@ -8,6 +8,8 @@ import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.entity.StudentCourseEntity;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
+import co.id.ajarin.model.account.TeacherModel;
+import co.id.ajarin.model.account.TeacherModel.Teacher;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,7 +43,7 @@ public class DiscussionModel {
         private String disc_image;
         private String disc_url;
         private CategoryEntity category;
-        private TeacherEntity teacher;
+        private TeacherModel.Teacher teacher;
         private Long joinedParticipant;
     }
 }

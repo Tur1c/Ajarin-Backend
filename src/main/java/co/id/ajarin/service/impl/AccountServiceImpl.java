@@ -295,6 +295,10 @@ public class AccountServiceImpl implements AccountService {
         TeacherEntity teacher = repositoryTeacher.findById(id).get();
         AccountRegisterEntity account = repository.findByEmail(email);
 
+        if(account.getId() == teacher.getUser().getId()) {
+            newSubscribed = false;
+        }
+
         for (TeacherEntity teacherList : account.getSubscribed_lecturer()) {
             if(teacherList.getTeacher_id() == teacher.getTeacher_id()) {
                 newSubscribed = false;

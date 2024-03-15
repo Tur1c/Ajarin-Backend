@@ -1,8 +1,11 @@
 package co.id.ajarin.mapper;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import co.id.ajarin.entity.DiscussionEntity;
+import co.id.ajarin.model.account.AccountRegistrationModel;
+import co.id.ajarin.model.account.TeacherModel;
 import co.id.ajarin.model.dashboard.DiscussionModel;
 
 public class DiscussionMapper {
@@ -20,8 +23,9 @@ public class DiscussionMapper {
             discussion.getDisc_image(),
             discussion.getDisc_url(),
             discussion.getCategory(),
-            discussion.getTeacher(),
-            null
+            // discussion.getTeacher(),
+            new TeacherModel.Teacher(discussion.getTeacher().getTeacher_id(), discussion.getTeacher().getProfile_description(), discussion.getTeacher().getAchievement(), discussion.getTeacher().getExperience(), discussion.getTeacher().getEducation(), ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(discussion.getTeacher().getTeacher_id().toString()).toUriString(), discussion.getTeacher().getRating(), new AccountRegistrationModel(discussion.getTeacher().getUser())),
+            new Long(0)
         );
     }
 

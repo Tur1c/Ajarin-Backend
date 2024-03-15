@@ -54,7 +54,7 @@ public class TeacherEntity {
     private Long teacher_id;
 
     @OneToOne
-    @JsonBackReference
+    // @JsonBackReference
     @JoinColumn(name = "user_id")
     private AccountRegisterEntity user;
 
@@ -80,7 +80,7 @@ public class TeacherEntity {
     // private String teacher_name;
 
     @Column(name = "cv_data")
-    // @JsonIgnore
+    @JsonIgnore
     @Lob
     private byte[] data;
 

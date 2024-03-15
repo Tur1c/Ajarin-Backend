@@ -51,7 +51,7 @@ public class TeacherModel extends OutputRepositoryModel {
         private String rating;
         // private String teacher_image;
         // private String teacher_name;
-        private AccountRegisterEntity user;
+        private AccountRegistrationModel user;
 
     }
 

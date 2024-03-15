@@ -5,6 +5,7 @@ import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.entity.CourseDetailEntity;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
+import co.id.ajarin.model.account.TeacherModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +41,7 @@ public class CourseModel {
         private Integer total_sold_course;
         private CategoryEntity category;
         private List<CourseDetailEntity> course_details;
-        private TeacherEntity teacher;
+        private TeacherModel.Teacher teacher;
     }
 
 }
