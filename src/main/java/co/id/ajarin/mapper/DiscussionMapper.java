@@ -24,7 +24,7 @@ public class DiscussionMapper {
             discussion.getDisc_url(),
             discussion.getCategory(),
             // discussion.getTeacher(),
-            new TeacherModel.Teacher(discussion.getTeacher().getTeacher_id(), discussion.getTeacher().getProfile_description(), discussion.getTeacher().getAchievement(), discussion.getTeacher().getExperience(), discussion.getTeacher().getEducation(), ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(discussion.getTeacher().getTeacher_id().toString()).toUriString(), discussion.getTeacher().getRating(), new AccountRegistrationModel(discussion.getTeacher().getUser())),
+            new TeacherModel.Teacher(discussion.getTeacher().getTeacher_id(), discussion.getTeacher().getProfile_description(), discussion.getTeacher().getAchievement(), discussion.getTeacher().getExperience(), discussion.getTeacher().getEducation(), ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(discussion.getTeacher().getTeacher_id().toString()).toUriString(), discussion.getTeacher().getRating(), new AccountRegistrationModel(discussion.getTeacher().getUser()), null),
             new Long(0)
         );
     }

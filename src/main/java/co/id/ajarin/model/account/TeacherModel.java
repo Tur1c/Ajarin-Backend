@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.StudentDiscEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
+import co.id.ajarin.model.dashboard.CourseModel.Course;
+import co.id.ajarin.model.dashboard.DiscussionModel.Discussion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,20 +30,33 @@ public class TeacherModel extends OutputRepositoryModel {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Teacher {
-        // public Teacher(Long teacher_id, String profile_description, String achievement, String experience,
-        //         String education, String uriString, String rating, String teacher_image, String teacher_name, AccountRegisterEntity user) {
-        //     this.id = teacher_id;
-        //     this.profile_description = profile_description;
-        //     this.achievement = achievement;
-        //     this.experience = experience;
-        //     this.cv_data = uriString;
-        //     this.education = education;
-        //     this.rating = rating;
-        //     this.teacher_image = teacher_image;
-        //     this.teacher_name = teacher_name;
-        //     this.account = user;
-        // }
+    public static class Teacher extends OutputRepositoryModel {
+        // untuk list discussion yg dimiliki teacher
+        public Teacher(Long teacher_id, String profile_description, String achievement, String experience,
+                String education, String rating, AccountRegisterEntity user) {
+            this.id = teacher_id;
+            this.profile_description = profile_description;
+            this.achievement = achievement;
+            this.experience = experience;
+            this.education = education;
+            this.rating = rating;
+            this.user = new AccountRegistrationModel(user);
+        }
+
+        public Teacher(Long teacher_id, String profile_description2, String achievement2, String experience2,
+                String education2, String uriString, String rating2,
+                AccountRegistrationModel accountRegistrationModel, List<Discussion> discussion) {
+            this.id = teacher_id;
+            this.profile_description = profile_description2;
+            this.achievement = achievement2;
+            this.experience = experience2;
+            this.education = education2;
+            this.cv_data = uriString;
+            this.rating = rating2;
+            this.user = accountRegistrationModel;
+            this.discussion = discussion;
+        }
+
         private Long id;
         private String profile_description;
         private String achievement;
@@ -52,7 +67,9 @@ public class TeacherModel extends OutputRepositoryModel {
         // private String teacher_image;
         // private String teacher_name;
         private AccountRegistrationModel user;
-
+        private List<Discussion> discussion;
+        private List<Course> courses;
     }
+    
 
 }

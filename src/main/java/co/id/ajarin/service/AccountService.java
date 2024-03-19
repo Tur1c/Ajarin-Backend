@@ -11,6 +11,7 @@ import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.account.TeacherModel;
+import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.auth.AuthenticationModel;
 
 public interface AccountService extends UserDetailsService {
@@ -41,7 +42,7 @@ public interface AccountService extends UserDetailsService {
 
     List<TeacherModel.Teacher> getAllTeacher();
 
-    Boolean getTeacherByUserId(Long id);
+    Teacher getTeacherByUserId(Long id);
 
     TeacherEntity getTeacher(Long id);
 

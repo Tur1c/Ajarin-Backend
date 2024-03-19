@@ -19,6 +19,16 @@ import lombok.Setter;
 @Entity
 @Table(name = "course_detail")
 public class CourseDetailEntity {
+    
+    public CourseDetailEntity(Long course_id, Long course_detail_chapter, String chapter_title, String chapter_video,
+            String chapter_thumbnail) {
+        this.course_id = course_id;
+        this.course_detail_chapter = course_detail_chapter;
+        this.chapter_title = chapter_title;
+        this.chapter_video = chapter_video;
+        this.chapter_thumbnail = chapter_thumbnail;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long course_detail_id;

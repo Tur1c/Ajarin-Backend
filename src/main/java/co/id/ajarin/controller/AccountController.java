@@ -18,11 +18,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.TeacherEntity;
+import co.id.ajarin.mapper.TeacherMapper;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
 import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.account.TeacherModel;
+import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.auth.AuthenticationModel;
 import co.id.ajarin.model.category.CategoryModel;
 import co.id.ajarin.model.dashboard.StudentDiscModel;
@@ -144,6 +146,7 @@ public class AccountController {
         accountOld.setPhoneNumber(account.getPhoneNumber());
         accountOld.setSchool(account.getSchool());
         accountOld.setStudentdisc_list(account.getStudentdisc_list());
+        accountOld.setStudentcourse_list(account.getStudentcourse_list());
         accountOld.setCoin(account.getCoin());
 
         service.update(accountOld);
@@ -324,9 +327,18 @@ public class AccountController {
 
     @GetMapping("inquiry/teacher/{id}")
     public ResponseEntity getTeacher(@PathVariable Long id) {
-        Boolean alreadyRegistered = service.getTeacherByUserId(id);
+        Teacher teacher = service.getTeacherByUserId(id);
 
-        return ResponseEntity.status(HttpStatus.OK.value()).body(alreadyRegistered);
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(teacher);
+
+        return ResponseEntity.status(HttpStatus.OK.value()).body(wrapperModel);
 
     }
     

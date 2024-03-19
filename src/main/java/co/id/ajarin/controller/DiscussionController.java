@@ -61,7 +61,6 @@ public class DiscussionController {
         @RequestParam("max_participant") String maxParticipant, @RequestParam("price") String price, @RequestParam("file") MultipartFile file, 
         @RequestParam("link") String urlLink, @RequestParam("user_id") Long userId
     ) throws IOException{
-        System.out.println(startDate);
         String message = discService.addDiscussion(title, category, level, description, startDate, endDate, maxParticipant, price, urlLink, file, userId);
 
         ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();

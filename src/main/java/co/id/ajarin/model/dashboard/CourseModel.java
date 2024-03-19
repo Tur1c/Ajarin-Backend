@@ -30,8 +30,8 @@ public class CourseModel {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Course {
-        private Long course_id;
+    public static class Course extends OutputRepositoryModel {
+		private Long course_id;
         private Integer course_price;
         private String course_chapter;
         private String course_title;

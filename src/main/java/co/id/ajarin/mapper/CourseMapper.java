@@ -23,7 +23,7 @@ public class CourseMapper {
             course.getCategory(),
             course.getCourse_details(),
             // course.getTeacher()
-            new TeacherModel.Teacher(course.getTeacher().getTeacher_id(), course.getTeacher().getProfile_description(), course.getTeacher().getAchievement(), course.getTeacher().getExperience(), course.getTeacher().getEducation(), ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(course.getTeacher().getTeacher_id().toString()).toUriString(), course.getTeacher().getRating(), new AccountRegistrationModel(course.getTeacher().getUser()))
+            new TeacherModel.Teacher(course.getTeacher().getTeacher_id(), course.getTeacher().getProfile_description(), course.getTeacher().getAchievement(), course.getTeacher().getExperience(), course.getTeacher().getEducation(), ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(course.getTeacher().getTeacher_id().toString()).toUriString(), course.getTeacher().getRating(), new AccountRegistrationModel(course.getTeacher().getUser()), null)
         );
     }
 

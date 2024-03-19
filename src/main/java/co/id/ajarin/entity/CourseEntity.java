@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -31,7 +32,22 @@ import lombok.Setter;
 @Entity
 @Table(name = "course")
 public class CourseEntity {
-    
+ 
+    public CourseEntity(Integer course_price, String course_chapter, String course_title, String course_description,
+            String course_level, String filename, String url, byte[] course_image_data, Integer total_course_sold, CategoryEntity category,
+            TeacherEntity teacher) {
+        this.course_price = course_price;
+        this.course_chapter = course_chapter;
+        this.course_title = course_title;
+        this.course_description = course_description;
+        this.course_level = course_level;
+        this.course_image = url;
+        this.course_image_data = course_image_data;
+        this.total_course_sold = total_course_sold;
+        this.category = category;
+        this.teacher = teacher;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long course_id;
@@ -53,6 +69,11 @@ public class CourseEntity {
 
     @Column(name = "course_image")
     private String course_image;
+
+    @Lob
+    @JsonIgnore
+    @Column(name = "course_image_data")
+    private byte[] course_image_data;
 
     @Column(name = "course_sold")
     private Integer total_course_sold;
