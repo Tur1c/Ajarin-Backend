@@ -1,6 +1,7 @@
 package co.id.ajarin.mapper;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.model.forum.ForumModel;
 
@@ -18,6 +19,7 @@ public class ForumMapper {
             forum.getTotal_comment(),
             forum.getCreated_date(),
             forum.getCategory(),
+            forum.getForum_replies(),
             acc
         );
     }
@@ -32,6 +34,7 @@ public class ForumMapper {
             forumModel.getTotal_comment(),
             forumModel.getCreated_date(),
             forumModel.getCategory_id(),
+            forumModel.getForum_replies(),
             forumModel.getUser_id()
         );
     }

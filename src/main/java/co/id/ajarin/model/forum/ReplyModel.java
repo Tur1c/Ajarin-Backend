@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
-import co.id.ajarin.entity.CategoryEntity;
+import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
@@ -14,29 +14,32 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ForumModel {
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class Response extends OutputRepositoryModel {
-        public List<Forum> forums;
+@NoArgsConstructor
+public class ReplyModel extends OutputRepositoryModel{
+
+    public ReplyModel(ForumReplyEntity reply) {
+        // this.fr_id = reply.getFr_id();
+        
     }
 
     @Getter
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Forum {
-        private Long question_id;
-        private String question_title;
-        private String question_desc;
-        private String question_level;
-        private String question_image;
-        private Integer total_comment;
-        private Timestamp created_date;
-        private CategoryEntity category_id;
-        private List<ForumReplyEntity> forum_replies;
+    public static class Response extends OutputRepositoryModel {
+        public List<Reply> replies;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Reply extends OutputRepositoryModel {
+        private Long fr_id;
+        private String fr_reply;
+        private Long fr_likes;
         private AccountRegisterEntity user_id;
+        // private ForumEntity forumEntity;
+        private Timestamp fr_replied_at;
     }
 }
