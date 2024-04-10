@@ -78,6 +78,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
+    @SuppressWarnings("deprecation")
     UsernamePasswordAuthenticationToken getAuthenticationToken(final String token, final Authentication existingAuth, final UserDetails userDetails) {
 
         final JwtParser jwtParser = Jwts.parser().setSigningKey(SECRET_KEY);

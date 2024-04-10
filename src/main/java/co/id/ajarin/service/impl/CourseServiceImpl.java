@@ -20,10 +20,12 @@ import co.id.ajarin.model.dashboard.CourseModel;
 import co.id.ajarin.repository.CategoryRepository;
 import co.id.ajarin.repository.CourseDetailRepository;
 import co.id.ajarin.repository.CourseRepository;
+import co.id.ajarin.repository.StudentCourseRepository;
 import co.id.ajarin.repository.TeacherRepository;
 import co.id.ajarin.service.CourseService;
 
 @Service
+@SuppressWarnings({ "deprecation", "null" })
 public class CourseServiceImpl implements CourseService{
 
     @Autowired
@@ -38,6 +40,9 @@ public class CourseServiceImpl implements CourseService{
     @Autowired
     private CourseDetailRepository courseDetailRepository;
 
+    @Autowired
+    private StudentCourseRepository studentCourseRepository;
+
     @Override
     @Transactional
     public List<CourseModel.Course> getAllCourse() {
@@ -46,6 +51,7 @@ public class CourseServiceImpl implements CourseService{
 
        return courses.stream().map( (course) -> CourseMapper.mapToCourseModel(course)).collect(Collectors.toList());
     }
+
 
     @Override
     public CourseEntity addNewCourse(String title, String categoryName, String level, String description, String chapter,
@@ -80,6 +86,8 @@ public class CourseServiceImpl implements CourseService{
         return course;
     }
 
+  
+
     @Override
     @Transactional
     public String addCourseDetail(Long id, String title, String video, String thumbnail) {
@@ -89,6 +97,38 @@ public class CourseServiceImpl implements CourseService{
         System.out.println(course.getCourse_chapter());
         courseDetailRepository.save(courseDetail);
         return "Success";
+    }
+
+    @Override
+    @Transactional
+    public String completeChapter(String complete, Long courseid, Long userid, Long total_chap) {
+        System.out.println(courseid + " " + userid + " " + complete + "hiks");
+        int x = studentCourseRepository.setCompleteChap(complete, courseid, userid);
+        System.out.println(x);
+
+        String[] array = complete.split("\\|");
+        int completed_chap = array.length;
+
+        System.out.println(completed_chap  + "aha");
+        System.out.println(total_chap + "total");
+        System.out.println((completed_chap == total_chap));
+        if(completed_chap == total_chap){
+            studentCourseRepository.setCourseCompleted(courseid, userid);
+            return "Course Completed";
+        }
+
+
+        return "Chapter Completed";
+    }
+
+    @Override
+    @Transactional
+    public String rateCourse(String userid, Long courseid, Float rating, String comment) {
+        // TODO Auto-generated method stub
+        System.out.println(userid + " " + courseid + " " + rating + " " + comment + "ahahahaha");
+        studentCourseRepository.setRatingComment(Long.parseLong(userid), courseid, rating, comment);
+
+        return "Success Update";
     }
 
     

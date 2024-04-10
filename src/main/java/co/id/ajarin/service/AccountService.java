@@ -9,26 +9,29 @@ import org.springframework.web.multipart.MultipartFile;
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.account.AccountLoginModel;
+import co.id.ajarin.model.account.AccountModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.account.TeacherModel;
 import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.auth.AuthenticationModel;
+import co.id.ajarin.model.dashboard.PrivateDiscModel;
+import co.id.ajarin.model.dashboard.StudentCourseModel;
 
 public interface AccountService extends UserDetailsService {
     
     AccountRegisterEntity save(AccountRegistrationModel account);
 
-    AccountRegisterEntity update(AccountRegistrationModel account);
+    AccountRegisterEntity update(AccountModel account);
 
     String login(String email, String password);
 
-    AccountRegistrationModel getAccountbyEmail(String email);
+    AccountModel getAccountbyEmail(String email);
 
     AccountLoginModel findByEmail(String email);
 
     AuthenticationModel authenticated(String email);
 
-    AccountRegistrationModel findById(Long id);
+    AccountModel findById(Long id);
 
     String joinDiscussion(String email, Long id);
 
@@ -38,11 +41,11 @@ public interface AccountService extends UserDetailsService {
 
     AccountRegisterEntity getFile(Long id);
 
-    String registerTeacher(AccountRegistrationModel account, MultipartFile file, String achievement, String education, String experience, String description) throws IOException;
+    String registerTeacher(AccountModel account, MultipartFile file, String achievement, String education, String experience, String description) throws IOException;
 
     List<TeacherModel.Teacher> getAllTeacher();
 
-    Teacher getTeacherByUserId(Long id);
+    Teacher getTeacherByUserEmail(String email);
 
     TeacherEntity getTeacher(Long id);
 
@@ -51,4 +54,10 @@ public interface AccountService extends UserDetailsService {
     String subscribedLecturer(Long id, String email);
 
     String unSubscribedLecturer(Long id, String email);
+
+    StudentCourseModel getStudentCourseData(Long userid, Long courseid);
+
+    String addPrivateDisc(PrivateDiscModel disc,Long userid, Long teacherid);
+
+    String acceptOrReject(Long privateid, String status, String subject);
 }

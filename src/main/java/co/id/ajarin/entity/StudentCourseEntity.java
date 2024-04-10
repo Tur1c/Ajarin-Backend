@@ -25,6 +25,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "student_course")
 public class StudentCourseEntity {
+
     @EmbeddedId
     @JsonIgnore
     private StudentCourseKey id;
@@ -42,4 +43,14 @@ public class StudentCourseEntity {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "completed_chap")
+    private String completed_chap;
+
+    @Column(name = "rating")
+    private Float rating;
+
+    @Column(name = "comment")
+    private String comment;
+
 }

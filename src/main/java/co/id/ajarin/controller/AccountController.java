@@ -18,18 +18,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.TeacherEntity;
-import co.id.ajarin.mapper.TeacherMapper;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
 import co.id.ajarin.model.account.AccountLoginModel;
+import co.id.ajarin.model.account.AccountModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.account.TeacherModel;
+import co.id.ajarin.model.account.TeacherModel.Response;
 import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.auth.AuthenticationModel;
-import co.id.ajarin.model.category.CategoryModel;
-import co.id.ajarin.model.dashboard.StudentDiscModel;
+import co.id.ajarin.model.dashboard.JoinDiscCourseModel;
+import co.id.ajarin.model.dashboard.PrivateDiscModel;
+import co.id.ajarin.model.dashboard.StudentCourseModel;
 import co.id.ajarin.service.AccountService;
 
+@SuppressWarnings("rawtypes")
 @RestController
 @RequestMapping("/api/account")
 public class AccountController {
@@ -90,7 +93,7 @@ public class AccountController {
     @GetMapping("change-role")
     public ResponseEntity<ResponseWrapperModel<AuthenticationModel>> changeROleAccount(@RequestParam(name = "email") String email) {
 
-        AccountRegistrationModel account = service.getAccountbyEmail(email);
+        AccountModel account = service.getAccountbyEmail(email);
         System.out.println(account.getRole());
         if(account.getRole().equals("ROLE_Student")) {
             account.setRole("ROLE_Teacher");
@@ -114,10 +117,10 @@ public class AccountController {
 
     @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
     @GetMapping("")
-    public ResponseEntity<ResponseWrapperModel<AccountRegistrationModel>> getAccountbyEmail(@RequestParam(name = "email") String email){
-        AccountRegistrationModel account = service.getAccountbyEmail(email);
+    public ResponseEntity<ResponseWrapperModel<AccountModel>> getAccountbyEmail(@RequestParam(name = "email") String email){
+        AccountModel account = service.getAccountbyEmail(email);
 
-        ResponseWrapperModel<AccountRegistrationModel> wrapperModel = new ResponseWrapperModel<>();
+        ResponseWrapperModel<AccountModel> wrapperModel = new ResponseWrapperModel<>();
 
         ErrorRepository error = new ErrorRepository();
         error.setMessage("Sukses");
@@ -131,9 +134,9 @@ public class AccountController {
 
      @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
     @PutMapping("{id}")
-    public ResponseEntity<ResponseWrapperModel<AccountRegistrationModel>> updateAccount(@PathVariable Long id, @RequestBody AccountRegistrationModel account){
+    public ResponseEntity<ResponseWrapperModel<AccountModel>> updateAccount(@PathVariable Long id, @RequestBody AccountRegistrationModel account){
 
-        AccountRegistrationModel accountOld = service.findById(id);
+        AccountModel accountOld = service.findById(id);
 
         accountOld.setFirstName(account.getFirstName());
         accountOld.setAge(account.getAge());
@@ -145,13 +148,13 @@ public class AccountController {
         accountOld.setLastName(account.getLastName());
         accountOld.setPhoneNumber(account.getPhoneNumber());
         accountOld.setSchool(account.getSchool());
-        accountOld.setStudentdisc_list(account.getStudentdisc_list());
-        accountOld.setStudentcourse_list(account.getStudentcourse_list());
+        // accountOld.setStudentdisc_list(account.getStudentdisc_list());
+        // accountOld.setStudentcourse_list(account.getStudentcourse_list());
         accountOld.setCoin(account.getCoin());
 
         service.update(accountOld);
 
-        ResponseWrapperModel<AccountRegistrationModel> wrapperModel = new ResponseWrapperModel<>();
+        ResponseWrapperModel<AccountModel> wrapperModel = new ResponseWrapperModel<>();
 
         ErrorRepository error = new ErrorRepository();
         error.setMessage("Sukses");
@@ -165,12 +168,12 @@ public class AccountController {
 
      @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
      @PostMapping("join")
-     public ResponseEntity<ResponseWrapperModel<StudentDiscModel>> createJoinDiscussion(@RequestBody StudentDiscModel data){
+     public ResponseEntity<ResponseWrapperModel<JoinDiscCourseModel>> createJoinDiscussion(@RequestBody JoinDiscCourseModel data){
         System.out.println(data.getEmail());
         System.out.println(data.getId());
         String message = service.joinDiscussion(data.getEmail(), data.getId());
         
-        ResponseWrapperModel<StudentDiscModel> wrapperModel = new ResponseWrapperModel<>();
+        ResponseWrapperModel<JoinDiscCourseModel> wrapperModel = new ResponseWrapperModel<>();
 
         ErrorRepository error = new ErrorRepository();
         error.setMessage(message);
@@ -190,12 +193,12 @@ public class AccountController {
     
      @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
      @PostMapping("joincourse")
-     public ResponseEntity<ResponseWrapperModel<StudentDiscModel>> createJoinCourse(@RequestBody StudentDiscModel data){
+     public ResponseEntity<ResponseWrapperModel<JoinDiscCourseModel>> createJoinCourse(@RequestBody JoinDiscCourseModel data){
         System.out.println(data.getEmail());
         System.out.println(data.getId());
         String message = service.joinCourse(data.getEmail(), data.getId());
         
-        ResponseWrapperModel<StudentDiscModel> wrapperModel = new ResponseWrapperModel<>();
+        ResponseWrapperModel<JoinDiscCourseModel> wrapperModel = new ResponseWrapperModel<>();
 
         ErrorRepository error = new ErrorRepository();
         error.setMessage(message);
@@ -214,6 +217,7 @@ public class AccountController {
      }
 
 
+    
     @PostMapping("/upload")
     public ResponseEntity<ResponseWrapperModel> uploadFile(@RequestParam(name = "email") String email, @RequestParam("file") MultipartFile file) {
         String message = "";
@@ -270,7 +274,7 @@ public class AccountController {
         error.setHttpCode(HttpStatus.OK.value());
         wrapperModel.setErrorSchema(error);
 
-        AccountRegistrationModel account = service.getAccountbyEmail(email);
+        AccountModel account = service.getAccountbyEmail(email);
         boolean flagNew = false;
         try {
             System.out.println(account.getId());
@@ -308,6 +312,7 @@ public class AccountController {
 
     @GetMapping("inquiry/teacher")
     public ResponseEntity<ResponseWrapperModel> getAllTeacher() {
+        System.out.println("masa masuk sini");
         List<TeacherModel.Teacher> teachers = service.getAllTeacher();
 
         TeacherModel.Response response = new TeacherModel.Response(teachers);
@@ -325,9 +330,10 @@ public class AccountController {
 
     }
 
-    @GetMapping("inquiry/teacher/{id}")
-    public ResponseEntity getTeacher(@PathVariable Long id) {
-        Teacher teacher = service.getTeacherByUserId(id);
+    @GetMapping("inquiry/teacher/{email}")
+    public ResponseEntity getTeacher(@PathVariable String email) {
+        System.out.println("masuk sini brohh");
+        Teacher teacher = service.getTeacherByUserEmail(email);
 
         ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
         
@@ -385,4 +391,54 @@ public class AccountController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
 
+    @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
+    @GetMapping("/course")
+    public ResponseEntity<ResponseWrapperModel> getStudentCourse(@RequestParam(name = "account") Long userid, @RequestParam("course") Long course){
+        StudentCourseModel studentcourse = service.getStudentCourseData(userid, course);
+
+        ResponseWrapperModel<StudentCourseModel> wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(studentcourse);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+    
+    @PostMapping("/private")
+    public ResponseEntity<ResponseWrapperModel> addPrivateDisc(@RequestBody PrivateDiscModel data, @RequestParam("account") Long userid, @RequestParam("teacher") Long teacherid){
+        // System.out.println(data);
+        // System.out.println(userid);
+        // System.out.println(teacherid);
+
+        String message = service.addPrivateDisc(data, userid, teacherid);
+        ResponseWrapperModel<PrivateDiscModel> wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(null);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
+    @PostMapping("/private/request")
+    public ResponseEntity<ResponseWrapperModel> acceptRejectPrivate(@RequestParam("status") String status, @RequestParam("id") Long id, @RequestBody String subject){
+        String message = service.acceptOrReject(id, status, subject);
+        ResponseWrapperModel<PrivateDiscModel> wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(null);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
 }

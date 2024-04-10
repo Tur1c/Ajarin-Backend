@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,18 +18,21 @@ import org.springframework.web.multipart.MultipartFile;
 import co.id.ajarin.entity.CourseEntity;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
-import co.id.ajarin.model.account.TeacherModel.Response;
 import co.id.ajarin.model.account.TeacherModel.Teacher;
+import co.id.ajarin.model.dashboard.CompleteChapterModel;
 import co.id.ajarin.model.dashboard.CourseModel;
 import co.id.ajarin.model.dashboard.CourseModel.Course;
+import co.id.ajarin.model.dashboard.RateCourseModel;
 import co.id.ajarin.service.CourseService;
 
+@SuppressWarnings("rawtypes")
 @RestController
 @RequestMapping("/api/course")
 public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
     
     //Get All Course
     @GetMapping("")
@@ -49,6 +53,8 @@ public class CourseController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
 
+    
+    @SuppressWarnings("unchecked")
     @PostMapping("/add")
     public ResponseEntity addNewCourse(
                     @RequestParam("title") String title, 
@@ -87,6 +93,38 @@ public class CourseController {
 
         ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
 
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
+    @PostMapping("/complete")
+    public ResponseEntity completeChapter(@RequestBody CompleteChapterModel data){
+        System.out.println(data);
+        String message = courseService.completeChapter(data.getCompleted(),data.getCourseid(),data.getUserid(), data.getTotal_chap());
+
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
+    @PostMapping("/ratecourse")
+    public ResponseEntity rateCourse(@RequestBody RateCourseModel data){
+        System.out.println(data);
+        String message = courseService.rateCourse(data.getUserid(),data.getCourseid(),data.getRating(),data.getComment());
+
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        
         ErrorRepository error = new ErrorRepository();
         error.setMessage(message);
         error.setErrorCode("00");

@@ -26,6 +26,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@SuppressWarnings("null")
 @Getter
 @Setter
 @Entity
@@ -89,6 +90,7 @@ public class AccountRegisterEntity {
     }
 
     //constructor without relational data
+
     public AccountRegisterEntity(Long id, String firstName, String lastName, String email, String password, String role, String gender, String city, String country,
     String school, Integer age, String phoneNumber, String education, Integer coin, String pic_name, String pic_type, byte[] pic_data){
         this.id = id;
@@ -185,5 +187,9 @@ public class AccountRegisterEntity {
 
     @Column(name = "profile_pic_type")
     private String pic_type;
+
+    @Column(name = "profile_pic")
+    private String profile_pic;
+
 
 }

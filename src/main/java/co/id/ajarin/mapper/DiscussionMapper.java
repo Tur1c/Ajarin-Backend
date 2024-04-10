@@ -1,15 +1,13 @@
 package co.id.ajarin.mapper;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import co.id.ajarin.entity.DiscussionEntity;
-import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.account.TeacherModel;
 import co.id.ajarin.model.dashboard.DiscussionModel;
 
 public class DiscussionMapper {
+
     public static DiscussionModel.Discussion maptoDiscussionModel (DiscussionEntity discussion){
+
         return new DiscussionModel.Discussion(
             discussion.getDisc_id(),
             discussion.getDisc_title(),
@@ -23,9 +21,27 @@ public class DiscussionMapper {
             discussion.getDisc_image(),
             discussion.getDisc_url(),
             discussion.getCategory(),
-            // discussion.getTeacher(),
-            new TeacherModel.Teacher(discussion.getTeacher().getTeacher_id(), discussion.getTeacher().getProfile_description(), discussion.getTeacher().getAchievement(), discussion.getTeacher().getExperience(), discussion.getTeacher().getEducation(), ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(discussion.getTeacher().getTeacher_id().toString()).toUriString(), discussion.getTeacher().getRating(), new AccountRegistrationModel(discussion.getTeacher().getUser()), null),
-            new Long(0)
+            TeacherMapper.mapToTeacherModel(discussion.getTeacher(),null),
+            1L
+        );
+    }
+
+    public static DiscussionModel.Discussion mapToDiscussionModelNoR(DiscussionEntity disc, TeacherModel.Teacher teacher){
+        return new DiscussionModel.Discussion(
+            disc.getDisc_id(),
+            disc.getDisc_title(),
+            disc.getDisc_participant(),
+            disc.getDisc_price(),
+            disc.getDisc_starttime(),
+            disc.getDisc_endtime(),
+            disc.getDisc_date(),
+            disc.getDisc_description(),
+            disc.getDisc_level(),
+            disc.getDisc_image(),
+            disc.getDisc_url(),
+            disc.getCategory(),
+            teacher,
+            null
         );
     }
 

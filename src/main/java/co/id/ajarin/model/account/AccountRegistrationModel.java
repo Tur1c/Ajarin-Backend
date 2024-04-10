@@ -1,7 +1,6 @@
 package co.id.ajarin.model.account;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,7 +10,6 @@ import co.id.ajarin.entity.StudentCourseEntity;
 import co.id.ajarin.entity.StudentDiscEntity;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
-import co.id.ajarin.model.account.TeacherModel.Teacher;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AccountRegistrationModel extends OutputRepositoryModel {
 
+    @SuppressWarnings("null")
     public AccountRegistrationModel(AccountRegisterEntity account) {
         this.id = account.getId();
         this.firstName = account.getFirstName();

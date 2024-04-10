@@ -2,11 +2,10 @@ package co.id.ajarin.model.account;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import co.id.ajarin.entity.AccountRegisterEntity;
-import co.id.ajarin.entity.StudentDiscEntity;
+import co.id.ajarin.entity.PrivateDiscEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
+import co.id.ajarin.model.dashboard.PrivateDiscModel;
 import co.id.ajarin.model.dashboard.CourseModel.Course;
 import co.id.ajarin.model.dashboard.DiscussionModel.Discussion;
 import lombok.AllArgsConstructor;
@@ -45,7 +44,7 @@ public class TeacherModel extends OutputRepositoryModel {
 
         public Teacher(Long teacher_id, String profile_description2, String achievement2, String experience2,
                 String education2, String uriString, String rating2,
-                AccountRegistrationModel accountRegistrationModel, List<Discussion> discussion) {
+                AccountRegistrationModel accountRegistrationModel, List<Discussion> discussion, List<PrivateDiscModel> private_disc) {
             this.id = teacher_id;
             this.profile_description = profile_description2;
             this.achievement = achievement2;
@@ -55,6 +54,7 @@ public class TeacherModel extends OutputRepositoryModel {
             this.rating = rating2;
             this.user = accountRegistrationModel;
             this.discussion = discussion;
+            this.private_disc = private_disc;
         }
 
         private Long id;
@@ -69,6 +69,7 @@ public class TeacherModel extends OutputRepositoryModel {
         private AccountRegistrationModel user;
         private List<Discussion> discussion;
         private List<Course> courses;
+        private List<PrivateDiscModel> private_disc;
     }
     
 

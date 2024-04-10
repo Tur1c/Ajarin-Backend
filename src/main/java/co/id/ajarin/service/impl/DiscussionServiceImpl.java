@@ -7,9 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +23,7 @@ import co.id.ajarin.model.dashboard.DiscussionModel;
 import co.id.ajarin.model.dashboard.DiscussionModel.Discussion;
 import co.id.ajarin.repository.CategoryRepository;
 import co.id.ajarin.repository.DiscussionRepository;
+import co.id.ajarin.repository.StudentDiscRepository;
 import co.id.ajarin.repository.TeacherRepository;
 import co.id.ajarin.service.DiscussionService;
 
@@ -33,8 +32,9 @@ public class DiscussionServiceImpl implements DiscussionService {
 
     @Autowired
     private DiscussionRepository discussionRepository;
-    @PersistenceContext
-    private EntityManager em;
+
+    @Autowired
+    private StudentDiscRepository studentDiscRepository;
 
     @Autowired
     private CategoryRepository categoryRepository; 
@@ -42,28 +42,26 @@ public class DiscussionServiceImpl implements DiscussionService {
     @Autowired
     private TeacherRepository teacherRepository; 
 
+
+    @SuppressWarnings("unused")
     @Override
     @Transactional
     public List<Discussion> getAllDiscussion() {
         List<DiscussionEntity> discussions = discussionRepository.findAll();
-
-        System.out.println("yey");
-        // Query query= em.crea("SELECT COUNT(*) FROM DISCUSSION");
-        System.out.println("lewat query");
-        // int testest = ((Number) query.getSingleResult()).intValue();
-        System.out.println("lewat test");
-        // System.out.println(testest + "ehehe");
-        System.out.println("siu lewat");
-        Long test =  discussionRepository.count();
-        System.out.println(test + "wuttt");
-
         
-        // DiscussionEntity discussion = discussionRepository.getById(1);
+        List<DiscussionModel.Discussion> usedDiscussions = discussions.stream().map( (discussion) -> DiscussionMapper.maptoDiscussionModel(discussion)).collect(Collectors.toList());
+        
+        Integer idx = 0;
+        for(DiscussionModel.Discussion disc : usedDiscussions){
+            Long id = usedDiscussions.get(idx).getDisc_id();
+            usedDiscussions.get(idx).setJoinedParticipant(studentDiscRepository.getCountDisc(id));
+            idx++;
+        }
 
-        return discussions.stream().map( (discussion) -> DiscussionMapper.maptoDiscussionModel(discussion)).collect(Collectors.toList());
-        // return null;
+        return usedDiscussions;
     }
 
+    @SuppressWarnings("null")
     @Override
     public String addDiscussion(String title, String categoryName, String level, String description, Date startDate,
             Date endDate, String maxParticipant, String price, String urlLink, MultipartFile file, Long userId) throws IOException {

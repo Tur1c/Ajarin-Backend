@@ -13,7 +13,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -31,6 +30,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "discussion")
 public class DiscussionEntity {
+@SuppressWarnings("null")
 public DiscussionEntity(String title, String maxParticipant, String price, Date startDate,
             Date endDate, Date startDate2, String description, String filename, byte[] bytes,
             String level, CategoryEntity category2, TeacherEntity teacher) {

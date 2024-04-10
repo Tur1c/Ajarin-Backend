@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import co.id.ajarin.entity.DiscussionEntity;
 import co.id.ajarin.model.dashboard.DiscussionModel;
-import co.id.ajarin.model.dashboard.DiscussionModel.Discussion;
 
 public interface DiscussionService {
     List<DiscussionModel.Discussion> getAllDiscussion();

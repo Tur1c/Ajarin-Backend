@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import co.id.ajarin.entity.DiscussionEntity;
-import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
 import co.id.ajarin.model.dashboard.DiscussionModel;
@@ -51,6 +50,7 @@ public class DiscussionController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
 
+    @SuppressWarnings("rawtypes")
     @PostMapping("add")
     public ResponseEntity<ResponseWrapperModel> addDiscussion(
         @RequestParam("title") String title, @RequestParam("category") String category, 
