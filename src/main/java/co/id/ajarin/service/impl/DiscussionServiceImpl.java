@@ -1,5 +1,6 @@
 package co.id.ajarin.service.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -42,6 +43,7 @@ public class DiscussionServiceImpl implements DiscussionService {
     @Autowired
     private TeacherRepository teacherRepository; 
 
+    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
 
     @SuppressWarnings("unused")
     @Override
@@ -88,6 +90,13 @@ public class DiscussionServiceImpl implements DiscussionService {
                 category = categoryEntity;
                 break;
             }
+        }
+
+        try{
+            file.transferTo(new File(UPLOAD_PATH + file.getOriginalFilename()));            
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
         }
 
         DiscussionEntity discussionEntity = new DiscussionEntity(

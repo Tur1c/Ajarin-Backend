@@ -75,7 +75,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final JwtService jwtService;
 
-    private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
+    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
 
     public AccountServiceImpl(AccountRegistrationRepository repository, JwtService jwtService) {
         super();

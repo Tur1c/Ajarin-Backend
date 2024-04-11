@@ -87,9 +87,10 @@ public class CourseController {
     public ResponseEntity addCourseChapter(
                         @PathVariable(name = "id") Long id, @RequestParam("title") String title,
                         @RequestParam("video") String video, 
-                        @RequestParam("thumbnail") String imageThumbnail) {
+                        @RequestParam("thumbnail") String imageThumbnail,
+                        @RequestParam("pdf") String pdf) {
         
-        String message = courseService.addCourseDetail(id, title, video, imageThumbnail);
+        String message = courseService.addCourseDetail(id, title, video, imageThumbnail, pdf);
 
         ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
 

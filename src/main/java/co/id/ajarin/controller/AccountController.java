@@ -91,7 +91,7 @@ public class AccountController {
     }
 
     @GetMapping("change-role")
-    public ResponseEntity<ResponseWrapperModel<AuthenticationModel>> changeROleAccount(@RequestParam(name = "email") String email) {
+    public ResponseEntity<ResponseWrapperModel<AuthenticationModel>> changeRoleAccount(@RequestParam(name = "email") String email) {
 
         AccountModel account = service.getAccountbyEmail(email);
         System.out.println(account.getRole());
@@ -151,6 +151,28 @@ public class AccountController {
         // accountOld.setStudentdisc_list(account.getStudentdisc_list());
         // accountOld.setStudentcourse_list(account.getStudentcourse_list());
         accountOld.setCoin(account.getCoin());
+
+        service.update(accountOld);
+
+        ResponseWrapperModel<AccountModel> wrapperModel = new ResponseWrapperModel<>();
+
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(accountOld);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+     }
+
+     @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
+    @PutMapping("{id}/{coin}")
+    public ResponseEntity<ResponseWrapperModel<AccountModel>> updateAccountWithWithdrawCoin(@PathVariable Long id, @PathVariable("coin") String coin){
+
+        AccountModel accountOld = service.findById(id);
+
+        accountOld.setCoin(accountOld.getCoin() - Integer.parseInt(coin));
 
         service.update(accountOld);
 

@@ -14,9 +14,11 @@ public interface CourseService {
 
     CourseEntity addNewCourse(String title, String categoryName, String level, String description, String chapter, String price, Long userId, MultipartFile file, String url) throws NumberFormatException, IOException;
 
-    String addCourseDetail(Long id, String title, String video, String thumbnail);
+    // String addCourseDetail(Long id, String title, String video, String thumbnail);
 
     String completeChapter(String complete, Long courseid, Long userid, Long total_chap);
 
     String rateCourse(String userid, Long courseid, Float rating, String comment);
+
+    String addCourseDetail(Long id, String title, String video, String thumbnail, String pdf);
 }

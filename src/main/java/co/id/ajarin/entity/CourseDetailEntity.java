@@ -21,12 +21,13 @@ import lombok.Setter;
 public class CourseDetailEntity {
     
     public CourseDetailEntity(Long course_id, Long course_detail_chapter, String chapter_title, String chapter_video,
-            String chapter_thumbnail) {
+            String chapter_thumbnail, String chapter_pdf) {
         this.course_id = course_id;
         this.course_detail_chapter = course_detail_chapter;
         this.chapter_title = chapter_title;
         this.chapter_video = chapter_video;
         this.chapter_thumbnail = chapter_thumbnail;
+        this.chapter_pdf = chapter_pdf;
     }
 
     @Id
@@ -43,6 +44,9 @@ public class CourseDetailEntity {
 
     @Column(name = "chapter_video")
     private String chapter_video;
+
+    @Column(name = "chapter_pdf")
+    private String chapter_pdf;
 
     @Column(name = "chapter_thumbnail")
     private String chapter_thumbnail;

@@ -90,10 +90,10 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     @Transactional
-    public String addCourseDetail(Long id, String title, String video, String thumbnail) {
+    public String addCourseDetail(Long id, String title, String video, String thumbnail, String pdf) {
         CourseEntity course = courseRepository.getById(id);
         Long chapter = (long) course.getCourse_details().size();
-        CourseDetailEntity courseDetail = new CourseDetailEntity(course.getCourse_id(), chapter + 1, title, video, thumbnail);
+        CourseDetailEntity courseDetail = new CourseDetailEntity(course.getCourse_id(), chapter + 1, title, video, thumbnail, pdf);
         System.out.println(course.getCourse_chapter());
         courseDetailRepository.save(courseDetail);
         return "Success";
