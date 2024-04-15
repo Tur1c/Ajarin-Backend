@@ -5,7 +5,6 @@ import java.util.List;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.CategoryEntity;
-import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +35,7 @@ public class ForumModel {
         private Integer total_comment;
         private Timestamp created_date;
         private CategoryEntity category_id;
-        private List<ForumReplyEntity> forum_replies;
+        private List<ReplyModel.Reply> forum_replies;
         private AccountRegisterEntity user_id;
     }
 }

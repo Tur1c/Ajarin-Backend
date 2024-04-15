@@ -3,7 +3,6 @@ import java.util.List;
 
 import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.entity.CourseDetailEntity;
-import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import co.id.ajarin.model.account.TeacherModel.Teacher;
 import lombok.AllArgsConstructor;
@@ -15,12 +14,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CourseModel {
-
-    public CourseModel(Long course_id, Integer course_price, String course_chapter, String course_description,
-            String course_level, String course_image, Integer total_course_sold, CategoryEntity category,
-            List<CourseDetailEntity> course_details, TeacherEntity teacher) {
-        //TODO Auto-generated constructor stub
-    }
 
     @Getter
     @Setter

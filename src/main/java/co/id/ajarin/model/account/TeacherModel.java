@@ -3,7 +3,6 @@ package co.id.ajarin.model.account;
 import java.util.List;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
-import co.id.ajarin.entity.PrivateDiscEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import co.id.ajarin.model.dashboard.PrivateDiscModel;
 import co.id.ajarin.model.dashboard.CourseModel.Course;
@@ -64,8 +63,6 @@ public class TeacherModel extends OutputRepositoryModel {
         private String education;
         private String cv_data;
         private String rating;
-        // private String teacher_image;
-        // private String teacher_name;
         private AccountRegistrationModel user;
         private List<Discussion> discussion;
         private List<Course> courses;

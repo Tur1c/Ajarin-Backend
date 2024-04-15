@@ -62,15 +62,13 @@ public class CourseController {
                     @RequestParam("education_level") String level,
                     @RequestParam("description") String description, 
                     @RequestParam("chapter") String chapter, @RequestParam("price") String price,
-                    @RequestParam("user_id") Long userId,
+                    @RequestParam("teacher_id") Long userId,
                     @RequestParam("image_link") String url,
                     @RequestParam("file") MultipartFile file) throws NumberFormatException, IOException {
         
 
-        CourseEntity course = courseService.addNewCourse(title, category, level, description, chapter, price, userId, file, url);
+        CourseModel.Course course = courseService.addNewCourse(title, category, level, description, chapter, price, userId, file, url);
 
-        CourseModel.Course courseModel = new Course(course.getCourse_id(), course.getCourse_price(), course.getCourse_chapter(), course.getCourse_title(), course.getCourse_description(), course.getCourse_level(), course.getCourse_image(), course.getTotal_course_sold(), course.getCategory(), course.getCourse_details(), new Teacher(course.getTeacher().getTeacher_id(), course.getTeacher().getProfile_description(), course.getTeacher().getAchievement(), course.getTeacher().getExperience(), course.getTeacher().getEducation(), course.getTeacher().getRating(), course.getTeacher().getUser()));
-        
         ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
         
         ErrorRepository error = new ErrorRepository();
@@ -78,7 +76,7 @@ public class CourseController {
         error.setErrorCode("00");
         error.setHttpCode(HttpStatus.OK.value());
         wrapperModel.setErrorSchema(error);
-        wrapperModel.setOutputSchema(courseModel);
+        wrapperModel.setOutputSchema(course);
 
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
@@ -86,9 +84,14 @@ public class CourseController {
     @PostMapping("/add/course/{id}")
     public ResponseEntity addCourseChapter(
                         @PathVariable(name = "id") Long id, @RequestParam("title") String title,
-                        @RequestParam("video") String video, 
-                        @RequestParam("thumbnail") String imageThumbnail,
-                        @RequestParam("pdf") String pdf) {
+                        @RequestParam(name = "video") MultipartFile video, 
+                        @RequestParam(name = "thumbnail") MultipartFile imageThumbnail,
+                        @RequestParam(required = false, name = "pdf") MultipartFile pdf) {
+
+        
+                        System.out.println(pdf);
+                        System.out.println(video);
+                        System.out.println(imageThumbnail);
         
         String message = courseService.addCourseDetail(id, title, video, imageThumbnail, pdf);
 

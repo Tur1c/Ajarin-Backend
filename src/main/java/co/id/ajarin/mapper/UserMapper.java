@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.entity.CourseEntity;
 import co.id.ajarin.entity.DiscussionEntity;
 import co.id.ajarin.entity.NotificationEntity;
+import co.id.ajarin.entity.PrivateDiscEntity;
 import co.id.ajarin.entity.StudentCourseEntity;
 import co.id.ajarin.entity.StudentDiscEntity;
 import co.id.ajarin.entity.TeacherEntity;
@@ -19,11 +21,13 @@ import co.id.ajarin.model.dashboard.CourseModel;
 import co.id.ajarin.model.dashboard.DiscussionModel;
 import co.id.ajarin.model.dashboard.StudentCourseModel;
 import co.id.ajarin.model.dashboard.StudentDiscModel;
+import co.id.ajarin.model.dashboard.DiscussionModel.Discussion;
 
 
 public class UserMapper {
+
     @SuppressWarnings("null")
-    public static AccountModel mapToAccountModel(AccountRegisterEntity account, List<NotificationEntity> notif){
+    public static AccountModel mapToAccountModel(AccountRegisterEntity account, List<NotificationEntity> notif, List<PrivateDiscEntity> private_disc){
         List<StudentCourseModel> studentcourse = new ArrayList<>();
 
         for (StudentCourseEntity studentCourseEntity : account.getStudentcourse_list()){
@@ -44,11 +48,22 @@ public class UserMapper {
                 // TeacherModel.Teacher teacher = TeacherMapper.mapToTeacherModel(studentDiscEntity.getDisc().getTeacher());
                 DiscussionEntity disc = studentDiscEntity.getDisc();
                 DiscussionModel.Discussion discModel = DiscussionMapper.maptoDiscussionModel(disc);
+                
                 studentDisc.add(new StudentDiscModel(
                     discModel,
                     studentDiscEntity.getStatus()
                     
                 ));
+        }
+
+        for(PrivateDiscEntity privateDisc : private_disc){
+            CategoryEntity category = new CategoryEntity(99, privateDisc.getSubject());
+            DiscussionModel.Discussion discModel = new Discussion(privateDisc.getPrivate_id(), privateDisc.getTitle(), 1, privateDisc.getOffered_coin(), privateDisc.getDate_start(), privateDisc.getDate_end(), privateDisc.getPrivate_date(), privateDisc.getDifficulty(), privateDisc.getEducation(), null, category, TeacherMapper.mapToTeacherModel(privateDisc.getTeacher(), null), 1L);
+
+            studentDisc.add(new StudentDiscModel(
+                discModel,
+                "Ongoing"
+            ));
         }
 
         List<TeacherModel.Teacher> teacherModels = new ArrayList<>();

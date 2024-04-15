@@ -33,13 +33,14 @@ import co.id.ajarin.mapper.UserMapper;
 import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
-import co.id.ajarin.model.account.NotificationModel;
 import co.id.ajarin.model.account.TeacherModel;
 import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.auth.AuthenticationModel;
 import co.id.ajarin.model.dashboard.CourseModel;
+import co.id.ajarin.model.dashboard.DiscussionModel;
 import co.id.ajarin.model.dashboard.PrivateDiscModel;
 import co.id.ajarin.model.dashboard.StudentCourseModel;
+import co.id.ajarin.model.dashboard.StudentDiscModel;
 import co.id.ajarin.repository.AccountRegistrationRepository;
 import co.id.ajarin.repository.CourseRepository;
 import co.id.ajarin.repository.DiscussionRepository;
@@ -185,10 +186,19 @@ public class AccountServiceImpl implements AccountService {
 
         List<NotificationEntity> notif = notificationRepository.getNotifData(account.getId());
 
-        AccountModel accounts = UserMapper.mapToAccountModel(account, notif);
+        List<PrivateDiscEntity> private_disc = PrivateDiscRepository.getPrivateDisc(account.getId());
+
+        AccountModel accounts = UserMapper.mapToAccountModel(account, notif, private_disc);
+
+
+        for(StudentDiscModel disc : accounts.getStudentdisc_list()){
+            if(disc.getDiscussion().getCategory().getCategory_id() != 99){
+                Long id = disc.getDiscussion().getDisc_id();
+                disc.getDiscussion().setJoinedParticipant(studentDiscRepository.getCountDisc(id));
+            }
+        }
 
         return accounts;
-        // return null;
     }
 
     @Override
@@ -196,7 +206,7 @@ public class AccountServiceImpl implements AccountService {
         AccountRegisterEntity account = repository.getById(id);
 
         // return new AccountModel(account);
-        return UserMapper.mapToAccountModel(account, null);
+        return UserMapper.mapToAccountModel(account, null, null);
     }
 
     @Transactional

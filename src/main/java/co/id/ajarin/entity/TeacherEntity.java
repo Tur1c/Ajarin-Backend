@@ -22,7 +22,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.val;
 
 @Getter
 @Setter
@@ -67,12 +66,6 @@ public class TeacherEntity {
 
     @Column(name = "rating")
     private String rating;
-
-    // @Column(name = "teacher_image")
-    // private String teacher_image;
-
-    // @Column(name = "teacher_name")
-    // private String teacher_name;
 
     @Column(name = "cv_data")
     @JsonIgnore

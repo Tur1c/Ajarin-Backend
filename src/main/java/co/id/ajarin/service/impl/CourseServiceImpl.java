@@ -1,5 +1,6 @@
 package co.id.ajarin.service.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,9 +25,14 @@ import co.id.ajarin.repository.StudentCourseRepository;
 import co.id.ajarin.repository.TeacherRepository;
 import co.id.ajarin.service.CourseService;
 
+
+
 @Service
 @SuppressWarnings({ "deprecation", "null" })
 public class CourseServiceImpl implements CourseService{
+
+    private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
+    private static final String VIDEO_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/video/";
 
     @Autowired
     private CourseRepository courseRepository;
@@ -53,47 +59,75 @@ public class CourseServiceImpl implements CourseService{
     }
 
 
+    @Transactional
     @Override
-    public CourseEntity addNewCourse(String title, String categoryName, String level, String description, String chapter,
+    public CourseModel.Course addNewCourse(String title, String categoryName, String level, String description, String chapter,
             String price, Long userId, MultipartFile file, String url) throws NumberFormatException, IOException {
 
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
 
-        
-        List<CategoryEntity> categories = categoryRepository.findAll();
-        CategoryEntity category = new CategoryEntity();
 
-        TeacherEntity teacher = new TeacherEntity();
+        CategoryEntity category = categoryRepository.findByName(categoryName);
 
-       List<TeacherEntity> teachers = teacherRepository.findAll();
-        for (TeacherEntity teacherEntity : teachers) {
-            if(teacherEntity.getUser().getId() == userId) {
-                teacher = teacherEntity;
-                break;
+        TeacherEntity teacher = teacherRepository.getReferenceById(userId);
+
+        Boolean exist = new File(UPLOAD_PATH + filename).isFile();
+        if(!exist){
+            try{
+                file.transferTo(new File(UPLOAD_PATH + filename));
+                
+            } catch (Exception e){
+                e.printStackTrace();
+                return null;
             }
         }
 
-        for (CategoryEntity categoryEntity : categories) {
-            if(categoryEntity.getCategory_name().equals(categoryName)) {
-                category = categoryEntity;
-                break;
-            }
-        }
-
-        CourseEntity course = new CourseEntity(Integer.parseInt(price), chapter, title, description, level, filename, url, file.getBytes(), 0, category, teacher);
+        CourseEntity course = new CourseEntity(Integer.parseInt(price), chapter, title, description, level, filename, 0, category, teacher);
 
         courseRepository.save(course);
-        return course;
+        return CourseMapper.mapToCourseModel(course);
     }
 
   
 
     @Override
     @Transactional
-    public String addCourseDetail(Long id, String title, String video, String thumbnail, String pdf) {
+    public String addCourseDetail(Long id, String title, MultipartFile video, MultipartFile thumbnail, MultipartFile pdf) {
         CourseEntity course = courseRepository.getById(id);
         Long chapter = (long) course.getCourse_details().size();
-        CourseDetailEntity courseDetail = new CourseDetailEntity(course.getCourse_id(), chapter + 1, title, video, thumbnail, pdf);
+
+        String pdfName = "";
+
+        String thumbnailName = StringUtils.cleanPath(thumbnail.getOriginalFilename());
+        Boolean exist = new File(UPLOAD_PATH + thumbnailName).isFile();
+        String videoName = StringUtils.cleanPath(video.getOriginalFilename());
+        Boolean exist2 = new File(UPLOAD_PATH + videoName).isFile();
+            try{
+                if(!exist){
+                    thumbnail.transferTo(new File(UPLOAD_PATH + thumbnailName));
+                }
+                if(!exist2){
+                    video.transferTo(new File(VIDEO_PATH + videoName));
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
+
+        if(pdf != null){
+            pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
+            Boolean exist3 = new File(UPLOAD_PATH + pdfName).isFile();
+            try{
+                if(!exist3){
+                    pdf.transferTo(new File(UPLOAD_PATH + pdfName));
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        CourseDetailEntity courseDetail = new CourseDetailEntity(course.getCourse_id(), chapter + 1, title, videoName, thumbnailName, pdfName);
         System.out.println(course.getCourse_chapter());
         courseDetailRepository.save(courseDetail);
         return "Success";

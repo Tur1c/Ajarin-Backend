@@ -2,8 +2,6 @@ package co.id.ajarin.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,7 +41,9 @@ public class DiscussionServiceImpl implements DiscussionService {
     @Autowired
     private TeacherRepository teacherRepository; 
 
-    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
+    private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
+
+    // private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
 
     @SuppressWarnings("unused")
     @Override
@@ -73,18 +73,20 @@ public class DiscussionServiceImpl implements DiscussionService {
         List<CategoryEntity> categories = categoryRepository.findAll();
         CategoryEntity category = new CategoryEntity();
 
-       TeacherEntity teacher = new TeacherEntity();
+       TeacherEntity teacher = teacherRepository.getReferenceById(userId);
+    //    System.out.println(userId + "data t eacher");
 
-       List<TeacherEntity> teachers = teacherRepository.findAll();
-        for (TeacherEntity teacherEntity : teachers) {
-            if(teacherEntity.getUser().getId() == userId) {
-                teacher = teacherEntity;
-                break;
-            }
-        }
+    //    List<TeacherEntity> teachers = teacherRepository.findAll();
+    //     for (TeacherEntity teacherEntity : teachers) {
+    //         if(teacherEntity.getUser().getId() == userId) {
+    //             teacher = teacherEntity;
+    //             break;
+    //         }
+    //     }
 
         
         for (CategoryEntity categoryEntity : categories) {
+            System.out.println(categoryName);
             System.out.println(categoryEntity.getCategory_name().equals(categoryName));
             if(categoryEntity.getCategory_name().equals(categoryName)) {
                 category = categoryEntity;
@@ -92,8 +94,10 @@ public class DiscussionServiceImpl implements DiscussionService {
             }
         }
 
+        
         try{
-            file.transferTo(new File(UPLOAD_PATH + file.getOriginalFilename()));            
+            file.transferTo(new File(UPLOAD_PATH + filename));
+            
         } catch (Exception e){
             e.printStackTrace();
             return null;
@@ -108,7 +112,6 @@ public class DiscussionServiceImpl implements DiscussionService {
             startDate,
             description,
             filename,
-            file.getBytes(),
             level,
             category,
             teacher
@@ -118,24 +121,24 @@ public class DiscussionServiceImpl implements DiscussionService {
         return "Success";
     }
 
-    @Override
-    public DiscussionEntity getImage(String name) throws UnsupportedEncodingException {
-        List<DiscussionEntity> discussions = discussionRepository.findAll();
+    // @Override
+    // public DiscussionEntity getImage(String name) throws UnsupportedEncodingException {
+    //     List<DiscussionEntity> discussions = discussionRepository.findAll();
 
-        for (DiscussionEntity discussionEntity : discussions) {
-            if(discussionEntity.getDisc_url() == null) {
-                continue;
-            }
-            System.out.println(name);
-            String url = URLDecoder.decode(discussionEntity.getDisc_url(), "ISO-8859-1");
-            System.out.println(url);
-            if(url.contains(name) ) {
-                return discussionEntity;
-            }
-        }
+    //     for (DiscussionEntity discussionEntity : discussions) {
+    //         if(discussionEntity.getDisc_url() == null) {
+    //             continue;
+    //         }
+    //         System.out.println(name);
+    //         String url = URLDecoder.decode(discussionEntity.getDisc_url(), "ISO-8859-1");
+    //         System.out.println(url);
+    //         if(url.contains(name) ) {
+    //             return discussionEntity;
+    //         }
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
     
 }

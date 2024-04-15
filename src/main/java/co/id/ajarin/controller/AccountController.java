@@ -24,7 +24,6 @@ import co.id.ajarin.model.account.AccountLoginModel;
 import co.id.ajarin.model.account.AccountModel;
 import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.account.TeacherModel;
-import co.id.ajarin.model.account.TeacherModel.Response;
 import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.auth.AuthenticationModel;
 import co.id.ajarin.model.dashboard.JoinDiscCourseModel;
