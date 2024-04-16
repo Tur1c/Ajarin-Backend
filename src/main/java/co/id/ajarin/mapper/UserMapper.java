@@ -56,14 +56,16 @@ public class UserMapper {
                 ));
         }
 
-        for(PrivateDiscEntity privateDisc : private_disc){
-            CategoryEntity category = new CategoryEntity(99, privateDisc.getSubject());
-            DiscussionModel.Discussion discModel = new Discussion(privateDisc.getPrivate_id(), privateDisc.getTitle(), 1, privateDisc.getOffered_coin(), privateDisc.getDate_start(), privateDisc.getDate_end(), privateDisc.getPrivate_date(), privateDisc.getDifficulty(), privateDisc.getEducation(), null, category, TeacherMapper.mapToTeacherModel(privateDisc.getTeacher(), null), 1L);
-
-            studentDisc.add(new StudentDiscModel(
-                discModel,
-                "Ongoing"
-            ));
+        if(private_disc != null) {
+            for(PrivateDiscEntity privateDisc : private_disc){
+                CategoryEntity category = new CategoryEntity(99, privateDisc.getSubject());
+                DiscussionModel.Discussion discModel = new Discussion(privateDisc.getPrivate_id(), privateDisc.getTitle(), 1, privateDisc.getOffered_coin(), privateDisc.getDate_start(), privateDisc.getDate_end(), privateDisc.getPrivate_date(), privateDisc.getDifficulty(), privateDisc.getEducation(), null, category, TeacherMapper.mapToTeacherModel(privateDisc.getTeacher(), null), 1L);
+    
+                studentDisc.add(new StudentDiscModel(
+                    discModel,
+                    "Ongoing"
+                ));
+            }
         }
 
         List<TeacherModel.Teacher> teacherModels = new ArrayList<>();
@@ -72,8 +74,10 @@ public class UserMapper {
         }
 
         List<NotificationModel> notifs = new ArrayList<>();
-        for(NotificationEntity notificationEntity: notif){
-            notifs.add(new NotificationModel(notificationEntity.getNotif_id(),notificationEntity.getMessage(), notificationEntity.getIsRead()));
+        if(notif != null) {
+            for(NotificationEntity notificationEntity: notif){
+                notifs.add(new NotificationModel(notificationEntity.getNotif_id(),notificationEntity.getMessage(), notificationEntity.getIsRead()));
+            }
         }
 
         String pic_url;

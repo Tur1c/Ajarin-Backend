@@ -41,9 +41,9 @@ public class DiscussionServiceImpl implements DiscussionService {
     @Autowired
     private TeacherRepository teacherRepository; 
 
-    private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
+    // private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
 
-    // private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
+    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
 
     @SuppressWarnings("unused")
     @Override

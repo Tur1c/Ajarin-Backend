@@ -31,8 +31,12 @@ import co.id.ajarin.service.CourseService;
 @SuppressWarnings({ "deprecation", "null" })
 public class CourseServiceImpl implements CourseService{
 
-    private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
-    private static final String VIDEO_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/video/";
+    // private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
+    // private static final String VIDEO_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/video/";
+
+    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
+    private static final String VIDEO_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/video/";
+
 
     @Autowired
     private CourseRepository courseRepository;
@@ -99,9 +103,9 @@ public class CourseServiceImpl implements CourseService{
         String pdfName = "";
 
         String thumbnailName = StringUtils.cleanPath(thumbnail.getOriginalFilename());
-        Boolean exist = new File(UPLOAD_PATH + thumbnailName).isFile();
+        Boolean exist = new File(UPLOAD_PATH + thumbnailName).exists();
         String videoName = StringUtils.cleanPath(video.getOriginalFilename());
-        Boolean exist2 = new File(UPLOAD_PATH + videoName).isFile();
+        Boolean exist2 = new File(VIDEO_PATH + videoName).exists();
             try{
                 if(!exist){
                     thumbnail.transferTo(new File(UPLOAD_PATH + thumbnailName));
@@ -116,7 +120,7 @@ public class CourseServiceImpl implements CourseService{
 
         if(pdf != null){
             pdfName = StringUtils.cleanPath(pdf.getOriginalFilename());
-            Boolean exist3 = new File(UPLOAD_PATH + pdfName).isFile();
+            Boolean exist3 = new File(UPLOAD_PATH + pdfName).exists();
             try{
                 if(!exist3){
                     pdf.transferTo(new File(UPLOAD_PATH + pdfName));

@@ -89,6 +89,26 @@ public class AccountController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
 
+    @GetMapping("check-email/{email}")
+    public ResponseEntity<ResponseWrapperModel> checkEmail(@PathVariable(name = "email") String email) {
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        
+        if(service.findByEmail(email) != null) {
+            error.setMessage("Failed. Email has been taken!");
+            error.setErrorCode("500");
+            error.setHttpCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        } 
+        
+        wrapperModel.setErrorSchema(error);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
     @GetMapping("change-role")
     public ResponseEntity<ResponseWrapperModel<AuthenticationModel>> changeRoleAccount(@RequestParam(name = "email") String email) {
 

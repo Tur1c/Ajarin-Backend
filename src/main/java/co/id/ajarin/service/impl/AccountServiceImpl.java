@@ -102,7 +102,7 @@ public class AccountServiceImpl implements AccountService {
             account.getEducation(),
             account.getStudentdisc_list(),
             account.getStudentcourse_list(),
-            0,
+            50,
             null,
             null,
             null
@@ -203,7 +203,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountModel findById(Long id) {
-        AccountRegisterEntity account = repository.getById(id);
+        AccountRegisterEntity account = repository.findById(id).get();
 
         // return new AccountModel(account);
         return UserMapper.mapToAccountModel(account, null, null);
@@ -218,6 +218,13 @@ public class AccountServiceImpl implements AccountService {
         Long user_id = account.getId();
 
         DiscussionEntity disc =  discussionRepository.getById(disc_id);
+
+        if(disc.getTeacher().getUser().getId() == account.getId()) {
+            return "Cannot Join Your Created Discussion";    
+        }
+        
+
+        account.setCoin(account.getCoin() - disc.getDisc_price());
 
         StudentDiscKey key = new StudentDiscKey(user_id, disc_id);
         
@@ -240,6 +247,10 @@ public class AccountServiceImpl implements AccountService {
 
         CourseEntity course =  courseRepository.getById(course_id);
 
+        if(course.getTeacher().getUser().getId() == account.getId()) {
+            return "Failed";    
+        }
+
         System.out.println(course.getTotal_course_sold());
         if(course.getTotal_course_sold() == null) {
             course.setTotal_course_sold(1);
@@ -248,6 +259,8 @@ public class AccountServiceImpl implements AccountService {
         }
 
         courseRepository.save(course);
+
+        account.setCoin(account.getCoin() - course.getCourse_price());
 
         StudentCourseKey key = new StudentCourseKey(user_id, course_id);
         
@@ -269,15 +282,18 @@ public class AccountServiceImpl implements AccountService {
         account.setPic_type(file.getContentType());
 
         String filenametest = file.getOriginalFilename();
-        try{
-            file.transferTo(new File(UPLOAD_PATH + filenametest));
-            System.out.println("lewat brohhh");
-            repository.saveProfilepic(filenametest, email);
-            System.out.println("lewat query");
-            
-        } catch (Exception e){
-            e.printStackTrace();
-            return null;
+        Boolean exist = new File(UPLOAD_PATH + filenametest).exists();
+        if(!exist) {
+            try{
+                file.transferTo(new File(UPLOAD_PATH + filenametest));
+                System.out.println("lewat brohhh");
+                repository.saveProfilepic(filenametest, email);
+                System.out.println("lewat query");
+                
+            } catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
         }
 
         return repository.save(account);
