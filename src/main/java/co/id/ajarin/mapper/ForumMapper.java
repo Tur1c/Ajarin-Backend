@@ -8,20 +8,20 @@ import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.model.forum.ForumModel;
 import co.id.ajarin.model.forum.ReplyModel;
+import co.id.ajarin.model.forum.ReplyModel;
 
 public class ForumMapper {
 
     public static ForumModel.Forum maptoForumModel (ForumEntity forum){
         AccountRegisterEntity acc = forum.getUser();
 
-        System.out.println(forum.getForum_replies());
-
         List<ReplyModel.Reply> forum_replies = new ArrayList<>();
         for(ForumReplyEntity reply : forum.getForum_replies()){
-            ReplyModel.Reply forum_reply = ReplyMapper.maptoReplyModel(reply);
-
-            forum_replies.add(forum_reply);
+            ReplyModel.Reply forum_Reply = ReplyMapper.maptoReplyModel(reply);
+            
+            forum_replies.add(forum_Reply);
         }
+
         acc = new AccountRegisterEntity(acc.getId(), acc.getFirstName(), acc.getLastName(), acc.getEmail(), acc.getPassword(), acc.getRole(), acc.getGender(), acc.getCity(), acc.getCountry(), acc.getSchool(), acc.getAge(), acc.getPhoneNumber(), acc.getEducation(), acc.getCoin(), acc.getPic_name(), acc.getPic_type(), acc.getData());
         return new ForumModel.Forum(
             forum.getQuestion_id(),

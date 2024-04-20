@@ -151,7 +151,7 @@ public class AccountController {
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
      }
 
-     @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
+    @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
     @PutMapping("{id}")
     public ResponseEntity<ResponseWrapperModel<AccountModel>> updateAccount(@PathVariable Long id, @RequestBody AccountRegistrationModel account){
 

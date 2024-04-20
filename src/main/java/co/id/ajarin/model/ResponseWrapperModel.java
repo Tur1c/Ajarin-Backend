@@ -1,5 +1,8 @@
 package co.id.ajarin.model;
 
+import org.hibernate.mapping.List;
+
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,5 +11,6 @@ import lombok.Setter;
 public class ResponseWrapperModel<T extends OutputRepositoryModel> extends BaseResponseWrapperModel {
     
     protected T outputSchema;
-    
+
+
 }

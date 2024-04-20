@@ -26,7 +26,7 @@ public class ForumModel {
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Forum {
+    public static class Forum extends OutputRepositoryModel {
         private Long question_id;
         private String question_title;
         private String question_desc;

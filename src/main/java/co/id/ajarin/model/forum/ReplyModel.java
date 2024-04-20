@@ -3,6 +3,10 @@ package co.id.ajarin.model.forum;
 import java.sql.Timestamp;
 import java.util.List;
 
+import co.id.ajarin.entity.AccountRegisterEntity;
+import co.id.ajarin.entity.ForumEntity;
+import co.id.ajarin.entity.ForumReplyEntity;
+import co.id.ajarin.entity.LikesEntity;
 import co.id.ajarin.model.OutputRepositoryModel;
 import co.id.ajarin.model.account.AccountModel;
 import lombok.AllArgsConstructor;
@@ -23,6 +27,8 @@ public class ReplyModel extends OutputRepositoryModel{
         public List<Reply> replies;
     }
 
+    
+
     @Getter
     @Setter
     @AllArgsConstructor
@@ -31,8 +37,28 @@ public class ReplyModel extends OutputRepositoryModel{
         private Long fr_id;
         private String fr_reply;
         private Long fr_likes;
-        private AccountModel user;
-        // private ForumEntity forumEntity;
+        private AccountModel user_id;
         private Timestamp fr_replied_at;
+        private List<LikesModel.Likes> likes;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class DeleteResponse extends OutputRepositoryModel {
+        public List<DeleteReply> replies;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class DeleteReply extends OutputRepositoryModel {
+        private Long fr_id;
+        private String fr_reply;
+        private Long fr_likes;
+        private AccountModel fr_user;
+        private Timestamp fr_replied_at;
+        private List<LikesModel.Likes> likes;
     }
 }
