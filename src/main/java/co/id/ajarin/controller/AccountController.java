@@ -1,5 +1,6 @@
 package co.id.ajarin.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.HttpHeaders;
@@ -181,6 +182,28 @@ public class AccountController {
         error.setHttpCode(HttpStatus.OK.value());
         wrapperModel.setErrorSchema(error);
         wrapperModel.setOutputSchema(accountOld);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+     }
+
+     @PreAuthorize("hasRole('Student') or hasRole('Teacher')")
+    @PutMapping("/teacher/update/{id}")
+    public ResponseEntity<ResponseWrapperModel<Teacher>> updateAccountTeacher(@PathVariable Long id,
+                @RequestParam(name = "file", required = false) MultipartFile file, 
+                @RequestParam(name = "achievement", required = false) String achievement, @RequestParam(name = "education", required = false) String education,
+                @RequestParam(name = "experience" , required = false) String experience, @RequestParam(name = "profile_description", required = false) String profileDescription) throws IOException
+    {
+
+        Teacher teacher = service.updateTeacher(id, file, achievement, education, experience, profileDescription);
+
+        ResponseWrapperModel<Teacher> wrapperModel = new ResponseWrapperModel<>();
+
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage("Sukses");
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+        wrapperModel.setOutputSchema(teacher);
 
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
      }

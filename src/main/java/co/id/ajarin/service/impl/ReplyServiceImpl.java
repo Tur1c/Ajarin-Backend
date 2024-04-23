@@ -18,6 +18,7 @@ import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.entity.LikesEntity;
+import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.mapper.ForumMapper;
 import co.id.ajarin.mapper.ReplyMapper;
 import co.id.ajarin.model.forum.ForumModel;
@@ -26,6 +27,7 @@ import co.id.ajarin.model.forum.ReplyModel.Reply;
 import co.id.ajarin.repository.AccountRegistrationRepository;
 import co.id.ajarin.repository.ForumRepository;
 import co.id.ajarin.repository.ReplyRepository;
+import co.id.ajarin.repository.TeacherRepository;
 import co.id.ajarin.service.ReplyService;
 
 @Service
@@ -38,6 +40,8 @@ public class ReplyServiceImpl implements ReplyService
     ForumRepository forumRepository;
     @Autowired
     AccountRegistrationRepository accountRepository;  
+    @Autowired
+    TeacherRepository teacherRepository;
 
     @Override
     public List<Reply> getAllReply() {
@@ -104,6 +108,16 @@ public class ReplyServiceImpl implements ReplyService
     public ReplyModel.Reply inputReply(String reply, String email, Long forum_id) {
         
         AccountRegisterEntity account = accountRepository.findByEmail(email);
+
+        ForumEntity forum = forumRepository.getById(forum_id);
+
+        TeacherEntity teacher = teacherRepository.getTeacherById(account.getId());
+
+        if(teacher != null) {
+            teacher.setPoints(teacher.getPoints() + 5);
+        }
+
+        forum.setTotal_comment(forum.getTotal_comment() + 1);
 
         long timesNow = Instant.now().toEpochMilli();
         Timestamp timestamp = new Timestamp(timesNow);

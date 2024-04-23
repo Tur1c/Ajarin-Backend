@@ -99,6 +99,7 @@ public class TeacherMapper {
             teacherEntity.getEducation(),
             ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(teacherEntity.getTeacher_id().toString()).toUriString(),
             teacherEntity.getRating(),
+            teacherEntity.getPoints(),
             // teacherEntity.getUser()
             new AccountRegistrationModel(teacherEntity.getUser()),
             discussion,
@@ -120,6 +121,7 @@ public class TeacherMapper {
             teacherEntity.getEducation(),
             ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(teacherEntity.getTeacher_id().toString()).toUriString(),
             teacherEntity.getRating(),
+            teacherEntity.getPoints(),
             new AccountRegistrationModel(teacherEntity.getUser()),
             null,
             null,

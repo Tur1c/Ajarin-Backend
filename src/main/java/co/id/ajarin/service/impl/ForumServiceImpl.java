@@ -33,6 +33,7 @@ public class ForumServiceImpl implements ForumService{
     CategoryRepository categoryRepository;  
 
     @Override
+    @Transactional
     public List<Forum> getAllForum() {
         List<ForumEntity> forums = forumRepository.findAll();
         // TODO Auto-generated method stub

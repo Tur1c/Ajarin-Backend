@@ -131,7 +131,7 @@ public class UserMapper {
             acc.getPhoneNumber(), 
             acc.getEducation(), 
             acc.getCoin(),
-            acc.getProfile_pic()
+            acc.getPic_name()
             );
     }
 }

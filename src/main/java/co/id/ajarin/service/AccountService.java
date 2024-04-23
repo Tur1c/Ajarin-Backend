@@ -60,4 +60,7 @@ public interface AccountService extends UserDetailsService {
     String addPrivateDisc(PrivateDiscModel disc,Long userid, Long teacherid);
 
     String acceptOrReject(Long privateid, String status, String subject);
+
+    Teacher updateTeacher(Long id, MultipartFile file, String achievement, String education, String experience,
+            String profileDescription) throws IOException;
 }

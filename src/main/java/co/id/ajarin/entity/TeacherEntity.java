@@ -67,6 +67,9 @@ public class TeacherEntity {
     @Column(name = "rating")
     private String rating;
 
+    @Column(name = "points")
+    private Integer points;
+
     @Column(name = "cv_data")
     @JsonIgnore
     @Lob

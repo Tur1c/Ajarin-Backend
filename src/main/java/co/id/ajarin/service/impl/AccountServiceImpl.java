@@ -222,11 +222,13 @@ public class AccountServiceImpl implements AccountService {
         if(disc.getTeacher().getUser().getId() == account.getId()) {
             return "Cannot Join Your Created Discussion";    
         }
+        disc.getTeacher().getUser().setCoin(disc.getTeacher().getUser().getCoin() + disc.getDisc_price());
         
 
         account.setCoin(account.getCoin() - disc.getDisc_price());
 
         StudentDiscKey key = new StudentDiscKey(user_id, disc_id);
+        
         
         StudentDiscEntity student_disc = new StudentDiscEntity(key, account,disc,"Ongoing");
 
@@ -247,9 +249,13 @@ public class AccountServiceImpl implements AccountService {
 
         CourseEntity course =  courseRepository.getById(course_id);
 
+        System.out.println(courseRepository.getById(course_id).getTeacher().getUser().getId());
+
         if(course.getTeacher().getUser().getId() == account.getId()) {
             return "Failed";    
         }
+
+        course.getTeacher().getUser().setCoin(course.getTeacher().getUser().getCoin() + course.getCourse_price());
 
         System.out.println(course.getTotal_course_sold());
         if(course.getTotal_course_sold() == null) {
@@ -319,6 +325,7 @@ public class AccountServiceImpl implements AccountService {
         teacher.setEducation(education);
         teacher.setExperience(experience);
         teacher.setRating("0");
+        teacher.setPoints(0);
         repositoryTeacher.save(teacher);
 
         return "Success";
@@ -478,9 +485,44 @@ public class AccountServiceImpl implements AccountService {
 
         return message;
     }
-    
-    
 
+    @Override
+    public Teacher updateTeacher(Long id, MultipartFile file, String achievement, String education, String experience,
+            String profileDescription) throws IOException {
+        TeacherEntity teacher = repositoryTeacher.getTeacherById(id);
+
+        if(achievement != null) {
+            teacher.setAchievement(achievement);
+        }
+        teacher.setUser(teacher.getUser());
+        if(file != null) {
+            teacher.setData(file.getBytes());
+        }
+        if(profileDescription != null) {
+            teacher.setProfile_description(profileDescription);
+        }
+        if(education != null) {
+            teacher.setEducation(education);
+        }
+        if(experience != null) {
+            teacher.setExperience(experience);
+        }
+
+        // teacher.setAchievement(achievement);
+        // teacher.setUser(accountEntity);
+        // teacher.setData(file.getBytes());
+        // teacher.setProfile_description(description);
+        // teacher.setEducation(education);
+        // teacher.setExperience(experience);
+        // teacher.setRating("0");
+        // teacher.setPoints(0);
+        repositoryTeacher.save(teacher);
+
+        return TeacherMapper.mapToTeacherModel(teacher,null);
+    }
+    
+    
+    
     
     
     

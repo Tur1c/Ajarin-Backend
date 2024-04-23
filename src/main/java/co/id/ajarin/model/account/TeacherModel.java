@@ -63,6 +63,7 @@ public class TeacherModel extends OutputRepositoryModel {
         private String education;
         private String cv_data;
         private String rating;
+        private Integer points;
         private AccountRegistrationModel user;
         private List<Discussion> discussion;
         private List<Course> courses;
