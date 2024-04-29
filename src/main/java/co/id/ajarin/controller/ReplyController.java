@@ -22,6 +22,7 @@ import co.id.ajarin.model.forum.EditReplyModel;
 import co.id.ajarin.model.forum.ForumModel;
 import co.id.ajarin.model.forum.InputReplyModel;
 import co.id.ajarin.model.forum.ReplyModel;
+import co.id.ajarin.model.forum.ReplyModel.Reply;
 import co.id.ajarin.service.AccountService;
 import co.id.ajarin.service.ForumService;
 import co.id.ajarin.service.ReplyService;
@@ -50,6 +51,8 @@ public class ReplyController {
         System.out.println(inputReply.getForum_id());
 
         ReplyModel.Reply newReply = replyService.inputReply(inputReply.getReply(), inputReply.getEmail(), inputReply.getForum_id());
+
+        newReply.getUser_id().setPic_name(newReply.getUser_id().getProfile_pic());
 
         ResponseWrapperModel<ReplyModel.Reply> wrapperModel = new ResponseWrapperModel<>();
         
@@ -103,6 +106,10 @@ public class ReplyController {
         
         ReplyModel.Response response = new ReplyModel.Response(forumRelated.getForum_replies());
 
+        for (Reply forum : response.replies) {
+            forum.getUser_id().setPic_name(forum.getUser_id().getPic_url());
+        }
+
         ResponseWrapperModel<ReplyModel.Response> wrapperModel = new ResponseWrapperModel<>();
 
         ErrorRepository error = new ErrorRepository();
@@ -130,6 +137,10 @@ public class ReplyController {
 
         
         ReplyModel.Response response = new ReplyModel.Response(forumRelated.getForum_replies());
+
+        for (Reply forum : response.replies) {
+            forum.getUser_id().setPic_name(forum.getUser_id().getPic_url());
+        }
 
         ResponseWrapperModel<ReplyModel.Response> wrapperModel = new ResponseWrapperModel<>();
 

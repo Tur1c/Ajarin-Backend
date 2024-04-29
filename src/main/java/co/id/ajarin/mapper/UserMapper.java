@@ -59,7 +59,7 @@ public class UserMapper {
         if(private_disc != null) {
             for(PrivateDiscEntity privateDisc : private_disc){
                 CategoryEntity category = new CategoryEntity(99, privateDisc.getSubject());
-                DiscussionModel.Discussion discModel = new Discussion(privateDisc.getPrivate_id(), privateDisc.getTitle(), 1, privateDisc.getOffered_coin(), privateDisc.getDate_start(), privateDisc.getDate_end(), privateDisc.getPrivate_date(), privateDisc.getDifficulty(), privateDisc.getEducation(), null, category, TeacherMapper.mapToTeacherModel(privateDisc.getTeacher(), null), 1L);
+                DiscussionModel.Discussion discModel = new Discussion(privateDisc.getPrivate_id(), privateDisc.getTitle(), 1, privateDisc.getOffered_coin(), privateDisc.getDate_start(), privateDisc.getDate_end(), privateDisc.getPrivate_date(), privateDisc.getDifficulty(), privateDisc.getEducation(), null, privateDisc.getLink(), category, TeacherMapper.mapToTeacherModel(privateDisc.getTeacher(), null), 1L);
     
                 studentDisc.add(new StudentDiscModel(
                     discModel,

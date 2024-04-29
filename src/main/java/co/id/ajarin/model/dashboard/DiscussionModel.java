@@ -30,7 +30,7 @@ public class DiscussionModel {
     @NoArgsConstructor
     public static class Discussion {
         public Discussion(Long private_id, String title, int i, Long offered_coin, Time date_start, Time date_end,
-                java.sql.Date private_date, String difficulty, String education, Object disc_image2, CategoryEntity subject,
+                java.sql.Date private_date, String difficulty, String education, Object disc_image2, String url, CategoryEntity subject,
                 Teacher teachermapped, long joinedParticipant2) {
             this.disc_id = private_id;
             this.disc_title = title;
@@ -42,6 +42,7 @@ public class DiscussionModel {
             this.disc_description = difficulty;
             this.disc_level = education;
             this.disc_image = null;
+            this.disc_url = url;
             this.category = subject;
             this.teacher = teachermapped;
             this.joinedParticipant = 1L;
@@ -57,6 +58,7 @@ public class DiscussionModel {
         private String disc_description;
         private String disc_level;
         private String disc_image;
+        private String disc_url;
         private CategoryEntity category;
         private TeacherModel.Teacher teacher;
         private Long joinedParticipant;

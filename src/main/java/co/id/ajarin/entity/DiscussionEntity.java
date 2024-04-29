@@ -30,7 +30,7 @@ public class DiscussionEntity {
 @SuppressWarnings("null")
 public DiscussionEntity(String title, String maxParticipant, String price, Date startDate,
             Date endDate, Date startDate2, String description, String filename,
-            String level, CategoryEntity category2, TeacherEntity teacher) {
+            String level, String urlLink, CategoryEntity category2, TeacherEntity teacher) {
 
         long start = startDate.getTime();
         long end = endDate.getTime();
@@ -46,6 +46,7 @@ public DiscussionEntity(String title, String maxParticipant, String price, Date 
         this.disc_description = description;
         this.disc_image = filename;
         this.disc_level = level;
+        this.disc_url = urlLink;
         this.category = category2;
         this.teacher = teacher;
     }
@@ -89,6 +90,9 @@ public DiscussionEntity(String title, String maxParticipant, String price, Date 
 
     @Column(name = "disc_level")
     private String disc_level;
+
+    @Column(name = "disc_link")
+    private String disc_url;
 
     @ManyToOne
     @JoinColumn(name="disc_category")

@@ -65,7 +65,7 @@ public class TeacherMapper {
         for (PrivateDiscEntity privateDiscEntity : teacherEntity.getPrivateDisc()){
             System.out.println(privateDiscEntity);
             if(privateDiscEntity.getStatus().equals("Accepted")){
-                DiscussionEntity privateDisc = new DiscussionEntity(privateDiscEntity.getTitle(), "1", privateDiscEntity.getOffered_coin().toString(), privateDiscEntity.getDate_start(), privateDiscEntity.getDate_end(), privateDiscEntity.getPrivate_date(), privateDiscEntity.getDifficulty(), null, privateDiscEntity.getEducation(), new CategoryEntity(99,privateDiscEntity.getSubject()), null);
+                DiscussionEntity privateDisc = new DiscussionEntity(privateDiscEntity.getTitle(), "1", privateDiscEntity.getOffered_coin().toString(), privateDiscEntity.getDate_start(), privateDiscEntity.getDate_end(), privateDiscEntity.getPrivate_date(), privateDiscEntity.getDifficulty(), null, privateDiscEntity.getEducation(), privateDiscEntity.getLink(), new CategoryEntity(99,privateDiscEntity.getSubject()), null);
 
                 DiscussionModel.Discussion usedPrivateDisc = DiscussionMapper.mapToDiscussionModelNoR(privateDisc,null);
                 discussion.add(usedPrivateDisc);

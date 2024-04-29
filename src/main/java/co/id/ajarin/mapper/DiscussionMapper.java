@@ -19,6 +19,7 @@ public class DiscussionMapper {
             discussion.getDisc_description(),
             discussion.getDisc_level(),
             discussion.getDisc_image(),
+            discussion.getDisc_url(),
             discussion.getCategory(),
             TeacherMapper.mapToTeacherModel(discussion.getTeacher(),null),
             1L
@@ -37,7 +38,7 @@ public class DiscussionMapper {
             disc.getDisc_description(),
             disc.getDisc_level(),
             disc.getDisc_image(),
-
+            disc.getDisc_url(),
             disc.getCategory(),
             teacher,
             1L

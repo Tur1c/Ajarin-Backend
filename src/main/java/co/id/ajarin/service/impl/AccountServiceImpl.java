@@ -102,7 +102,7 @@ public class AccountServiceImpl implements AccountService {
             account.getEducation(),
             account.getStudentdisc_list(),
             account.getStudentcourse_list(),
-            50,
+            0,
             null,
             null,
             null
@@ -386,8 +386,10 @@ public class AccountServiceImpl implements AccountService {
         }
         if(newSubscribed) {
             teacher.getSubscribed_student().add(account);
+            return "Success";
+        } else {
+            return "Failed";
         }
-        return "Success";
     }
 
     @Override
@@ -423,6 +425,25 @@ public class AccountServiceImpl implements AccountService {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-DD");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        SimpleDateFormat sdf =  new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss a");
+        String today = new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss a").format(new java.util.Date());
+
+        try {
+            java.util.Date dateToday = sdf.parse(today);
+            java.util.Date utilDate = format.parse(disc.getDate());
+            if(dateToday.compareTo(utilDate) == 0) {
+                java.util.Date utilStart_time = timeFormat.parse(disc.getStart_time()+":00");
+                if(dateToday.getTime() >= utilStart_time.getTime()) {
+                    return "error";
+                }
+            } else if(dateToday.compareTo(utilDate) > 0) {
+                return "error";
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "Error";
+        }
         // TODO Auto-generated method stub
         PrivateDiscEntity privateDisc = new PrivateDiscEntity();
         privateDisc.setTitle(disc.getTitle());
@@ -456,6 +477,7 @@ public class AccountServiceImpl implements AccountService {
         privateDisc.setStatus("Requested");
         privateDisc.setOffered_coin(disc.getCoin());
         privateDisc.setTeacher(teacher);
+        privateDisc.setLink("https://zoom");
 
         PrivateDiscRepository.save(privateDisc);
         

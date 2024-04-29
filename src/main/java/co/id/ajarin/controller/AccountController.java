@@ -429,7 +429,7 @@ public class AccountController {
         ResponseWrapperModel<TeacherModel.Response> wrapperModel = new ResponseWrapperModel<>();
         
         ErrorRepository error = new ErrorRepository();
-        error.setMessage("Sukses");
+        error.setMessage(message);
         error.setErrorCode("00");
         error.setHttpCode(HttpStatus.OK.value());
         wrapperModel.setErrorSchema(error);

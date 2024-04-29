@@ -2,6 +2,8 @@ package co.id.ajarin.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -70,6 +72,23 @@ public class DiscussionServiceImpl implements DiscussionService {
 
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
 
+        SimpleDateFormat sdf =  new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss a");
+        String today = new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss a").format(new Date());
+
+        try {
+            Date dateToday = sdf.parse(today);
+            if(dateToday.compareTo(startDate) == 0) {
+                if(dateToday.getTime() >= startDate.getTime()) {
+                    return "error";
+                }
+            } else if(dateToday.compareTo(startDate) > 0) {
+                return "error";
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "Error";
+        }
+
         List<CategoryEntity> categories = categoryRepository.findAll();
         CategoryEntity category = new CategoryEntity();
 
@@ -113,6 +132,7 @@ public class DiscussionServiceImpl implements DiscussionService {
             description,
             filename,
             level,
+            urlLink,
             category,
             teacher
         );

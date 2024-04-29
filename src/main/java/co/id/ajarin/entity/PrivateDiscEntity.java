@@ -58,6 +58,9 @@ public class PrivateDiscEntity {
     @Column(name = "offered_coin")
     private Long offered_coin;
 
+    @Column(name = "link")
+    private String link;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "teacher_id")

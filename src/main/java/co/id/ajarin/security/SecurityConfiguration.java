@@ -44,7 +44,8 @@ public class SecurityConfiguration implements WebMvcConfigurer {
                 "/api/discussion/files/*",
                 "/api/course","/api/forum", "/api/category", "/api/account/files/*", 
                 "/api/account/files/cv/*", "/api/account/inquiry/teacher",
-                "/api/account/check-email/*")
+                "/api/account/check-email/*",
+                "/api/payment")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
