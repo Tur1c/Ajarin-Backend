@@ -17,7 +17,7 @@ public class AccountModel extends OutputRepositoryModel {
     public AccountModel(Long id2, String firstName2, String lastName2, String email2, String password2, String role2,
             String gender2, String city2, String country2, String school2, Integer age2, String phoneNumber2,
             String education2, List<StudentDiscModel> studentdisc_list2, List<StudentCourseModel> studentcourse,
-            List<TeacherModel.Teacher> subscribed_lecturer2,Integer coin2, String pic_name2, String pic_url2, String pic_type2, String profile_pic2, List<NotificationModel> notif2) {
+            List<TeacherModel.Teacher> subscribed_lecturer2,Integer coin2, String profile_pic2, List<NotificationModel> notif2) {
         
             this.id = id2;
             this.firstName = firstName2;
@@ -36,9 +36,9 @@ public class AccountModel extends OutputRepositoryModel {
             this.studentcourse_list = studentcourse;
             this.subscribed_lecturer = subscribed_lecturer2;
             this.coin = coin2;
-            this.pic_name = pic_name2;
-            this.pic_url = pic_url2;
-            this.pic_type = pic_type2;
+        //     this.pic_name = pic_name2;
+        //     this.pic_url = pic_url2;
+        //     this.pic_type = pic_type2;
             this.profile_pic = profile_pic2;
             this.notifs = notif2;
     }
@@ -63,9 +63,9 @@ public class AccountModel extends OutputRepositoryModel {
             this.studentcourse_list = null;
             this.subscribed_lecturer = null;
             this.coin = coin2;
-            this.pic_name = null;
-            this.pic_url = null;
-            this.pic_type = null;
+        //     this.pic_name = null;
+        //     this.pic_url = null;
+        //     this.pic_type = null;
             this.profile_pic = profile_pic2;
     }
     private Long id;
@@ -85,9 +85,9 @@ public class AccountModel extends OutputRepositoryModel {
     private List<StudentCourseModel> studentcourse_list;
     private List<TeacherModel.Teacher> subscribed_lecturer;
     private Integer coin;
-    private String pic_name;
-    private String pic_url;
-    private String pic_type;
+//     private String pic_name;
+//     private String pic_url;
+//     private String pic_type;
     private String profile_pic;
     private List<NotificationModel> notifs;
 }

@@ -59,7 +59,7 @@ public class TeacherMapper {
             // new Teacher(courseEntity.getTeacher().getTeacher_id(), courseEntity.getTeacher().getProfile_description(), courseEntity.getTeacher().getAchievement(), courseEntity.getTeacher().getExperience(), courseEntity.getTeacher().getEducation(), courseEntity.getTeacher().getRating(), courseEntity.getTeacher().getUser()));
             course.add(courseModel);
         }
-        acc = new AccountRegisterEntity(acc.getId(), acc.getFirstName(), acc.getLastName(), acc.getEmail(), acc.getPassword(), acc.getRole(), acc.getGender(), acc.getCity(), acc.getCountry(), acc.getSchool(), acc.getAge(), acc.getPhoneNumber(), acc.getEducation(), acc.getCoin(), acc.getPic_name(), acc.getPic_type(), acc.getData());
+        // acc = new AccountRegisterEntity(acc.getId(), acc.getFirstName(), acc.getLastName(), acc.getEmail(), acc.getPassword(), acc.getRole(), acc.getGender(), acc.getCity(), acc.getCountry(), acc.getSchool(), acc.getAge(), acc.getPhoneNumber(), acc.getEducation(), acc.getCoin(), acc.getProfile_pic());
 
         List<PrivateDiscModel> teacher_private_disc = new ArrayList<>();
         for (PrivateDiscEntity privateDiscEntity : teacherEntity.getPrivateDisc()){
@@ -98,15 +98,15 @@ public class TeacherMapper {
             teacherEntity.getExperience(),
             teacherEntity.getEducation(),
             ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(teacherEntity.getTeacher_id().toString()).toUriString(),
-            teacherEntity.getRating(),
             teacherEntity.getPoints(),
+            UserMapper.mapToAccountModelNoR(teacherEntity.getUser()),
+            // new AccountRegistrationModel(teacherEntity.getUser()),
             // teacherEntity.getUser()
-            new AccountRegistrationModel(teacherEntity.getUser()),
             discussion,
             course,
-            teacher_private_disc
-            // teacherEntity.getTeacher_image(),
-            // teacherEntity.getTeacher_name(),
+            teacher_private_disc,
+            null,
+            0.0
         );
     }
 
@@ -120,9 +120,10 @@ public class TeacherMapper {
             teacherEntity.getExperience(),
             teacherEntity.getEducation(),
             ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/cv/").path(teacherEntity.getTeacher_id().toString()).toUriString(),
-            teacherEntity.getRating(),
             teacherEntity.getPoints(),
-            new AccountRegistrationModel(teacherEntity.getUser()),
+            UserMapper.mapToAccountModelNoR(teacherEntity.getUser()),
+            null,
+            null,
             null,
             null,
             null

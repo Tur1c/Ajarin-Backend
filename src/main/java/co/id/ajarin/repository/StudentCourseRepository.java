@@ -1,5 +1,7 @@
 package co.id.ajarin.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +31,10 @@ public interface StudentCourseRepository extends JpaRepository<StudentCourseEnti
     @Modifying
     @Query(value = "UPDATE STUDENT_COURSE SET RATING = :rating, COMMENT = :comment WHERE user_id = :userid AND course_id = :courseid", nativeQuery = true)
     int setRatingComment(@Param("userid") Long userid, @Param("courseid") Long courseid, @Param("rating") Float rating, @Param("comment") String comment);
+
+    @Query(value = "SELECT COALESCE(AVG(RATING),0) FROM STUDENT_COURSE WHERE RATING IS NOT NULL AND course_id IN (:courseId)", nativeQuery = true)
+    Double getRatingData(List<Long> courseId);
+
+    @Query(value = "SELECT * FROM STUDENT_COURSE WHERE RATING IS NOT NULL AND course_id IN (:courseId)", nativeQuery = true)
+    List<StudentCourseEntity> getCourseData(List<Long> courseId);
 }

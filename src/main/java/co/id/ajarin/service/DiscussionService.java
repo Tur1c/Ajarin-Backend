@@ -17,4 +17,5 @@ public interface DiscussionService {
             Date endDate, String maxParticipant, String price, String urlLink, MultipartFile file, Long userId) throws IOException;
 
     // DiscussionEntity getImage(String name) throws UnsupportedEncodingException;
+    String cancelDiscussion(Long accId, Long discId);
 }

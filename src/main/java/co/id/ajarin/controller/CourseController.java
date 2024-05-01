@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.id.ajarin.entity.CourseEntity;
+// import co.id.ajarin.entity.CourseEntity;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
-import co.id.ajarin.model.account.TeacherModel.Teacher;
+// import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.dashboard.CompleteChapterModel;
 import co.id.ajarin.model.dashboard.CourseModel;
-import co.id.ajarin.model.dashboard.CourseModel.Course;
+// import co.id.ajarin.model.dashboard.CourseModel.Course;
 import co.id.ajarin.model.dashboard.RateCourseModel;
 import co.id.ajarin.service.CourseService;
 

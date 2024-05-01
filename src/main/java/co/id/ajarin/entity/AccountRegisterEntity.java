@@ -65,7 +65,7 @@ public class AccountRegisterEntity {
     public AccountRegisterEntity(Long id2, String firstName2, String lastName2, String email2, String password2,
             String role2, String gender2, String city2, String country2, String school2, Integer age2,
             String phoneNumber2, String education2, List<StudentDiscEntity> studentdisc_list2, List<StudentCourseEntity> studentcourse_list2, 
-            Integer coin2, String pic_name2, String pic_type2, byte[] pic_data) {
+            Integer coin2) {
         this.id = id2;
         this.age = age2;
         this.firstName = firstName2;
@@ -82,17 +82,17 @@ public class AccountRegisterEntity {
         this.education = education2;
         this.studentdisc_list = studentdisc_list2;
         this.studentcourse_list = studentcourse_list2;
-        if(pic_data != null) {
-            this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
-        }
-        this.pic_name = pic_name2;
-        this.pic_type = pic_type2;
+        // if(pic_data != null) {
+        //     this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
+        // }
+        // this.pic_name = pic_name2;
+        // this.pic_type = pic_type2;
     }
 
     //constructor without relational data
 
     public AccountRegisterEntity(Long id, String firstName, String lastName, String email, String password, String role, String gender, String city, String country,
-    String school, Integer age, String phoneNumber, String education, Integer coin, String pic_name, String pic_type, byte[] pic_data){
+    String school, Integer age, String phoneNumber, String education, Integer coin){
         this.id = id;
         this.age = age;
         this.firstName = firstName;
@@ -107,11 +107,11 @@ public class AccountRegisterEntity {
         this.school = school;
         this.phoneNumber = phoneNumber;
         this.education = education;
-        if(pic_data != null) {
-            this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
-        }
-        this.pic_name = pic_name;
-        this.pic_type = pic_type;
+        // if(pic_data != null) {
+        //     this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
+        // }
+        // this.pic_name = pic_name;
+        // this.pic_type = pic_type;
     }
 
     @Id
@@ -173,20 +173,20 @@ public class AccountRegisterEntity {
     @Column(name = "coin")
     private Integer coin;
 
-    @Column(name = "profile_pic_data")
-    @JsonIgnore
-    @Lob
-    private byte[] data;
+    // @Column(name = "profile_pic_data")
+    // @JsonIgnore
+    // @Lob
+    // private byte[] data;
 
-    @Column(name = "profile_pic_url")
-    @Transient
-    private String pic_url;
+    // @Column(name = "profile_pic_url")
+    // @Transient
+    // private String pic_url;
 
-    @Column(name = "profile_pic_name")
-    private String pic_name;
+    // @Column(name = "profile_pic_name")
+    // private String pic_name;
 
-    @Column(name = "profile_pic_type")
-    private String pic_type;
+    // @Column(name = "profile_pic_type")
+    // private String pic_type;
 
     @Column(name = "profile_pic")
     private String profile_pic;

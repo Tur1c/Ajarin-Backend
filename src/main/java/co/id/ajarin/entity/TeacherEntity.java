@@ -32,16 +32,15 @@ import lombok.Setter;
 public class TeacherEntity {
 
     public TeacherEntity(Long teacher_id, String profile_description, String education, String experience,
-            String achievement, String rating, byte[] data, List<AccountRegisterEntity> subscribed_student, AccountRegisterEntity user) {
+            String achievement, byte[] data, List<AccountRegisterEntity> subscribed_student, AccountRegisterEntity user) {
         this.teacher_id = teacher_id;
         this.profile_description = profile_description;
         this.education = education;
         this.experience = experience;
         this.achievement = achievement;
-        this.rating = rating;
         this.data = data;
         this.subscribed_student = subscribed_student;
-        this.user = new AccountRegisterEntity(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getRole(), user.getGender(), user.getCity(), user.getCountry(), user.getSchool(), user.getAge(), user.getPhoneNumber(), user.getEducation(), null, null, user.getCoin(), user.getPic_name(), user.getPic_type(), user.getData());
+        this.user = new AccountRegisterEntity(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getRole(), user.getGender(), user.getCity(), user.getCountry(), user.getSchool(), user.getAge(), user.getPhoneNumber(), user.getEducation(), null, null, user.getCoin());
     }
 
     @Id
@@ -64,8 +63,6 @@ public class TeacherEntity {
     @Column(name = "achievement")
     private String achievement;
 
-    @Column(name = "rating")
-    private String rating;
 
     @Column(name = "points")
     private Integer points;

@@ -52,7 +52,7 @@ public class ReplyController {
 
         ReplyModel.Reply newReply = replyService.inputReply(inputReply.getReply(), inputReply.getEmail(), inputReply.getForum_id());
 
-        newReply.getUser_id().setPic_name(newReply.getUser_id().getProfile_pic());
+        newReply.getUser_id().setProfile_pic(newReply.getUser_id().getProfile_pic());
 
         ResponseWrapperModel<ReplyModel.Reply> wrapperModel = new ResponseWrapperModel<>();
         
@@ -107,7 +107,7 @@ public class ReplyController {
         ReplyModel.Response response = new ReplyModel.Response(forumRelated.getForum_replies());
 
         for (Reply forum : response.replies) {
-            forum.getUser_id().setPic_name(forum.getUser_id().getPic_url());
+            forum.getUser_id().setProfile_pic(forum.getUser_id().getProfile_pic());
         }
 
         ResponseWrapperModel<ReplyModel.Response> wrapperModel = new ResponseWrapperModel<>();
@@ -139,7 +139,7 @@ public class ReplyController {
         ReplyModel.Response response = new ReplyModel.Response(forumRelated.getForum_replies());
 
         for (Reply forum : response.replies) {
-            forum.getUser_id().setPic_name(forum.getUser_id().getPic_url());
+            forum.getUser_id().setProfile_pic(forum.getUser_id().getProfile_pic());
         }
 
         ResponseWrapperModel<ReplyModel.Response> wrapperModel = new ResponseWrapperModel<>();

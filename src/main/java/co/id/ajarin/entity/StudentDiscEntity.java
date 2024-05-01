@@ -1,5 +1,7 @@
 package co.id.ajarin.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -43,6 +45,9 @@ public class StudentDiscEntity {
 
     @Column(name = "status")
     private String status;
+
+    @Column(name = "joined_date")
+    private Date joined_date;
 
 
     

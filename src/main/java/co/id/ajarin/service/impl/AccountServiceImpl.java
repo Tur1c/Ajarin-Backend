@@ -2,10 +2,13 @@ package co.id.ajarin.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -76,7 +79,11 @@ public class AccountServiceImpl implements AccountService {
 
     private final JwtService jwtService;
 
-    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
+    //god
+    // private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
+
+    //bv
+    private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
 
     public AccountServiceImpl(AccountRegistrationRepository repository, JwtService jwtService) {
         super();
@@ -102,7 +109,6 @@ public class AccountServiceImpl implements AccountService {
             account.getEducation(),
             account.getStudentdisc_list(),
             account.getStudentcourse_list(),
-            0,
             null,
             null,
             null
@@ -129,8 +135,8 @@ public class AccountServiceImpl implements AccountService {
         accountOld.setEducation(account.getEducation());
         // accountOld.setStudentdisc_list(account.getStudentdisc_list());
         accountOld.setCoin(account.getCoin());
-        accountOld.setPic_name(account.getPic_name());
-        accountOld.setPic_type(account.getPic_type());
+        // accountOld.setPic_name(account.getPic_name());
+        // accountOld.setPic_type(account.getPic_type());
 
         return repository.save(accountOld);
     }
@@ -175,13 +181,11 @@ public class AccountServiceImpl implements AccountService {
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public AccountModel getAccountbyEmail(String email) {
-        // TODO Auto-generated method stub
         AccountRegisterEntity account = repository.findByEmail(email);
 
         List<NotificationEntity> notif = notificationRepository.getNotifData(account.getId());
@@ -228,9 +232,11 @@ public class AccountServiceImpl implements AccountService {
         account.setCoin(account.getCoin() - disc.getDisc_price());
 
         StudentDiscKey key = new StudentDiscKey(user_id, disc_id);
+
+        Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.of("Asia/Jakarta")).toInstant());
+
         
-        
-        StudentDiscEntity student_disc = new StudentDiscEntity(key, account,disc,"Ongoing");
+        StudentDiscEntity student_disc = new StudentDiscEntity(key, account,disc,"Ongoing", date);
 
         studentDiscRepository.save(student_disc);
 
@@ -269,8 +275,10 @@ public class AccountServiceImpl implements AccountService {
         account.setCoin(account.getCoin() - course.getCourse_price());
 
         StudentCourseKey key = new StudentCourseKey(user_id, course_id);
+
+        Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.of("Asia/Jakarta")).toInstant());
         
-        StudentCourseEntity student_course = new StudentCourseEntity(key, account,course,"Ongoing", null,null,null);
+        StudentCourseEntity student_course = new StudentCourseEntity(key, account,course,"Ongoing", null,null,null,date);
 
         studentCourseRepository.save(student_course);
 
@@ -281,34 +289,31 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountRegisterEntity store(String email, MultipartFile file) throws IOException {
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
         AccountRegisterEntity account = repository.findByEmail(email);
-        account.setData(file.getBytes());
-        account.setPic_name(filename);
-        account.setPic_type(file.getContentType());
 
-        String filenametest = file.getOriginalFilename();
-        Boolean exist = new File(UPLOAD_PATH + filenametest).exists();
+
+        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+        Boolean exist = new File(UPLOAD_PATH + filename).exists();
         if(!exist) {
             try{
-                file.transferTo(new File(UPLOAD_PATH + filenametest));
+                file.transferTo(new File(UPLOAD_PATH + filename));
                 System.out.println("lewat brohhh");
-                repository.saveProfilepic(filenametest, email);
+                repository.saveProfilepic(filename, email);
                 System.out.println("lewat query");
-                
             } catch (Exception e){
                 e.printStackTrace();
                 return null;
             }
         }
-
+        
+        account.setProfile_pic(filename);
         return repository.save(account);
     }
 
-    @Override
-    public AccountRegisterEntity getFile(Long id) {
-        return repository.findById(id).get();
-    }
+    // @Override
+    // public AccountRegisterEntity getFile(Long id) {
+    //     return repository.findById(id).get();
+    // }
 
     @Override
     public String registerTeacher(AccountModel account, MultipartFile file, String achievement,
@@ -324,7 +329,6 @@ public class AccountServiceImpl implements AccountService {
         teacher.setProfile_description(description);
         teacher.setEducation(education);
         teacher.setExperience(experience);
-        teacher.setRating("0");
         teacher.setPoints(0);
         repositoryTeacher.save(teacher);
 
@@ -334,7 +338,38 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<TeacherModel.Teacher> getAllTeacher() {
         List<TeacherEntity> teachers = repositoryTeacher.findAll();
-        return teachers.stream().map((teacher) -> TeacherMapper.mapToTeacherModel(teacher,null)).collect(Collectors.toList());
+        List<TeacherModel.Teacher> usedTeachers= teachers.stream().map((teacher) -> TeacherMapper.mapToTeacherModel(teacher,null)).collect(Collectors.toList());
+        for(TeacherModel.Teacher teach : usedTeachers){
+            List<Long> courseId = teach.getCourses().stream().map( (course) -> course.getCourse_id()).filter((x) -> x != null ).collect(Collectors.toList());
+
+            if(!courseId.isEmpty()){
+                Double ratings = studentCourseRepository.getRatingData(courseId);
+                List<StudentCourseEntity> studentCourse = studentCourseRepository.getCourseData(courseId);
+                List<StudentCourseModel> studentcourse = new ArrayList<>();
+                if(!studentCourse.isEmpty()){
+                    for (StudentCourseEntity studentCourseEntity : studentCourse){
+                        TeacherModel.Teacher teacher = TeacherMapper.mapToTeacherModelNoR(studentCourseEntity.getCourse().getTeacher());
+                        CourseEntity course = studentCourseEntity.getCourse();
+                        CourseModel.Course courseModel = CourseMapper.mapToCourseModelNoR(course,teacher);
+                        AccountModel account = UserMapper.mapToAccountModelNoR(studentCourseEntity.getUser());
+                        studentcourse.add(new StudentCourseModel( 
+                            courseModel,
+                            studentCourseEntity.getStatus(),
+                            studentCourseEntity.getCompleted_chap(),
+                            studentCourseEntity.getRating(),
+                            studentCourseEntity.getComment(),
+                            studentCourseEntity.getJoined_date(),
+                            account
+                        ));
+                    }
+                    teach.setCourse_list(studentcourse);       
+                } 
+                System.out.println(ratings);
+                teach.setTeacher_rating(ratings);
+            }
+        }
+
+        return usedTeachers;
     }
 
     @Override
@@ -404,7 +439,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public StudentCourseModel getStudentCourseData(Long userid, Long courseid) {
-        // TODO Auto-generated method stub
         // StudentCourseKey key = new StudentCourseKey(userid, courseid);
         StudentCourseEntity studentcourse = studentCourseRepository.getData(userid, courseid);
 
@@ -414,7 +448,7 @@ public class AccountServiceImpl implements AccountService {
         CourseEntity course = studentcourse.getCourse();
         CourseModel.Course courseModel = CourseMapper.mapToCourseModelNoR(course,teacher);
 
-        StudentCourseModel studentcourse_used = new StudentCourseModel(courseModel, studentcourse.getStatus(), studentcourse.getCompleted_chap(), studentcourse.getRating(), studentcourse.getComment());
+        StudentCourseModel studentcourse_used = new StudentCourseModel(courseModel, studentcourse.getStatus(), studentcourse.getCompleted_chap(), studentcourse.getRating(), studentcourse.getComment(), studentcourse.getJoined_date(),null);
         return studentcourse_used;
     }
 
@@ -469,7 +503,6 @@ public class AccountServiceImpl implements AccountService {
             System.out.println(start_time + " " + end_time);
             privateDisc.setDate_end(end_time);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -542,9 +575,20 @@ public class AccountServiceImpl implements AccountService {
 
         return TeacherMapper.mapToTeacherModel(teacher,null);
     }
+
+    @Override
+    public String deleteNotif(Long notif) {
+        notificationRepository.deleteById(notif);
+        return "Success";
+    }
     
-    
-    
+    @Transactional
+    @Override
+    public String readNotif(Long notif) {
+        notificationRepository.setReadById(notif);
+        return "Success";
+    }
+
     
     
     

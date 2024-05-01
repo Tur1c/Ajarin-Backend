@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.entity.DiscussionEntity;
 import co.id.ajarin.entity.TeacherEntity;
+import co.id.ajarin.entity.composite.StudentDiscKey;
 import co.id.ajarin.mapper.DiscussionMapper;
 import co.id.ajarin.model.dashboard.DiscussionModel;
 import co.id.ajarin.model.dashboard.DiscussionModel.Discussion;
@@ -43,9 +44,11 @@ public class DiscussionServiceImpl implements DiscussionService {
     @Autowired
     private TeacherRepository teacherRepository; 
 
-    // private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
+    // bv
+    private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
 
-    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
+    // god
+    // private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
 
     @SuppressWarnings("unused")
     @Override
@@ -139,6 +142,14 @@ public class DiscussionServiceImpl implements DiscussionService {
 
         discussionRepository.save(discussionEntity);
         return "Success";
+    }
+
+    @Override
+    public String cancelDiscussion(Long accId, Long discId) {
+        // TODO Auto-generated method stub
+        StudentDiscKey used = new StudentDiscKey(accId, discId);
+        studentDiscRepository.deleteById(used);
+       return "Discussion Deleted Successfully";
     }
 
     // @Override

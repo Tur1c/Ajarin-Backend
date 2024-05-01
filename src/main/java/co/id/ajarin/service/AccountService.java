@@ -39,7 +39,7 @@ public interface AccountService extends UserDetailsService {
 
     AccountRegisterEntity store(String email, MultipartFile file) throws IOException;
 
-    AccountRegisterEntity getFile(Long id);
+    // AccountRegisterEntity getFile(Long id);
 
     String registerTeacher(AccountModel account, MultipartFile file, String achievement, String education, String experience, String description) throws IOException;
 
@@ -63,4 +63,8 @@ public interface AccountService extends UserDetailsService {
 
     Teacher updateTeacher(Long id, MultipartFile file, String achievement, String education, String experience,
             String profileDescription) throws IOException;
+
+    String deleteNotif(Long notif);
+
+    String readNotif(Long notif);
 }

@@ -39,7 +39,9 @@ public class UserMapper {
                         studentCourseEntity.getStatus(),
                         studentCourseEntity.getCompleted_chap(),
                         studentCourseEntity.getRating(),
-                        studentCourseEntity.getComment()
+                        studentCourseEntity.getComment(),
+                        studentCourseEntity.getJoined_date(),
+                        null
                     ));
         }
 
@@ -51,8 +53,8 @@ public class UserMapper {
                 
                 studentDisc.add(new StudentDiscModel(
                     discModel,
-                    studentDiscEntity.getStatus()
-                    
+                    studentDiscEntity.getStatus(),
+                    studentDiscEntity.getJoined_date()
                 ));
         }
 
@@ -63,7 +65,8 @@ public class UserMapper {
     
                 studentDisc.add(new StudentDiscModel(
                     discModel,
-                    "Ongoing"
+                    "Ongoing",
+                    null
                 ));
             }
         }
@@ -80,13 +83,13 @@ public class UserMapper {
             }
         }
 
-        String pic_url;
-        if(account.getData() != null) {
-           pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(account.getId().toString()).toUriString();
-        }
-        else{
-            pic_url = null;
-        }
+        // String pic_url;
+        // if(account.getData() != null) {
+        //    pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(account.getId().toString()).toUriString();
+        // }
+        // else{
+        //     pic_url = null;
+        // }
         
         return new AccountModel(
             account.getId(), 
@@ -106,9 +109,9 @@ public class UserMapper {
             studentcourse, 
             teacherModels, 
             account.getCoin(),
-            account.getPic_name(), 
-            pic_url, 
-            account.getPic_type(),
+            // account.getPic_name(), 
+            // pic_url, 
+            // account.getPic_type(),
             account.getProfile_pic(),
             notifs
             );
@@ -131,7 +134,7 @@ public class UserMapper {
             acc.getPhoneNumber(), 
             acc.getEducation(), 
             acc.getCoin(),
-            acc.getPic_name()
+            acc.getProfile_pic()
             );
     }
 }

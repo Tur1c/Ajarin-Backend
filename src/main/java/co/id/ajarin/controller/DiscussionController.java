@@ -81,4 +81,22 @@ public class DiscussionController {
     //         .body(discussion.getDisc_image_data());
     // }
 
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @GetMapping("cancelDisc")
+    public ResponseEntity<ResponseWrapperModel<DiscussionModel.Response>> cancelDiscussion(@RequestParam(name = "account") Long acc, @RequestParam(name = "disc") Long disc){
+        String message = discService.cancelDiscussion(acc, disc);
+
+        // DiscussionModel.Response response = new DiscussionModel.Response(discussions);
+
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
 }

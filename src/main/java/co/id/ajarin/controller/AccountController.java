@@ -27,6 +27,7 @@ import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.account.TeacherModel;
 import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.auth.AuthenticationModel;
+import co.id.ajarin.model.dashboard.DiscussionModel;
 import co.id.ajarin.model.dashboard.JoinDiscCourseModel;
 import co.id.ajarin.model.dashboard.PrivateDiscModel;
 import co.id.ajarin.model.dashboard.StudentCourseModel;
@@ -313,14 +314,14 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/files/{id}")
-    public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
-        AccountRegisterEntity account = service.getFile(id);
+    // @GetMapping("/files/{id}")
+    // public ResponseEntity<byte[]> getFile(@PathVariable Long id) {
+    //     AccountRegisterEntity account = service.getFile(id);
 
-        return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + account.getPic_name() + "\"")
-            .body(account.getData());
-    }
+    //     return ResponseEntity.ok()
+    //         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + account.getPic_name() + "\"")
+    //         .body(account.getData());
+    // }
 
     @PostMapping("/register/teacher")
     public ResponseEntity<ResponseWrapperModel> registerTeacher(@RequestParam(name = "email") String email,
@@ -394,6 +395,7 @@ public class AccountController {
 
     }
 
+    @SuppressWarnings("unchecked")
     @GetMapping("inquiry/teacher/{email}")
     public ResponseEntity getTeacher(@PathVariable String email) {
         System.out.println("masuk sini brohh");
@@ -417,7 +419,7 @@ public class AccountController {
         TeacherEntity teacher = service.getCvFile(id);
 
         return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + teacher.getUser().getPic_name() + "\"")
+            .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + teacher.getUser().getProfile_pic() + "\"")
             .body(teacher.getData());
     }
 
@@ -502,6 +504,42 @@ public class AccountController {
         error.setHttpCode(HttpStatus.OK.value());
         wrapperModel.setErrorSchema(error);
         wrapperModel.setOutputSchema(null);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
+    @SuppressWarnings("unchecked")
+    @GetMapping("deleteNotif")
+    public ResponseEntity<ResponseWrapperModel<DiscussionModel.Response>> deleteNotification(@RequestParam(name = "notif") Long notif){
+        String message = service.deleteNotif(notif);
+
+        // DiscussionModel.Response response = new DiscussionModel.Response(discussions);
+
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
+    @SuppressWarnings("unchecked")
+    @GetMapping("readNotif")
+    public ResponseEntity<ResponseWrapperModel<DiscussionModel.Response>> readNotification(@RequestParam(name = "notif") Long notif){
+        String message = service.readNotif(notif);
+
+        // DiscussionModel.Response response = new DiscussionModel.Response(discussions);
+
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
 
         return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
     }
