@@ -429,21 +429,21 @@ public class AccountServiceImpl implements AccountService {
         SimpleDateFormat sdf =  new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss a");
         String today = new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss a").format(new java.util.Date());
 
-        try {
-            java.util.Date dateToday = sdf.parse(today);
-            java.util.Date utilDate = format.parse(disc.getDate());
-            if(dateToday.compareTo(utilDate) == 0) {
-                java.util.Date utilStart_time = timeFormat.parse(disc.getStart_time()+":00");
-                if(dateToday.getTime() >= utilStart_time.getTime()) {
-                    return "error";
-                }
-            } else if(dateToday.compareTo(utilDate) > 0) {
-                return "error";
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return "Error";
-        }
+        // try {
+        //     java.util.Date dateToday = sdf.parse(today);
+        //     java.util.Date utilDate = format.parse(disc.getDate());
+        //     if(dateToday.compareTo(utilDate) == 0) {
+        //         java.util.Date utilStart_time = timeFormat.parse(disc.getStart_time()+":00");
+        //         if(dateToday.getTime() >= utilStart_time.getTime()) {
+        //             return "error";
+        //         }
+        //     } else if(dateToday.compareTo(utilDate) > 0) {
+        //         return "error";
+        //     }
+        // } catch (ParseException e) {
+        //     e.printStackTrace();
+        //     return "Error";
+        // }
         // TODO Auto-generated method stub
         PrivateDiscEntity privateDisc = new PrivateDiscEntity();
         privateDisc.setTitle(disc.getTitle());

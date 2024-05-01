@@ -75,19 +75,19 @@ public class DiscussionServiceImpl implements DiscussionService {
         SimpleDateFormat sdf =  new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss a");
         String today = new SimpleDateFormat("MMM-dd-yyyy hh:mm:ss a").format(new Date());
 
-        try {
-            Date dateToday = sdf.parse(today);
-            if(dateToday.compareTo(startDate) == 0) {
-                if(dateToday.getTime() >= startDate.getTime()) {
-                    return "error";
-                }
-            } else if(dateToday.compareTo(startDate) > 0) {
-                return "error";
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return "Error";
-        }
+        // try {
+        //     Date dateToday = sdf.parse(today);
+        //     if(dateToday.compareTo(startDate) == 0) {
+        //         if(dateToday.getTime() >= startDate.getTime()) {
+        //             return "error";
+        //         }
+        //     } else if(dateToday.compareTo(startDate) > 0) {
+        //         return "error";
+        //     }
+        // } catch (ParseException e) {
+        //     e.printStackTrace();
+        //     return "Error";
+        // }
 
         List<CategoryEntity> categories = categoryRepository.findAll();
         CategoryEntity category = new CategoryEntity();
