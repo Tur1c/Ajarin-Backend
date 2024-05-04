@@ -34,8 +34,8 @@ public class CourseServiceImpl implements CourseService{
     // private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
     // private static final String VIDEO_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/video/";
 
-    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
-    private static final String VIDEO_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/video/";
+    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Desktop/Ajarin/web/public/assets/";
+    private static final String VIDEO_PATH ="C:/Users/Ivander/OneDrive/Desktop/Ajarin/web/public/video/";
 
 
     @Autowired

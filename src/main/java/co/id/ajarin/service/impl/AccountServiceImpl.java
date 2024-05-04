@@ -80,10 +80,8 @@ public class AccountServiceImpl implements AccountService {
     private final JwtService jwtService;
 
     //god
-    // private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Documents/Ajarin/web-react/public/assets/";
-
-    //bv
-    private static final String UPLOAD_PATH ="C:/Users/Lenovo/OneDrive/Desktop/React/Ajarin-Web-React/public/assets/";
+    private static final String UPLOAD_PATH ="C:/Users/Ivander/OneDrive/Desktop/Ajarin/web/public/assets/";
+    
 
     public AccountServiceImpl(AccountRegistrationRepository repository, JwtService jwtService) {
         super();
@@ -514,7 +512,7 @@ public class AccountServiceImpl implements AccountService {
 
         PrivateDiscRepository.save(privateDisc);
         
-        return "Private Discussion Requested!";
+        return "Success";
     }
 
     @Transactional
@@ -544,22 +542,22 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Teacher updateTeacher(Long id, MultipartFile file, String achievement, String education, String experience,
             String profileDescription) throws IOException {
-        TeacherEntity teacher = repositoryTeacher.getTeacherById(id);
+        TeacherEntity teacher = repositoryTeacher.getById(id);
 
-        if(achievement != null) {
+        if(!achievement.isEmpty()) {
             teacher.setAchievement(achievement);
         }
         teacher.setUser(teacher.getUser());
         if(file != null) {
             teacher.setData(file.getBytes());
         }
-        if(profileDescription != null) {
+        if(!profileDescription.isEmpty()) {
             teacher.setProfile_description(profileDescription);
         }
-        if(education != null) {
+        if(!education.isEmpty()) {
             teacher.setEducation(education);
         }
-        if(experience != null) {
+        if(!experience.isEmpty()) {
             teacher.setExperience(experience);
         }
 

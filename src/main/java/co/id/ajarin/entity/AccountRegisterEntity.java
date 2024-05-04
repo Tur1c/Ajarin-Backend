@@ -92,7 +92,7 @@ public class AccountRegisterEntity {
     //constructor without relational data
 
     public AccountRegisterEntity(Long id, String firstName, String lastName, String email, String password, String role, String gender, String city, String country,
-    String school, Integer age, String phoneNumber, String education, Integer coin){
+    String school, Integer age, String phoneNumber, String education, Integer coin, String profile_pic){
         this.id = id;
         this.age = age;
         this.firstName = firstName;
@@ -107,6 +107,7 @@ public class AccountRegisterEntity {
         this.school = school;
         this.phoneNumber = phoneNumber;
         this.education = education;
+        this.profile_pic = profile_pic;
         // if(pic_data != null) {
         //     this.pic_url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/account/files/").path(id.toString()).toUriString();
         // }
