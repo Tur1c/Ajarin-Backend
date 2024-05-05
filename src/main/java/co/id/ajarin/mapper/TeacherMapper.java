@@ -12,9 +12,7 @@ import co.id.ajarin.entity.DiscussionEntity;
 import co.id.ajarin.entity.PrivateDiscEntity;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.account.AccountModel;
-import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.account.TeacherModel;
-import co.id.ajarin.model.account.TeacherModel.Teacher;
 import co.id.ajarin.model.dashboard.DiscussionModel;
 import co.id.ajarin.model.dashboard.PrivateDiscModel;
 import co.id.ajarin.model.dashboard.CourseModel.Course;
@@ -24,7 +22,7 @@ import co.id.ajarin.model.dashboard.DiscussionModel.Discussion;
 public class TeacherMapper {
     
     public static TeacherModel.Teacher mapToTeacherModel (TeacherEntity teacherEntity, List<PrivateDiscModel> private_disc) {
-        AccountRegisterEntity acc = teacherEntity.getUser();
+        // AccountRegisterEntity acc = teacherEntity.getUser();
         List<Discussion> discussion = new ArrayList<>();
         List<Course> course = new ArrayList<>();
         for (DiscussionEntity discussionEntity : teacherEntity.getDiscussions()) {

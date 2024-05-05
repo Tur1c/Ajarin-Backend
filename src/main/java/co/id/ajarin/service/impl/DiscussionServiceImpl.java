@@ -2,7 +2,6 @@ package co.id.ajarin.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -19,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.entity.DiscussionEntity;
 import co.id.ajarin.entity.TeacherEntity;
-import co.id.ajarin.entity.composite.StudentDiscKey;
 import co.id.ajarin.mapper.DiscussionMapper;
 import co.id.ajarin.model.dashboard.DiscussionModel;
 import co.id.ajarin.model.dashboard.DiscussionModel.Discussion;
@@ -144,13 +142,6 @@ public class DiscussionServiceImpl implements DiscussionService {
         return "Success";
     }
 
-    @Override
-    public String cancelDiscussion(Long accId, Long discId) {
-        // TODO Auto-generated method stub
-        StudentDiscKey used = new StudentDiscKey(accId, discId);
-        studentDiscRepository.deleteById(used);
-       return "Discussion Deleted Successfully";
-    }
 
     // @Override
     // public DiscussionEntity getImage(String name) throws UnsupportedEncodingException {

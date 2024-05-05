@@ -67,4 +67,8 @@ public interface AccountService extends UserDetailsService {
     String deleteNotif(Long notif);
 
     String readNotif(Long notif);
+
+    String cancelDiscussion(Long accId, Long discId);
+
+    String completeDiscussion(Long accId, Long discId);
 }

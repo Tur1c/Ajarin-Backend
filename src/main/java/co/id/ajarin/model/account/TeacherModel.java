@@ -2,8 +2,6 @@ package co.id.ajarin.model.account;
 
 import java.util.List;
 
-import co.id.ajarin.entity.AccountRegisterEntity;
-import co.id.ajarin.mapper.UserMapper;
 import co.id.ajarin.model.OutputRepositoryModel;
 import co.id.ajarin.model.dashboard.PrivateDiscModel;
 import co.id.ajarin.model.dashboard.StudentCourseModel;

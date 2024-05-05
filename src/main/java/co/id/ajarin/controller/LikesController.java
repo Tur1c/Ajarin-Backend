@@ -1,6 +1,5 @@
 package co.id.ajarin.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -8,19 +7,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
 import co.id.ajarin.model.forum.ForumModel;
 import co.id.ajarin.model.forum.InputLikesModel;
-import co.id.ajarin.model.forum.LikesModel;
 import co.id.ajarin.model.forum.ReplyModel;
 import co.id.ajarin.service.LikesService;
-import co.id.ajarin.service.ReplyService;
 
 @RestController
 @PreAuthorize("hasRole('Student') or hasRole('Teacher')")

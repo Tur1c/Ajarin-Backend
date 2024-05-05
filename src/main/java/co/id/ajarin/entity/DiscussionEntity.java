@@ -85,11 +85,11 @@ public DiscussionEntity(String title, String maxParticipant, String price, Date 
     @Column(name = "disc_description")
     private String disc_description;
     
-    @Column(name = "disc_image")
-    private String disc_image;
-
     @Column(name = "disc_level")
     private String disc_level;
+
+    @Column(name = "disc_image")
+    private String disc_image;
 
     @Column(name = "disc_link")
     private String disc_url;

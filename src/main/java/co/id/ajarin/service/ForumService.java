@@ -2,7 +2,6 @@ package co.id.ajarin.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
 
 import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.model.forum.ForumModel;

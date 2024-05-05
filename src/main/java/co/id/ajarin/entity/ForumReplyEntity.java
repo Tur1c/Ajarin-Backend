@@ -1,7 +1,6 @@
 package co.id.ajarin.entity;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;

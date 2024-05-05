@@ -8,7 +8,6 @@ import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.model.forum.ForumModel;
 import co.id.ajarin.model.forum.ReplyModel;
-import co.id.ajarin.model.forum.ReplyModel;
 
 public class ForumMapper {
 

@@ -1,7 +1,5 @@
 package co.id.ajarin.controller;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -11,19 +9,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import co.id.ajarin.entity.ForumReplyEntity;
-import co.id.ajarin.mapper.ForumMapper;
 import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
-import co.id.ajarin.model.account.AccountRegistrationModel;
-import co.id.ajarin.model.account.TeacherModel.Response;
 import co.id.ajarin.model.forum.EditReplyModel;
 import co.id.ajarin.model.forum.ForumModel;
 import co.id.ajarin.model.forum.InputReplyModel;
 import co.id.ajarin.model.forum.ReplyModel;
 import co.id.ajarin.model.forum.ReplyModel.Reply;
-import co.id.ajarin.service.AccountService;
 import co.id.ajarin.service.ForumService;
 import co.id.ajarin.service.ReplyService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ReplyController {
     
     private ReplyService replyService;
-    private ForumService forumService;
 
     public ReplyController(ReplyService replyService) {
         this.replyService = replyService;

@@ -1,21 +1,18 @@
 package co.id.ajarin.service.impl;
 
 import java.util.Optional;
-import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.entity.LikesEntity;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.mapper.ForumMapper;
 import co.id.ajarin.model.forum.ForumModel;
-import co.id.ajarin.model.forum.LikesModel;
 import co.id.ajarin.repository.AccountRegistrationRepository;
 import co.id.ajarin.repository.ForumRepository;
 import co.id.ajarin.repository.LikesRepository;

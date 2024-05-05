@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +21,7 @@ public class MidtransController {
 
     private String serverKey = "SB-Mid-server-si2zmE8KK3eYQ0Ym7dnY62mk";
     
+    @SuppressWarnings("rawtypes")
     @PostMapping("")
     public ResponseEntity payment(@RequestParam(name = "price")     String price) throws MidtransError {
 

@@ -3,7 +3,6 @@ package co.id.ajarin.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.entity.LikesEntity;
 import co.id.ajarin.model.account.AccountModel;

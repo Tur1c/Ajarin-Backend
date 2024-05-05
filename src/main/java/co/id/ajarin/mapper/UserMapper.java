@@ -3,7 +3,6 @@ package co.id.ajarin.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.CategoryEntity;

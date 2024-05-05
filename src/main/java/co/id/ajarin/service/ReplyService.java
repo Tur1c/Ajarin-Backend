@@ -1,13 +1,9 @@
 package co.id.ajarin.service;
 
-import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 
-import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.entity.ForumReplyEntity;
-import co.id.ajarin.model.account.AccountRegistrationModel;
 import co.id.ajarin.model.forum.ForumModel;
 import co.id.ajarin.model.forum.ReplyModel;
 

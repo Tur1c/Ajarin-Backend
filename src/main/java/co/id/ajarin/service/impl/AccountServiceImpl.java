@@ -219,13 +219,16 @@ public class AccountServiceImpl implements AccountService {
 
         Long user_id = account.getId();
 
-        DiscussionEntity disc =  discussionRepository.getById(disc_id);
+        DiscussionEntity disc =  discussionRepository.getReferenceById(disc_id);
 
+        System.out.println(disc.getTeacher().getUser().getId() + "alala" + account.getId());
         if(disc.getTeacher().getUser().getId() == account.getId()) {
             return "Cannot Join Your Created Discussion";    
         }
-        disc.getTeacher().getUser().setCoin(disc.getTeacher().getUser().getCoin() + disc.getDisc_price());
+        System.out.println("lewatt");
+        // disc.getTeacher().getUser().setCoin(disc.getTeacher().getUser().getCoin() + disc.getDisc_price());
         
+        System.out.println("lewat");
 
         account.setCoin(account.getCoin() - disc.getDisc_price());
 
@@ -588,7 +591,30 @@ public class AccountServiceImpl implements AccountService {
     }
 
     
-    
+    @Override
+    public String cancelDiscussion(Long accId, Long discId) {
+        // TODO Auto-generated method stub
+        StudentDiscKey used = new StudentDiscKey(accId, discId);
+        studentDiscRepository.deleteById(used);
+       return "Discussion Deleted Successfully";
+    }
+
+    @Override
+    public String completeDiscussion(Long accId, Long discId) {
+        // TODO Auto-generated method stub
+        StudentDiscKey used = new StudentDiscKey(accId, discId);
+        StudentDiscEntity disc = studentDiscRepository.getById(used);
+        disc.setStatus("Completed");
+        studentDiscRepository.save(disc);
+
+        if(disc.getDisc().getTeacher().getUser().getCoin() == 0){
+            disc.getDisc().getTeacher().getUser().setCoin(disc.getDisc().getDisc_price());
+        }
+        else{
+            disc.getDisc().getTeacher().getUser().setCoin(disc.getDisc().getTeacher().getUser().getCoin() + disc.getDisc().getDisc_price());
+        }
+       return "Discussion Updated Successfully";
+    }
     
     
 }

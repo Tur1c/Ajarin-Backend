@@ -1,6 +1,5 @@
 package co.id.ajarin.model;
 
-import org.hibernate.mapping.List;
 
 
 import lombok.Getter;

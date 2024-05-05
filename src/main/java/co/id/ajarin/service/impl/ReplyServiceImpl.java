@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.time.Instant;
 
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import co.id.ajarin.entity.AccountRegisterEntity;
-import co.id.ajarin.entity.CategoryEntity;
 import co.id.ajarin.entity.ForumEntity;
 import co.id.ajarin.entity.ForumReplyEntity;
 import co.id.ajarin.entity.LikesEntity;
@@ -62,6 +60,7 @@ public class ReplyServiceImpl implements ReplyService
         return ForumMapper.maptoForumModel(forumEntity);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public ReplyModel.Reply findById(Long fr_id) {
         ForumReplyEntity reply = replyRepository.getById(fr_id);
@@ -70,6 +69,7 @@ public class ReplyServiceImpl implements ReplyService
         return ReplyMapper.maptoReplyModel(reply);
     }
     
+    @SuppressWarnings("deprecation")
     @Override
     public ForumReplyEntity update(ReplyModel.Reply reply) {
         ForumReplyEntity replyOld = replyRepository.getById(reply.getFr_id());
@@ -103,6 +103,7 @@ public class ReplyServiceImpl implements ReplyService
     //     return "success";
     // }
 
+    @SuppressWarnings("deprecation")
     @Transactional
     @Override
     public ReplyModel.Reply inputReply(String reply, String email, Long forum_id) {

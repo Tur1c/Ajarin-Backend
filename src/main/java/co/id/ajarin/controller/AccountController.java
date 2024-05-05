@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.id.ajarin.entity.AccountRegisterEntity;
 import co.id.ajarin.entity.TeacherEntity;
 import co.id.ajarin.model.ErrorRepository;
 import co.id.ajarin.model.ResponseWrapperModel;
@@ -530,6 +529,42 @@ public class AccountController {
     @GetMapping("readNotif")
     public ResponseEntity<ResponseWrapperModel<DiscussionModel.Response>> readNotification(@RequestParam(name = "notif") Long notif){
         String message = service.readNotif(notif);
+
+        // DiscussionModel.Response response = new DiscussionModel.Response(discussions);
+
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    @GetMapping("cancelDisc")
+    public ResponseEntity<ResponseWrapperModel<DiscussionModel.Response>> cancelDiscussion(@RequestParam(name = "account") Long acc, @RequestParam(name = "disc") Long disc){
+        String message = service.cancelDiscussion(acc, disc);
+
+        // DiscussionModel.Response response = new DiscussionModel.Response(discussions);
+
+        ResponseWrapperModel wrapperModel = new ResponseWrapperModel<>();
+        
+        ErrorRepository error = new ErrorRepository();
+        error.setMessage(message);
+        error.setErrorCode("00");
+        error.setHttpCode(HttpStatus.OK.value());
+        wrapperModel.setErrorSchema(error);
+
+        return ResponseEntity.status(error.getHttpCode()).body(wrapperModel);
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    @GetMapping("completeDisc")
+    public ResponseEntity<ResponseWrapperModel<DiscussionModel.Response>> completeDiscussion(@RequestParam(name = "account") Long acc, @RequestParam(name = "disc") Long disc){
+        String message = service.completeDiscussion(acc, disc);
 
         // DiscussionModel.Response response = new DiscussionModel.Response(discussions);
 
